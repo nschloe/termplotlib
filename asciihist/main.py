@@ -15,10 +15,8 @@ def hist(a, orientation='vertical', max_width=40, bins=20):
     return
 
 
-def hist_horizontal(a, max_width=40, bins=20, bar_width=1):
-
-    #    1.4221 -    10.0159 [     3]:
-
+def hist_horizontal(a, max_width=40, bins=20, bar_width=1,
+                    show_bin_edges=True, show_counts=True):
     # ax2.hist(a, bins=30, orientation="horizontal")
     counts, bin_edges = numpy.histogram(a, bins=bins)
     averages = (bin_edges[:-1] + bin_edges[1:]) / 2
@@ -31,15 +29,25 @@ def hist_horizontal(a, max_width=40, bins=20, bar_width=1):
         '\u2588'
         ]
 
-    cfmt = '{{:{}d}}'.format(numpy.max([len(str(c)) for c in counts]))
-    efmt = '{:+.2e}'
+    fmt = []
+    if show_bin_edges:
+        efmt = '{:+.2e}'
+        fmt.append(efmt + ' - ' + efmt)
+    if show_counts:
+        cfmt = '{{:{}d}}'.format(numpy.max([len(str(c)) for c in counts]))
+        fmt.append('[' + cfmt + ']')
+    fmt.append('{}')
+    fmt = '  '.join(fmt)
+
     for k, (counts, row) in enumerate(zip(counts, matrix)):
-        print(
-            (efmt + ' - ' + efmt + ' [' + cfmt + ']: {}')
-            .format(
-                bin_edges[k], bin_edges[k+1],
-                counts, ''.join(chars[item] for item in row)
-                ))
+        data = []
+        if show_bin_edges:
+            data.append(bin_edges[k])
+            data.append(bin_edges[k+1])
+        if show_counts:
+            data.append(counts)
+        data.append(''.join(chars[item] for item in row))
+        print(fmt.format(*data))
 
     return
 
