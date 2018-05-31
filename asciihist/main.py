@@ -5,22 +5,19 @@ from __future__ import division, print_function
 import numpy
 
 
-def hist(a, orientation='vertical', max_width=40, bins=20):
+def hist(counts, bin_edges,
+         orientation='vertical', max_width=40, bins=20, grid=None):
     if orientation == 'vertical':
-        hist_vertical(a)
+        hist_vertical(counts, xgrid=grid)
     else:
         assert orientation == 'horizontal', \
             'Unknown orientation \'{}\''.format(orientation)
-        hist_horizontal(a, max_width=40, bins=20)
+        hist_horizontal(counts, bin_edges, max_width=40, bins=20)
     return
 
 
-def hist_horizontal(a, max_width=40, bins=20, bar_width=1,
+def hist_horizontal(counts, bin_edges, max_width=40, bins=20, bar_width=1,
                     show_bin_edges=True, show_counts=True):
-    # ax2.hist(a, bins=30, orientation="horizontal")
-    counts, bin_edges = numpy.histogram(a, bins=bins)
-    averages = (bin_edges[:-1] + bin_edges[1:]) / 2
-
     matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
 
     chars = [
@@ -52,21 +49,29 @@ def hist_horizontal(a, max_width=40, bins=20, bar_width=1,
     return
 
 
-def hist_vertical(a, bins=30, max_height=10, bar_width=2):
-    # ax2.hist(a, bins=30, orientation="horizontal")
-    counts, bin_edges = numpy.histogram(a, bins=bins)
+def hist_vertical(counts, bins=30, max_height=10, bar_width=2, xgrid=None):
+    if xgrid is None:
+        xgrid = []
 
     matrix = _get_matrix_of_eighths(counts, max_height, bar_width)
 
-    chars = [
+    block_chars = [
         ' ',
         '\u2581', '\u2582', '\u2583', '\u2584', '\u2585', '\u2586', '\u2587',
         '\u2588'
         ]
 
+    left_seven_eighths = '\u2589'
+
     # print text matrix
-    for row in matrix:
-        print(''.join(chars[item] for item in row))
+    for row in numpy.flipud(matrix.T):
+        c = [block_chars[item] for item in row]
+        for i in xgrid:
+            # print(row[xgrid])
+            pos = i * bar_width - 1
+            if row[pos] == 8 and (pos+1 == len(row) or row[pos+1] > 0):
+                c[pos] = left_seven_eighths
+        print(''.join(c))
 
     return
 
