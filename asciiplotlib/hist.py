@@ -9,14 +9,13 @@ def hist(counts, bin_edges,
          orientation='vertical', max_width=40, bins=20, grid=None,
          bar_width=1):
     if orientation == 'vertical':
-        hist_vertical(counts, xgrid=grid, bar_width=bar_width)
-    else:
-        assert orientation == 'horizontal', \
-            'Unknown orientation \'{}\''.format(orientation)
-        hist_horizontal(
-            counts, bin_edges, max_width=40, bins=20, bar_width=bar_width
-            )
-    return
+        return hist_vertical(counts, xgrid=grid, bar_width=bar_width)
+
+    assert orientation == 'horizontal', \
+        'Unknown orientation \'{}\''.format(orientation)
+    return hist_horizontal(
+        counts, bin_edges, max_width=40, bins=20, bar_width=bar_width
+        )
 
 
 def hist_horizontal(counts, bin_edges, max_width=40, bins=20, bar_width=1,
@@ -39,6 +38,7 @@ def hist_horizontal(counts, bin_edges, max_width=40, bins=20, bar_width=1,
     fmt.append('{}')
     fmt = '  '.join(fmt)
 
+    out = []
     for k, (counts, row) in enumerate(zip(counts, matrix)):
         data = []
         if show_bin_edges:
@@ -47,9 +47,9 @@ def hist_horizontal(counts, bin_edges, max_width=40, bins=20, bar_width=1,
         if show_counts:
             data.append(counts)
         data.append(''.join(chars[item] for item in row))
-        print(fmt.format(*data))
+        out.append(fmt.format(*data))
 
-    return
+    return out
 
 
 def hist_vertical(counts, bins=30, max_height=10, bar_width=2, xgrid=None):
@@ -67,6 +67,7 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, xgrid=None):
     left_seven_eighths = '\u2589'
 
     # print text matrix
+    out = []
     for row in numpy.flipud(matrix.T):
         c = [block_chars[item] for item in row]
         for i in xgrid:
@@ -74,9 +75,9 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, xgrid=None):
             pos = i * bar_width - 1
             if row[pos] == 8 and (pos+1 == len(row) or row[pos+1] > 0):
                 c[pos] = left_seven_eighths
-        print(''.join(c))
+        out.append(''.join(c))
 
-    return
+    return out
 
 
 def _get_matrix_of_eighths(counts, max_size, bar_width):

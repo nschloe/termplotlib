@@ -6,17 +6,15 @@ import asciiplotlib as apl
 
 
 def test_subplot():
-    apl.subplot([1, 1, 1])
-    apl.raw(
-        'Some text \n'
-        'No meaning'
-        )
-    apl.subplot([1, 2, 2])
-    apl.raw(
-        'More \n'
-        'meaningless text'
-        )
-    apl.show()
+    fig = apl.figure()
+    fig.hist()
+    s1 = fig.subplot([1, 1, 1])
+    s1.print('Some text')
+    # apl.print('No meaning')
+    # apl.subplot([1, 2, 2])
+    # apl.print('More')
+    # apl.print('meaningless text')
+    # fig.show()
     return
 
 
