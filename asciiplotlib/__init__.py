@@ -13,7 +13,8 @@ from .__about__ import (
     __status__,
     )
 
-from .main import hist
+from .hist import hist
+from .main import subplot, raw, show
 
 # try:
 #     import pipdate

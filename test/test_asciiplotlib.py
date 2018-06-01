@@ -2,14 +2,14 @@
 #
 import numpy
 
-import asciihist
+import asciiplotlib as apl
 
 
 def test_horizontal():
     # numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
-    asciihist.hist(counts, bin_edges, orientation='horizontal')
+    apl.hist(counts, bin_edges, orientation='horizontal')
     return
 
 
@@ -18,7 +18,7 @@ def test_vertical():
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
     # sample = numpy.random.rand(1000)
-    asciihist.hist(counts, bin_edges, grid=[5, 8])
+    apl.hist(counts, bin_edges, grid=[5, 8])
     return
 
 
