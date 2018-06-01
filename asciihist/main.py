@@ -6,13 +6,16 @@ import numpy
 
 
 def hist(counts, bin_edges,
-         orientation='vertical', max_width=40, bins=20, grid=None):
+         orientation='vertical', max_width=40, bins=20, grid=None,
+         bar_width=1):
     if orientation == 'vertical':
-        hist_vertical(counts, xgrid=grid)
+        hist_vertical(counts, xgrid=grid, bar_width=bar_width)
     else:
         assert orientation == 'horizontal', \
             'Unknown orientation \'{}\''.format(orientation)
-        hist_horizontal(counts, bin_edges, max_width=40, bins=20)
+        hist_horizontal(
+            counts, bin_edges, max_width=40, bins=20, bar_width=bar_width
+            )
     return
 
 
