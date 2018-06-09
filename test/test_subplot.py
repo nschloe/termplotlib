@@ -31,5 +31,21 @@ xxxxxxxxxxxxxxxxxxxx'''
     return
 
 
+def test_subplot_padding():
+    grid = apl.subplot_grid((1, 2), width=20, padding=2)
+    grid[0, 0].aprint("Some text")
+    grid[0, 1].aprint("Some more text\nand more")
+    string = grid.get_string()
+    assert string == '''xxxxxxxxxxxxxxxxxxxx
+x         x        x
+x         x        x
+x  Some   x  Some  x
+x         x  and   x
+x         x        x
+x         x        x
+xxxxxxxxxxxxxxxxxxxx'''
+    return
+
+
 if __name__ == '__main__':
-    test_subplot2()
+    test_subplot_padding()

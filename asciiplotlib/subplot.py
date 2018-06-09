@@ -56,7 +56,7 @@ class SubplotGrid(object):
             + self._border_char
         )
 
-        string += [vertical_padding]
+        string += self._padding * [vertical_padding]
 
         for row in self._subfigures:
             cstrings = [item.get_string().split("\n") for item in row]
@@ -83,7 +83,7 @@ class SubplotGrid(object):
                     + self._border_char
                 ]
 
-        string += [vertical_padding]
+        string += self._padding * [vertical_padding]
         string += [self._border_char * total_width]
 
         return "\n".join(string)
