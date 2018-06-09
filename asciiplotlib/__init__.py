@@ -11,9 +11,10 @@ from .__about__ import (
     __version__,
     __maintainer__,
     __status__,
-    )
+)
 
 from .figure import Figure, figure
+from .subplot import SubplotGrid, subplot_grid
 
 # try:
 #     import pipdate

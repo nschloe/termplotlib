@@ -27,5 +27,5 @@ def test_vertical():
 
 
 if __name__ == '__main__':
-    # test_horizontal()
-    test_vertical()
+    test_horizontal()
+    # test_vertical()
