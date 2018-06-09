@@ -4,21 +4,32 @@ import asciiplotlib as apl
 
 
 def test_subplot():
-    grid = apl.subplot_grid((1, 2), border_style="|")
+    grid = apl.subplot_grid((1, 2), border_style="|", width=20)
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text")
-    grid.show()
-    # fig = apl.figure()
-    # fig.hist()
-    # s1 = fig.subplot([1, 1, 1])
-    # s1.print('Some text')
-    # apl.print('No meaning')
-    # apl.subplot([1, 2, 2])
-    # apl.print('More')
-    # apl.print('meaningless text')
-    # fig.show()
+    string = grid.get_string()
+
+    assert string == '''xxxxxxxxxxxxxxxxxxxx
+x         x        x
+x Some te x Some m x
+x         x        x
+xxxxxxxxxxxxxxxxxxxx'''
+    return
+
+
+def test_subplot2():
+    grid = apl.subplot_grid((1, 2), width=20)
+    grid[0, 0].aprint("Some text")
+    grid[0, 1].aprint("Some more text\nand more")
+    string = grid.get_string()
+    assert string == '''xxxxxxxxxxxxxxxxxxxx
+x         x        x
+x Some te x Some m x
+x         x and mo x
+x         x        x
+xxxxxxxxxxxxxxxxxxxx'''
     return
 
 
 if __name__ == '__main__':
-    test_subplot()
+    test_subplot2()

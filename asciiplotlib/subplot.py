@@ -64,7 +64,10 @@ class SubplotGrid(object):
             for k in range(max_num_lines):
                 p = []
                 for j, cstring in enumerate(cstrings):
-                    s = cstring[k]
+                    try:
+                        s = cstring[k]
+                    except IndexError:
+                        s = ""
                     if len(s) > self._column_widths[j] - 2 * self._padding:
                         s = s[: self._column_widths[j] - 2 * self._padding]
                     elif len(s) < self._column_widths[j] - 2 * self._padding:
