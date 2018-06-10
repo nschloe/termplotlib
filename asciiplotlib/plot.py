@@ -3,7 +3,7 @@
 import subprocess
 
 
-def plot(x, y, width=80, height=25, title=None, xlim=None, ylim=None):
+def plot(x, y, width=80, height=25, title=None, xlim=None, ylim=None, xlabel=None):
     p = subprocess.Popen(
         ["gnuplot"],
         stdout=subprocess.PIPE,
@@ -18,6 +18,9 @@ def plot(x, y, width=80, height=25, title=None, xlim=None, ylim=None):
 
     if ylim:
         gnuplot_input.append("set yrange [{}:{}]".format(ylim[0], ylim[1]))
+
+    if xlabel:
+        gnuplot_input.append('set xlabel "{}"'.format(xlabel))
 
     string = "plot '-' using 1:2 with linespoints"
     if title:

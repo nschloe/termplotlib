@@ -39,23 +39,32 @@ def test_plot_lim():
     y = numpy.sin(x)
 
     fig = apl.figure()
-    fig.plot(x, y, title="data", width=50, height=15, xlim=[-1, 1], ylim=[-1, 1])
+    fig.plot(
+        x,
+        y,
+        title="data",
+        width=50,
+        height=15,
+        xlim=[-1, 1],
+        ylim=[-1, 1],
+        xlabel="x vals",
+    )
     string = fig.get_string()
 
     ref = """
     1 +---------------------------------------+
       |         +         +         +      ***|
-      |                          data **AA*** |
-  0.5 |-+                        *****      +-|
+  0.5 |-+                        data **AA***-|
+      |                          *****        |
       |                      ****             |
     0 |-+                 A**               +-|
-      |                                       |
       |                                       |
  -0.5 |-+                                   +-|
       |                                       |
       |         +         +         +         |
    -1 +---------------------------------------+
      -1       -0.5        0        0.5        1
+                       x vals
 
 """
 
