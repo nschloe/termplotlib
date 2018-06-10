@@ -13,6 +13,7 @@ def _generate_content(*args, **kwargs):
     grid[1, 2].aprint("Some text")
     return grid
 
+
 def test_subplot():
     grid = apl.subplot_grid((1, 2), width=20)
     grid[0, 0].aprint("Some text")
@@ -152,9 +153,8 @@ def test_subplot_thin_rounded():
 
 def test_subplot_custom():
     grid = _generate_content(
-        width=40,
-        border_style=["-", "|", "-", "-", "-", "-", "|", "|", "T", "-", "X"],
-        )
+        width=40, border_style=["-", "|", "-", "-", "-", "-", "|", "|", "T", "-", "X"]
+    )
     string = grid.get_string()
 
     assert (

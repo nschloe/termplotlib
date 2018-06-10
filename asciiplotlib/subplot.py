@@ -96,9 +96,7 @@ class SubplotGrid(object):
                     join_char = self._border_chars[1]
                 else:
                     join_char = ""
-                pp.append(
-                    join_char + join_char.join(p) + join_char
-                )
+                pp.append(join_char + join_char.join(p) + join_char)
             srows.append("\n".join([p.rstrip() for p in pp]))
 
         if self._border_chars:
