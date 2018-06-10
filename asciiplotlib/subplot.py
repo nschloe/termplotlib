@@ -18,20 +18,6 @@ class SubplotGrid(object):
         self._border_style = border_style
         self._border_char = "x"
 
-        # self._padding is a 4-tuple: top, right, bottom, left (just like CSS)
-        if isinstance(padding, int):
-            self._padding = (padding, padding, padding, padding)
-        else:
-            if len(padding) == 1:
-                self._padding = (padding[0], padding[0], padding[0], padding[0])
-            elif len(padding) == 2:
-                self._padding = (padding[0], padding[1], padding[0], padding[1])
-            elif len(padding) == 3:
-                self._padding = (padding[0], padding[1], padding[2], padding[1])
-            else:
-                assert len(padding) == 4
-                self._padding = (padding[0], padding[1], padding[2], padding[3])
-
         # border_width = {" ": 1}[border_style]
         border_width = 1
 
@@ -48,7 +34,7 @@ class SubplotGrid(object):
             self._columns_widths = column_widths
 
         self._subfigures = [
-            [Figure(self._column_widths[j]) for j in range(layout[1])]
+            [Figure(self._column_widths[j], padding=padding) for j in range(layout[1])]
             for _ in range(layout[0])
         ]
         return
@@ -62,18 +48,6 @@ class SubplotGrid(object):
         total_width = 3 + sum(self._column_widths)
         string += [self._border_char * total_width]
 
-        vertical_padding = (
-            self._border_char
-            + self._border_char.join([k * " " for k in self._column_widths])
-            + self._border_char
-        )
-
-        string += self._padding[0] * [vertical_padding]
-
-        padding_lr = self._padding[1] + self._padding[3]
-        pd_right = " " * self._padding[1]
-        pd_left = " " * self._padding[3]
-
         for row in self._subfigures:
             cstrings = [item.get_string().split("\n") for item in row]
             max_num_lines = max(len(item) for item in cstrings)
@@ -84,19 +58,16 @@ class SubplotGrid(object):
                         s = cstring[k]
                     except IndexError:
                         s = ""
-                    if len(s) > self._column_widths[j] - padding_lr:
-                        s = s[: self._column_widths[j] - padding_lr]
-                    elif len(s) < self._column_widths[j] - padding_lr:
-                        s += " " * (self._column_widths[j] - padding_lr - len(s))
+                    if len(s) > self._column_widths[j]:
+                        s = s[: self._column_widths[j]]
+                    elif len(s) < self._column_widths[j]:
+                        s += " " * (self._column_widths[j] - len(s))
                     p.append(s)
 
                 string += [
-                    (self._border_char + pd_left)
-                    + (pd_right + self._border_char + pd_left).join(p)
-                    + (pd_right + self._border_char)
+                    self._border_char + self._border_char.join(p) + self._border_char
                 ]
 
-        string += self._padding[2] * [vertical_padding]
         string += [self._border_char * total_width]
 
         return "\n".join(string)
