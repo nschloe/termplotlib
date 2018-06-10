@@ -48,7 +48,7 @@ def test_plot_lim():
         xlim=[-1, 1],
         ylim=[-1, 1],
         xlabel="x vals",
-        title="header"
+        title="header",
     )
     string = fig.get_string()
 

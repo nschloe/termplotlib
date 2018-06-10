@@ -3,8 +3,9 @@
 import subprocess
 
 
-def plot(x, y, width=80, height=25, label=None, xlim=None, ylim=None, xlabel=None,
-        title=None):
+def plot(
+    x, y, width=80, height=25, label=None, xlim=None, ylim=None, xlabel=None, title=None
+):
     p = subprocess.Popen(
         ["gnuplot"],
         stdout=subprocess.PIPE,
@@ -24,7 +25,7 @@ def plot(x, y, width=80, height=25, label=None, xlim=None, ylim=None, xlabel=Non
         gnuplot_input.append('set xlabel "{}"'.format(xlabel))
 
     if title:
-        gnuplot_input.append("set title \"{}\"".format(title))
+        gnuplot_input.append('set title "{}"'.format(title))
 
     string = "plot '-' using 1:2 with linespoints"
     if label:
