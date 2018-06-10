@@ -66,7 +66,7 @@ def hist_horizontal(
             data.append(counts)
 
         # Cut off trailing zeros
-        r = numpy.trim_zeros(row, trim='b')
+        r = numpy.trim_zeros(row, trim="b")
         data.append("".join(chars[item] for item in r))
         out.append(fmt.format(*data))
 
@@ -96,12 +96,19 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, xgrid=None):
     # print text matrix
     out = []
     for row in numpy.flipud(matrix.T):
-        c = [block_chars[item] for item in row]
+
+        # Cut off trailing zeros
+        r = numpy.trim_zeros(row, trim="b")
+
+        c = [block_chars[item] for item in r]
+
+        # add grid lines
         for i in xgrid:
             # print(row[xgrid])
             pos = i * bar_width - 1
             if row[pos] == 8 and (pos + 1 == len(row) or row[pos + 1] > 0):
                 c[pos] = left_seven_eighths
+
         out.append("".join(c))
 
     return out
