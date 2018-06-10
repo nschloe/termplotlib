@@ -38,6 +38,6 @@ setup(
         "Environment :: Console",
         "Intended Audience :: Developers",
         "Topic :: System :: Shells",
-        "Topic :: Multimedia :: Graphics"
+        "Topic :: Multimedia :: Graphics",
     ],
 )

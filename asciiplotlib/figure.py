@@ -23,11 +23,7 @@ class Figure(object):
         return
 
     def get_string(self):
-        return "\n".join([
-            line[:self._width]
-            for c in self._content
-            for line in c
-        ])
+        return "\n".join([line[: self._width] for c in self._content for line in c])
 
     def hist(self, *args, **kwargs):
         self._content.append(hist(*args, **kwargs))
