@@ -52,4 +52,5 @@ def test_padding_4():
 
 
 """
+    fig.show()
     return

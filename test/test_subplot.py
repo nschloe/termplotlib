@@ -3,6 +3,16 @@
 import asciiplotlib as apl
 
 
+def _generate_content(*args, **kwargs):
+    grid = apl.subplot_grid((2, 3), *args, **kwargs)
+    grid[0, 0].aprint("Some text")
+    grid[0, 1].aprint("Some more text\nand more")
+    grid[0, 2].aprint("Some more text\nand more\neven more")
+    grid[1, 0].aprint("Some more text\nand more\neven more")
+    grid[1, 1].aprint("Some more text\nand more")
+    grid[1, 2].aprint("Some text")
+    return grid
+
 def test_subplot():
     grid = apl.subplot_grid((1, 2), width=20)
     grid[0, 0].aprint("Some text")
@@ -72,13 +82,7 @@ def test_subplot_padding():
 
 
 def test_subplot_3x2():
-    grid = apl.subplot_grid((2, 3), width=40)
-    grid[0, 0].aprint("Some text")
-    grid[0, 1].aprint("Some more text\nand more")
-    grid[0, 2].aprint("Some more text\nand more\neven more")
-    grid[1, 0].aprint("Some more text\nand more\neven more")
-    grid[1, 1].aprint("Some more text\nand more")
-    grid[1, 2].aprint("Some text")
+    grid = _generate_content(width=40)
     string = grid.get_string()
 
     assert (
@@ -101,13 +105,7 @@ def test_subplot_3x2():
 
 
 def test_subplot_ascii():
-    grid = apl.subplot_grid((2, 3), width=40, border_style="ascii")
-    grid[0, 0].aprint("Some text")
-    grid[0, 1].aprint("Some more text\nand more")
-    grid[0, 2].aprint("Some more text\nand more\neven more")
-    grid[1, 0].aprint("Some more text\nand more\neven more")
-    grid[1, 1].aprint("Some more text\nand more")
-    grid[1, 2].aprint("Some text")
+    grid = _generate_content(width=40, border_style="ascii")
     string = grid.get_string()
 
     assert (
@@ -130,16 +128,8 @@ def test_subplot_ascii():
 
 
 def test_subplot_thin_rounded():
-    grid = apl.subplot_grid((2, 3), width=40, border_style="thin rounded")
-    grid[0, 0].aprint("Some text")
-    grid[0, 1].aprint("Some more text\nand more")
-    grid[0, 2].aprint("Some more text\nand more\neven more")
-    grid[1, 0].aprint("Some more text\nand more\neven more")
-    grid[1, 1].aprint("Some more text\nand more")
-    grid[1, 2].aprint("Some text")
+    grid = _generate_content(width=40, border_style="thin rounded")
     string = grid.get_string()
-
-    print(string)
 
     assert (
         string
@@ -161,20 +151,11 @@ def test_subplot_thin_rounded():
 
 
 def test_subplot_custom():
-    grid = apl.subplot_grid(
-        (2, 3),
+    grid = _generate_content(
         width=40,
         border_style=["-", "|", "-", "-", "-", "-", "|", "|", "T", "-", "X"],
-    )
-    grid[0, 0].aprint("Some text")
-    grid[0, 1].aprint("Some more text\nand more")
-    grid[0, 2].aprint("Some more text\nand more\neven more")
-    grid[1, 0].aprint("Some more text\nand more\neven more")
-    grid[1, 1].aprint("Some more text\nand more")
-    grid[1, 2].aprint("Some text")
+        )
     string = grid.get_string()
-
-    print(string)
 
     assert (
         string
@@ -192,6 +173,8 @@ def test_subplot_custom():
 |            |            |            |
 ----------------------------------------"""
     )
+
+    grid.show()
     return
 
 
