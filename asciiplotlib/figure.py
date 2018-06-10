@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 from .hist import hist
+from .plot import plot
 
 
 def figure(*args, **kwargs):
@@ -57,4 +58,8 @@ class Figure(object):
 
     def hist(self, *args, **kwargs):
         self._content.append(hist(*args, **kwargs))
+        return
+
+    def plot(self, *args, **kwargs):
+        self._content.append(plot(*args, **kwargs))
         return
