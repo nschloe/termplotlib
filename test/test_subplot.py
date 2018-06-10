@@ -8,10 +8,9 @@ def test_subplot():
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text")
     string = grid.get_string()
-
     assert string == '''xxxxxxxxxxxxxxxxxxxx
 x         x        x
-x Some te x Some m x
+x  Some   x  Some  x
 x         x        x
 xxxxxxxxxxxxxxxxxxxx'''
     return
@@ -24,8 +23,8 @@ def test_subplot2():
     string = grid.get_string()
     assert string == '''xxxxxxxxxxxxxxxxxxxx
 x         x        x
-x Some te x Some m x
-x         x and mo x
+x  Some   x  Some  x
+x         x  and   x
 x         x        x
 xxxxxxxxxxxxxxxxxxxx'''
     return
