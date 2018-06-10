@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 #
+from __future__ import unicode_literals
+
 from .figure import Figure
 
 
@@ -17,47 +19,16 @@ class SubplotGrid(object):
 
         if len(border_style) == 1:
             self._border_chars = 11 * [border_style]
+        elif isinstance(border_style, list):
+            assert len(border_style) == 1
+            self._border_chars = border_style
         else:
             self._border_chars = {
-                "thin": [
-                    "\u2500",  # horizontal
-                    "\u2502",  # vertical
-                    "\u250c",  # top left corner
-                    "\u2510",  # top right corner
-                    "\u2514",  # bottom left corner
-                    "\u2518",  # bottom right corner
-                    "\u251c",  # T left
-                    "\u2524",  # T right
-                    "\u252c",  # T
-                    "\u2534",  # T bottom
-                    "\u253c",  # cross
-                ],
-                "thick": [
-                    "\u2501",
-                    "\u2503",
-                    "\u250f",
-                    "\u2513",
-                    "\u2517",
-                    "\u251b",
-                    "\u2523",
-                    "\u252b",
-                    "\u2533",
-                    "\u253b",
-                    "\u254b",
-                ],
-                "double": [
-                    "\u2550",
-                    "\u2551",
-                    "\u2554",
-                    "\u2557",
-                    "\u255a",
-                    "\u255d",
-                    "\u2560",
-                    "\u2563",
-                    "\u2566",
-                    "\u2569",
-                    "\u256c",
-                ],
+                "thin": ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼"],
+                "thin rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
+                "thick": ["━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋"],
+                "double": ["═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬"],
+                "ascii": ["-", "|", "-", "-", "-", "-", "|", "|", "-", "-", "+"],
             }[border_style]
 
         border_width = 1
@@ -127,8 +98,8 @@ class SubplotGrid(object):
             srows.append("\n".join(pp))
 
         intermediate_border_row = (
-            "\n" +
-            self._border_chars[6]
+            "\n"
+            + self._border_chars[6]
             + self._border_chars[10].join(
                 [s * self._border_chars[0] for s in self._column_widths]
             )
