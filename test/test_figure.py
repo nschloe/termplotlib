@@ -24,6 +24,19 @@ def test_padding_1():
     return
 
 
+def test_padding_1b():
+    fig = apl.figure(padding=(1,))
+    fig.aprint("abc")
+    string = fig.get_string()
+    assert (
+        string
+        == """
+ abc
+"""
+    )
+    return
+
+
 def test_padding_2():
     fig = apl.figure(padding=(1, 2))
     fig.aprint("abc")
