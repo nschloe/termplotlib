@@ -160,5 +160,40 @@ def test_subplot_thin_rounded():
     return
 
 
+def test_subplot_custom():
+    grid = apl.subplot_grid(
+        (2, 3),
+        width=40,
+        border_style=["-", "|", "-", "-", "-", "-", "|", "|", "T", "-", "X"],
+    )
+    grid[0, 0].aprint("Some text")
+    grid[0, 1].aprint("Some more text\nand more")
+    grid[0, 2].aprint("Some more text\nand more\neven more")
+    grid[1, 0].aprint("Some more text\nand more\neven more")
+    grid[1, 1].aprint("Some more text\nand more")
+    grid[1, 2].aprint("Some text")
+    string = grid.get_string()
+
+    print(string)
+
+    assert (
+        string
+        == """-------------T------------T-------------
+|            |            |            |
+|  Some tex  |  Some mor  |  Some mor  |
+|            |  and more  |  and more  |
+|            |            |  even mor  |
+|            |            |            |
+|------------X------------X------------|
+|            |            |            |
+|  Some mor  |  Some mor  |  Some tex  |
+|  and more  |  and more  |            |
+|  even mor  |            |            |
+|            |            |            |
+----------------------------------------"""
+    )
+    return
+
+
 if __name__ == "__main__":
     test_subplot_padding()

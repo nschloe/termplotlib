@@ -20,7 +20,7 @@ class SubplotGrid(object):
         if len(border_style) == 1:
             self._border_chars = 11 * [border_style]
         elif isinstance(border_style, list):
-            assert len(border_style) == 1
+            assert len(border_style) == 11
             self._border_chars = border_style
         else:
             self._border_chars = {
