@@ -178,5 +178,23 @@ def test_subplot_custom():
     return
 
 
+def test_subplot_no_borders():
+    grid = _generate_content(width=40, border_style=None)
+    string = grid.get_string()
+
+    ref = """
+  Some tex    Some mor    Some mor
+              and more    and more
+                          even mor
+
+
+  Some mor    Some mor    Some tex
+  and more    and more
+  even mor"""
+
+    assert string == ref
+    return
+
+
 if __name__ == "__main__":
     test_subplot_padding()

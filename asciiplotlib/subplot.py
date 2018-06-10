@@ -17,7 +17,9 @@ class SubplotGrid(object):
             len(layout) == 2
         ), "layout must be an interable of length 2 (rows and columns)"
 
-        if len(border_style) == 1:
+        if border_style is None:
+            self._border_chars = None
+        elif len(border_style) == 1:
             self._border_chars = 11 * [border_style]
         elif isinstance(border_style, list):
             assert len(border_style) == 11
@@ -62,13 +64,14 @@ class SubplotGrid(object):
     def get_string(self):
         string = []
 
-        string += [
-            self._border_chars[2]
-            + self._border_chars[8].join(
-                [s * self._border_chars[0] for s in self._column_widths]
-            )
-            + self._border_chars[3]
-        ]
+        if self._border_chars:
+            string += [
+                self._border_chars[2]
+                + self._border_chars[8].join(
+                    [s * self._border_chars[0] for s in self._column_widths]
+                )
+                + self._border_chars[3]
+            ]
 
         # collect the subfigure rows
         srows = []
@@ -89,34 +92,40 @@ class SubplotGrid(object):
                     else:
                         s += " " * (self._column_widths[j] - len(s))
                     p.append(s)
+                if self._border_chars:
+                    join_char = self._border_chars[1]
+                else:
+                    join_char = ""
                 pp.append(
-                    self._border_chars[1]
-                    + self._border_chars[1].join(p)
-                    + self._border_chars[1]
+                    join_char + join_char.join(p) + join_char
                 )
-            srows.append("\n".join(pp))
+            srows.append("\n".join([p.rstrip() for p in pp]))
 
-        intermediate_border_row = (
-            "\n"
-            + self._border_chars[6]
-            + self._border_chars[10].join(
-                [s * self._border_chars[0] for s in self._column_widths]
+        if self._border_chars:
+            intermediate_border_row = (
+                "\n"
+                + self._border_chars[6]
+                + self._border_chars[10].join(
+                    [s * self._border_chars[0] for s in self._column_widths]
+                )
+                + self._border_chars[7]
+                + "\n"
             )
-            + self._border_chars[7]
-            + "\n"
-        )
+        else:
+            intermediate_border_row = "\n"
         string += [intermediate_border_row.join(srows)]
 
-        # final row
-        string += [
-            self._border_chars[4]
-            + self._border_chars[9].join(
-                [s * self._border_chars[0] for s in self._column_widths]
-            )
-            + self._border_chars[5]
-        ]
+        if self._border_chars:
+            # final row
+            string += [
+                self._border_chars[4]
+                + self._border_chars[9].join(
+                    [s * self._border_chars[0] for s in self._column_widths]
+                )
+                + self._border_chars[5]
+            ]
 
-        return "\n".join(string)
+        return "\n".join([s.rstrip() for s in string])
 
     def __getitem__(self, ij):
         i, j = ij
