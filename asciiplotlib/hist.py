@@ -74,16 +74,19 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgri
         # Cut off leading and trailing rows of 0
         k0 = 0
         for row in matrix:
-            k0 += 1
             if numpy.any(row != 0):
                 break
+            k0 += 1
+
         k1 = 0
         for row in matrix[::-1]:
-            k1 += 1
             if numpy.any(row != 0):
                 break
+            k1 += 1
         n = matrix.shape[0]
-        matrix = matrix[k0 - 1 : n - k1 + 1]
+        matrix = matrix[k0 : n - k1]
+    else:
+        k0 = 0
 
     block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
 
@@ -101,7 +104,7 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgri
         # add grid lines
         for i in xgrid:
             # print(row[xgrid])
-            pos = i * bar_width - 1
+            pos = (i - k0) * bar_width - 1
             if row[pos] == 8 and (pos + 1 == len(row) or row[pos + 1] > 0):
                 c[pos] = left_seven_eighths
 

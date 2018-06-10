@@ -54,6 +54,32 @@ def test_vertical():
     return
 
 
+def test_vertical_strip():
+    numpy.random.seed(20)
+    sample = numpy.random.normal(size=10000)
+    counts, bin_edges = numpy.histogram(sample)
+    fig = apl.figure()
+    fig.hist(counts, bin_edges, grid=[5, 8], strip=True)
+    string = fig.get_string()
+
+    print(string)
+
+    assert (
+        string
+        == """   ▉▆
+   ▉█
+   ▉█
+  ▁▉█
+  █▉█
+  █▉██
+  █▉██
+ ▁█▉██
+ ██▉██▃
+▃██▉██▉▂"""
+    )
+    return
+
+
 if __name__ == "__main__":
     test_horizontal()
     # test_vertical()
