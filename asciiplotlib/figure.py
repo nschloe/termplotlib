@@ -53,7 +53,7 @@ class Figure(object):
 
         # Bottom padding
         lines += self._padding[2] * [" " * self._width]
-        return "\n".join(lines)
+        return "\n".join([line.rstrip() for line in lines])
 
     def hist(self, *args, **kwargs):
         self._content.append(hist(*args, **kwargs))
