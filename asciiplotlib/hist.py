@@ -64,7 +64,10 @@ def hist_horizontal(
             data.append(bin_edges[k + 1])
         if show_counts:
             data.append(counts)
-        data.append("".join(chars[item] for item in row))
+
+        # Cut off trailing zeros
+        r = numpy.trim_zeros(row, trim='b')
+        data.append("".join(chars[item] for item in r))
         out.append(fmt.format(*data))
 
     return out
