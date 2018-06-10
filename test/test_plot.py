@@ -10,7 +10,7 @@ def test_plot():
     y = numpy.sin(x)
 
     fig = apl.figure()
-    fig.plot(x, y, title="data", width=50, height=15)
+    fig.plot(x, y, label="data", width=50, height=15)
     string = fig.get_string()
 
     ref = """
@@ -42,25 +42,26 @@ def test_plot_lim():
     fig.plot(
         x,
         y,
-        title="data",
+        label="data",
         width=50,
         height=15,
         xlim=[-1, 1],
         ylim=[-1, 1],
         xlabel="x vals",
+        title="header"
     )
     string = fig.get_string()
 
     ref = """
+                       header
+
     1 +---------------------------------------+
-      |         +         +         +      ***|
-  0.5 |-+                        data **AA***-|
-      |                          *****        |
+      |         +         +         + **A*****|
+  0.5 |-+                        ********A***-|
       |                      ****             |
     0 |-+                 A**               +-|
       |                                       |
  -0.5 |-+                                   +-|
-      |                                       |
       |         +         +         +         |
    -1 +---------------------------------------+
      -1       -0.5        0        0.5        1
