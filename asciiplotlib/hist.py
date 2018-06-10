@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-from __future__ import division, print_function
+from __future__ import division, print_function, unicode_literals
 
 import numpy
 
@@ -13,9 +13,10 @@ def hist(
     bins=20,
     grid=None,
     bar_width=1,
+    strip=False,
 ):
     if orientation == "vertical":
-        return hist_vertical(counts, xgrid=grid, bar_width=bar_width)
+        return hist_vertical(counts, xgrid=grid, bar_width=bar_width, strip=strip)
 
     assert orientation == "horizontal", "Unknown orientation '{}'".format(orientation)
     return hist_horizontal(
@@ -34,17 +35,7 @@ def hist_horizontal(
 ):
     matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
 
-    chars = [
-        " ",
-        "\u258f",
-        "\u258e",
-        "\u258d",
-        "\u258c",
-        "\u258b",
-        "\u258a",
-        "\u2589",
-        "\u2588",
-    ]
+    chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
 
     fmt = []
     if show_bin_edges:
@@ -73,25 +64,30 @@ def hist_horizontal(
     return out
 
 
-def hist_vertical(counts, bins=30, max_height=10, bar_width=2, xgrid=None):
+def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgrid=None):
     if xgrid is None:
         xgrid = []
 
     matrix = _get_matrix_of_eighths(counts, max_height, bar_width)
 
-    block_chars = [
-        " ",
-        "\u2581",
-        "\u2582",
-        "\u2583",
-        "\u2584",
-        "\u2585",
-        "\u2586",
-        "\u2587",
-        "\u2588",
-    ]
+    if strip:
+        # Cut off leading and trailing rows of 0
+        k0 = 0
+        for row in matrix:
+            k0 += 1
+            if numpy.any(row != 0):
+                break
+        k1 = 0
+        for row in matrix[::-1]:
+            k1 += 1
+            if numpy.any(row != 0):
+                break
+        n = matrix.shape[0]
+        matrix = matrix[k0 - 1 : n - k1 + 1]
 
-    left_seven_eighths = "\u2589"
+    block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+
+    left_seven_eighths = "▉"
 
     # print text matrix
     out = []

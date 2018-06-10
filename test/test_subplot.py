@@ -196,5 +196,30 @@ def test_subplot_no_borders():
     return
 
 
+def test_subplot_column_widths():
+    grid = _generate_content(column_widths=(30, 15, 20))
+    string = grid.get_string()
+
+    print(string)
+
+    assert (
+        string
+        == """┌──────────────────────────────┬───────────────┬────────────────────┐
+│                              │               │                    │
+│  Some text                   │  Some more t  │  Some more text    │
+│                              │  and more     │  and more          │
+│                              │               │  even more         │
+│                              │               │                    │
+├──────────────────────────────┼───────────────┼────────────────────┤
+│                              │               │                    │
+│  Some more text              │  Some more t  │  Some text         │
+│  and more                    │  and more     │                    │
+│  even more                   │               │                    │
+│                              │               │                    │
+└──────────────────────────────┴───────────────┴────────────────────┘"""
+    )
+    return
+
+
 if __name__ == "__main__":
     test_subplot_padding()

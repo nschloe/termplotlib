@@ -49,7 +49,7 @@ class SubplotGrid(object):
                 self._column_widths[k] += 1
         else:
             assert len(column_widths) == layout[1]
-            self._columns_widths = column_widths
+            self._column_widths = column_widths
 
         self._subfigures = [
             [Figure(self._column_widths[j], padding=padding) for j in range(layout[1])]
