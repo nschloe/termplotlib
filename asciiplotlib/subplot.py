@@ -20,14 +20,15 @@ class SubplotGrid(object):
 
         # border_width = {" ": 1}[border_style]
         border_width = 1
+        self._num_borders = layout[1] + 1
 
         self._width = width
 
         if column_widths is None:
             self._column_widths = [
-                (self._width - 3 * border_width) // layout[1] for _ in range(layout[1])
+                (self._width - self._num_borders * border_width) // layout[1] for _ in range(layout[1])
             ]
-            for k in range((self._width - 3 * border_width) % layout[1]):
+            for k in range((self._width - self._num_borders * border_width) % layout[1]):
                 self._column_widths[k] += 1
         else:
             assert len(column_widths) == layout[1]
@@ -45,7 +46,7 @@ class SubplotGrid(object):
 
     def get_string(self):
         string = []
-        total_width = 3 + sum(self._column_widths)
+        total_width = self._num_borders + sum(self._column_widths)
         string += [self._border_char * total_width]
 
         for row in self._subfigures:
@@ -67,8 +68,7 @@ class SubplotGrid(object):
                 string += [
                     self._border_char + self._border_char.join(p) + self._border_char
                 ]
-
-        string += [self._border_char * total_width]
+            string += [self._border_char * total_width]
 
         return "\n".join(string)
 
