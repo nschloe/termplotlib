@@ -61,7 +61,6 @@ class SubplotGrid(object):
 
     def get_string(self):
         string = []
-        total_width = self._num_borders + sum(self._column_widths)
 
         string += [
             self._border_chars[2]
