@@ -6,15 +6,26 @@ from .__about__ import (
     __author__,
     __email__,
     __copyright__,
-    __credits__,
     __license__,
     __version__,
-    __maintainer__,
     __status__,
 )
 
 from .figure import Figure, figure
 from .subplot import SubplotGrid, subplot_grid
+
+__all__ = [
+    "__author__",
+    "__email__",
+    "__copyright__",
+    "__license__",
+    "__version__",
+    "__status__",
+    "Figure",
+    "figure",
+    "SubplotGrid",
+    "subplot_grid",
+]
 
 # try:
 #     import pipdate
