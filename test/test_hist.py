@@ -35,6 +35,33 @@ def test_vertical():
     counts, bin_edges = numpy.histogram(sample)
     # sample = numpy.random.rand(1000)
     fig = apl.figure()
+    fig.hist(counts, bin_edges)
+    string = fig.get_string()
+
+    print(string)
+
+    assert (
+        string
+        == """    █
+    █
+    █▁
+   ▃██
+   ███
+   ████
+  ▃████
+  █████
+  █████▆
+▂███████▂▁"""
+    )
+    return
+
+
+def test_vertical_grid():
+    numpy.random.seed(123)
+    sample = numpy.random.normal(size=1000)
+    counts, bin_edges = numpy.histogram(sample)
+    # sample = numpy.random.rand(1000)
+    fig = apl.figure()
     fig.hist(counts, bin_edges, grid=[5, 8])
     string = fig.get_string()
 
