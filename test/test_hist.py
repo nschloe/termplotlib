@@ -10,7 +10,7 @@ def test_horizontal():
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
     fig = apl.figure()
-    fig.hist(counts, bin_edges, orientation='horizontal')
+    fig.hist(counts, bin_edges, orientation="horizontal")
     fig.show()
     return
 
@@ -26,6 +26,6 @@ def test_vertical():
     return
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_horizontal()
     # test_vertical()

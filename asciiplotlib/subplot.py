@@ -70,6 +70,10 @@ class SubplotGrid(object):
 
         string += self._padding[0] * [vertical_padding]
 
+        padding_lr = self._padding[1] + self._padding[3]
+        pd_right = " " * self._padding[1]
+        pd_left = " " * self._padding[3]
+
         for row in self._subfigures:
             cstrings = [item.get_string().split("\n") for item in row]
             max_num_lines = max(len(item) for item in cstrings)
@@ -80,20 +84,16 @@ class SubplotGrid(object):
                         s = cstring[k]
                     except IndexError:
                         s = ""
-                    if len(s) > self._column_widths[j] - self._padding[1] - self._padding[3]:
-                        s = s[: self._column_widths[j] - self._padding[1] - self._padding[3]]
-                    elif len(s) < self._column_widths[j] - self._padding[1] - self._padding[3]:
-                        s += " " * (self._column_widths[j] - self._padding[1] - self._padding[3] - len(s))
+                    if len(s) > self._column_widths[j] - padding_lr:
+                        s = s[: self._column_widths[j] - padding_lr]
+                    elif len(s) < self._column_widths[j] - padding_lr:
+                        s += " " * (self._column_widths[j] - padding_lr - len(s))
                     p.append(s)
 
-                pd_right = " " * self._padding[1]
-                pd_left = " " * self._padding[3]
                 string += [
-                    self._border_char
-                    + pd_left
+                    (self._border_char + pd_left)
                     + (pd_right + self._border_char + pd_left).join(p)
-                    + pd_right
-                    + self._border_char
+                    + (pd_right + self._border_char)
                 ]
 
         string += self._padding[2] * [vertical_padding]
