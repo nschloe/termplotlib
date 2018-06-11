@@ -9,18 +9,7 @@ def _create_alignment(alignment, num_columns):
     return alignment
 
 
-def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1)):
-    # TODO header
-    # TODO alignment
-
-    # Make sure the data is consistent
-    num_columns = len(data[0])
-    for row in data:
-        assert len(row) == num_columns
-
-    padding = create_padding_tuple(padding)
-    alignments = _create_alignment(alignment, num_columns)
-
+def _get_border_chars(border_style):
     if border_style is None:
         border_chars = None
     elif len(border_style) == 1:
@@ -37,10 +26,22 @@ def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1))
             "ascii": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
         }[border_style]
 
-    strings = [
-        ["{}".format(item) for item in row]
-        for row in data
-    ]
+    return border_chars
+
+
+def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1)):
+    # TODO header
+
+    # Make sure the data is consistent
+    num_columns = len(data[0])
+    for row in data:
+        assert len(row) == num_columns
+
+    padding = create_padding_tuple(padding)
+    alignments = _create_alignment(alignment, num_columns)
+    border_chars = _get_border_chars(border_style)
+
+    strings = [["{}".format(item) for item in row] for row in data]
 
     # deduct column_widths
     column_widths = num_columns * [0]
@@ -48,12 +49,14 @@ def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1))
         for j, item in enumerate(row):
             column_widths[j] = max(column_widths[j], len(item))
 
+    column_widths_with_padding = [c + padding[1] + padding[3] for c in column_widths]
+
     # add spaces according to alignment
     for row in strings:
-        for k, (item, align, column_width) in enumerate(zip(row, alignments, column_widths)):
-            rest = column_width - len(item)
+        for k, (item, align, cw) in enumerate(zip(row, alignments, column_widths)):
+            rest = cw - len(item)
             if rest <= 0:
-                row[k] = item[:column_width]
+                row[k] = item[:cw]
             else:
                 if align == "l":
                     left = 0
@@ -62,18 +65,26 @@ def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1))
                 else:
                     assert align == "c"
                     left = rest // 2
-
                 right = rest - left
                 row[k] = " " * left + item + " " * right
+
+    # add spaces according to padding
+    for row in strings:
+        for k, (item, cw) in enumerate(zip(row, column_widths)):
+            s = []
+            for _ in range(padding[0]):
+                s += [" " * cw]
+            s += [" " * padding[3] + item + " " * padding[1]]
+            for _ in range(padding[2]):
+                s += [" " * cw]
+            row[k] = "\n".join(s)
 
     # plot the table
     out = []
 
     out += [
         border_chars[2]
-        + border_chars[8].join(
-            [s * border_chars[0] for s in column_widths]
-        )
+        + border_chars[8].join([s * border_chars[0] for s in column_widths_with_padding])
         + border_chars[3]
     ]
 
@@ -91,10 +102,10 @@ def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1))
                 except IndexError:
                     s = ""
                 # truncate or extend with spaces to match the column width
-                if len(s) >= column_widths[j]:
-                    s = s[: column_widths[j]]
+                if len(s) >= column_widths_with_padding[j]:
+                    s = s[: column_widths_with_padding[j]]
                 else:
-                    s += " " * (column_widths[j] - len(s))
+                    s += " " * (column_widths_with_padding[j] - len(s))
                 p.append(s)
             if border_chars:
                 join_char = border_chars[1]
@@ -107,9 +118,7 @@ def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1))
         intermediate_border_row = (
             "\n"
             + border_chars[6]
-            + border_chars[10].join(
-                [s * border_chars[0] for s in column_widths]
-            )
+            + border_chars[10].join([s * border_chars[0] for s in column_widths_with_padding])
             + border_chars[7]
             + "\n"
         )
@@ -123,9 +132,7 @@ def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1))
         # final row
         out += [
             border_chars[4]
-            + border_chars[9].join(
-                [s * border_chars[0] for s in column_widths]
-            )
+            + border_chars[9].join([s * border_chars[0] for s in column_widths_with_padding])
             + border_chars[5]
         ]
 
