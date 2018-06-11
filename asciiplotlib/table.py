@@ -29,29 +29,15 @@ def _get_border_chars(border_style):
     return border_chars
 
 
-def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1)):
-    # TODO header
-
-    # Make sure the data is consistent
-    num_columns = len(data[0])
-    for row in data:
-        assert len(row) == num_columns
-
-    padding = create_padding_tuple(padding)
-    alignments = _create_alignment(alignment, num_columns)
-    border_chars = _get_border_chars(border_style)
-
-    strings = [["{}".format(item) for item in row] for row in data]
-
-    # deduct column_widths
+def _get_column_widths(strings, num_columns):
     column_widths = num_columns * [0]
     for row in strings:
         for j, item in enumerate(row):
             column_widths[j] = max(column_widths[j], len(item))
+    return column_widths
 
-    column_widths_with_padding = [c + padding[1] + padding[3] for c in column_widths]
 
-    # add spaces according to alignment
+def _align(strings, alignments, column_widths):
     for row in strings:
         for k, (item, align, cw) in enumerate(zip(row, alignments, column_widths)):
             rest = cw - len(item)
@@ -67,8 +53,10 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
                     left = rest // 2
                 right = rest - left
                 row[k] = " " * left + item + " " * right
+    return strings
 
-    # add spaces according to padding
+
+def _add_padding(strings, column_widths, padding):
     for row in strings:
         for k, (item, cw) in enumerate(zip(row, column_widths)):
             s = []
@@ -78,6 +66,31 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
             for _ in range(padding[2]):
                 s += [" " * cw]
             row[k] = "\n".join(s)
+    return strings
+
+
+def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1)):
+    # TODO header
+
+    # Make sure the data is consistent
+    num_columns = len(data[0])
+    for row in data:
+        assert len(row) == num_columns
+
+    padding = create_padding_tuple(padding)
+    alignments = _create_alignment(alignment, num_columns)
+    border_chars = _get_border_chars(border_style)
+
+    strings = [["{}".format(item) for item in row] for row in data]
+
+    column_widths = _get_column_widths(strings, num_columns)
+    column_widths_with_padding = [c + padding[1] + padding[3] for c in column_widths]
+
+    # add spaces according to alignment
+    strings = _align(strings, alignments, column_widths)
+
+    # add spaces according to padding
+    strings = _add_padding(strings, column_widths, padding)
 
     # plot the table
     out = []
