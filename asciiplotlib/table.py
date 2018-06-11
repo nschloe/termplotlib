@@ -110,18 +110,7 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
         max_num_lines = max(len(item) for item in cstrings)
         pp = []
         for k in range(max_num_lines):
-            p = []
-            for j, cstring in enumerate(cstrings):
-                try:
-                    s = cstring[k]
-                except IndexError:
-                    s = ""
-                # truncate or extend with spaces to match the column width
-                if len(s) >= column_widths_with_padding[j]:
-                    s = s[: column_widths_with_padding[j]]
-                else:
-                    s += " " * (column_widths_with_padding[j] - len(s))
-                p.append(s)
+            p = [cstring[k] for cstring in cstrings]
             if border_chars:
                 join_char = border_chars[1]
             else:
