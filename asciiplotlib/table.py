@@ -97,7 +97,9 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
 
     out += [
         border_chars[2]
-        + border_chars[8].join([s * border_chars[0] for s in column_widths_with_padding])
+        + border_chars[8].join(
+            [s * border_chars[0] for s in column_widths_with_padding]
+        )
         + border_chars[3]
     ]
 
@@ -131,7 +133,9 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
         intermediate_border_row = (
             "\n"
             + border_chars[6]
-            + border_chars[10].join([s * border_chars[0] for s in column_widths_with_padding])
+            + border_chars[10].join(
+                [s * border_chars[0] for s in column_widths_with_padding]
+            )
             + border_chars[7]
             + "\n"
         )
@@ -145,7 +149,9 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
         # final row
         out += [
             border_chars[4]
-            + border_chars[9].join([s * border_chars[0] for s in column_widths_with_padding])
+            + border_chars[9].join(
+                [s * border_chars[0] for s in column_widths_with_padding]
+            )
             + border_chars[5]
         ]
 
