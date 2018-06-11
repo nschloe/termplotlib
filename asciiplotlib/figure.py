@@ -4,6 +4,8 @@ from .hist import hist
 from .plot import plot
 from .table import table
 
+from .helpers import create_padding_tuple
+
 
 def figure(*args, **kwargs):
     return Figure(*args, **kwargs)
@@ -14,20 +16,7 @@ class Figure(object):
         self._content = []
         self._width = width
         self._subfigures = None
-
-        # self._padding is a 4-tuple: top, right, bottom, left (just like CSS)
-        if isinstance(padding, int):
-            self._padding = (padding, padding, padding, padding)
-        else:
-            if len(padding) == 1:
-                self._padding = (padding[0], padding[0], padding[0], padding[0])
-            elif len(padding) == 2:
-                self._padding = (padding[0], padding[1], padding[0], padding[1])
-            elif len(padding) == 3:
-                self._padding = (padding[0], padding[1], padding[2], padding[1])
-            else:
-                assert len(padding) == 4
-                self._padding = (padding[0], padding[1], padding[2], padding[3])
+        self._padding = create_padding_tuple(padding)
         return
 
     def aprint(self, string):

@@ -1,12 +1,25 @@
 # -*- coding: utf-8 -*-
 #
+from .helpers import create_padding_tuple
 
 
-def table(data, header=None, alignment='l', border_style='thin'):
+def _create_alignment(alignment, num_columns):
+    if len(alignment) == 1:
+        alignment = num_columns * alignment
+    return alignment
+
+
+def table(data, header=None, alignment='l', border_style='thin', padding=(0, 1)):
+    # TODO header
+    # TODO alignment
+
     # Make sure the data is consistent
-    n = len(data[0])
+    num_columns = len(data[0])
     for row in data:
-        assert len(row) == n
+        assert len(row) == num_columns
+
+    padding = create_padding_tuple(padding)
+    alignments = _create_alignment(alignment, num_columns)
 
     if border_style is None:
         border_chars = None
@@ -21,16 +34,37 @@ def table(data, header=None, alignment='l', border_style='thin'):
             "thin rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
             "thick": ["━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋"],
             "double": ["═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬"],
-            "ascii": ["-", "|", "-", "-", "-", "-", "|", "|", "-", "-", "+"],
+            "ascii": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
         }[border_style]
 
-    strings = [['{}'.format(item) for item in row] for row in data]
+    strings = [
+        ["{}".format(item) for item in row]
+        for row in data
+    ]
 
     # deduct column_widths
-    column_widths = n * [0]
+    column_widths = num_columns * [0]
     for row in strings:
         for j, item in enumerate(row):
             column_widths[j] = max(column_widths[j], len(item))
+
+    # add spaces according to alignment
+    for row in strings:
+        for k, (item, align, column_width) in enumerate(zip(row, alignments, column_widths)):
+            rest = column_width - len(item)
+            if rest <= 0:
+                row[k] = item[:column_width]
+            else:
+                if align == "l":
+                    left = 0
+                elif align == "r":
+                    left = rest
+                else:
+                    assert align == "c"
+                    left = rest // 2
+
+                right = rest - left
+                row[k] = " " * left + item + " " * right
 
     # plot the table
     out = []
