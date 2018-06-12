@@ -70,19 +70,31 @@ def _add_padding(strings, column_widths, padding):
     return strings
 
 
-def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1)):
-    # TODO header
-
+def table(
+    data,
+    alignment="l",
+    padding=(0, 1),
+    header=None,
+    border_style="thin",
+    header_seperator="double",
+):
     # Make sure the data is consistent
     num_columns = len(data[0])
     for row in data:
         assert len(row) == num_columns
+
+    # TODO header
+    if header:
+        assert len(header) == num_columns
 
     padding = create_padding_tuple(padding)
     alignments = _create_alignment(alignment, num_columns)
     border_chars = _get_border_chars(border_style)
 
     strings = [["{}".format(item) for item in row] for row in data]
+
+    if header:
+        strings = [["{}".format(item) for item in header]] + strings
 
     column_widths = _get_column_widths(strings, num_columns)
     column_widths_with_padding = [c + padding[1] + padding[3] for c in column_widths]
@@ -92,17 +104,6 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
 
     # add spaces according to padding
     strings = _add_padding(strings, column_widths, padding)
-
-    # plot the table
-    out = []
-
-    out += [
-        border_chars[2]
-        + border_chars[8].join(
-            [s * border_chars[0] for s in column_widths_with_padding]
-        )
-        + border_chars[3]
-    ]
 
     # collect the table rows
     srows = []
@@ -119,23 +120,28 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
             pp.append(join_char + join_char.join(p) + join_char)
         srows.append("\n".join([p.rstrip() for p in pp]))
 
+    # collect the table
     if border_chars:
+        out = []
+        out += [
+            border_chars[2]
+            + border_chars[8].join(
+                [s * border_chars[0] for s in column_widths_with_padding]
+            )
+            + border_chars[3]
+        ]
+
         intermediate_border_row = (
-            "\n"
-            + border_chars[6]
+            border_chars[6]
             + border_chars[10].join(
                 [s * border_chars[0] for s in column_widths_with_padding]
             )
             + border_chars[7]
-            + "\n"
         )
-    else:
-        intermediate_border_row = "\n"
+        for k in range(len(srows) - 1):
+            out += [srows[k], intermediate_border_row]
+        out += [srows[-1]]
 
-    # TODO First join, then split. There must be a better way
-    out += intermediate_border_row.join(srows).split("\n")
-
-    if border_chars:
         # final row
         out += [
             border_chars[4]
@@ -144,5 +150,7 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
             )
             + border_chars[5]
         ]
+    else:
+        out = srows
 
     return [s.rstrip() for s in out]

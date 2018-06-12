@@ -176,3 +176,39 @@ def test_table_alignment():
 +-----------------+-----------------+-----------------+"""
     )
     return
+
+
+def test_noborder():
+    numpy.random.seed(0)
+    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+
+    fig = apl.figure()
+    fig.table(data, header=["a", "bb", "ccc"], border_style=None, padding=0)
+    string = fig.get_string()
+
+    assert (
+        string
+        == """a              bb             ccc
+1              2              3
+613.23236243236613.23236243236613.23236243236"""
+    )
+    return
+
+
+def test_header():
+    numpy.random.seed(0)
+    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+
+    fig = apl.figure()
+    fig.table(data, header=["a", "bb", "ccc"], border_style="ascii", alignment="lcr")
+    string = fig.get_string()
+
+    assert (
+        string
+        == """+-----------------+-----------------+-----------------+
+| 1               |        2        |               3 |
++-----------------+-----------------+-----------------+
+| 613.23236243236 | 613.23236243236 | 613.23236243236 |
++-----------------+-----------------+-----------------+"""
+    )
+    return
