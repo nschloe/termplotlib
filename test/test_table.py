@@ -180,10 +180,13 @@ def test_table_alignment():
 
 def test_noborder():
     numpy.random.seed(0)
-    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    data = [
+        [["a", "bb", "ccc"]],
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]],
+    ]
 
     fig = apl.figure()
-    fig.table(data, header=["a", "bb", "ccc"], border_style=None, padding=0)
+    fig.table(data, border_style=None, padding=0)
     string = fig.get_string()
 
     assert (
@@ -197,11 +200,16 @@ def test_noborder():
 
 def test_header():
     numpy.random.seed(0)
-    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    data = [
+        [["a", "bb", "ccc"]],
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    ]
 
     fig = apl.figure()
-    fig.table(data, header=["a", "bb", "ccc"], alignment="lcr")
+    fig.table(data, alignment="lcr")
     string = fig.get_string()
+
+    print(string)
 
     assert (
         string
@@ -218,10 +226,13 @@ def test_header():
 
 def test_header_ascii():
     numpy.random.seed(0)
-    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    data = [
+        [["a", "bb", "ccc"]],
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    ]
 
     fig = apl.figure()
-    fig.table(data, header=["a", "bb", "ccc"], ascii_mode=True, alignment="lcr")
+    fig.table(data, ascii_mode=True, alignment="lcr")
     string = fig.get_string()
 
     assert (
@@ -239,10 +250,15 @@ def test_header_ascii():
 
 def test_header_thick():
     numpy.random.seed(0)
-    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    data = [
+        [["a", "bb", "ccc"]],
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+    ]
 
     fig = apl.figure()
-    fig.table(data, header=["a", "bb", "ccc"], header_separator="thick", alignment="lcr")
+    fig.table(
+        data, border_style=("thin", "thick"), alignment="lcr"
+    )
     string = fig.get_string()
 
     assert (

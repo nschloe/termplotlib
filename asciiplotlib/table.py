@@ -1,156 +1,199 @@
 # -*- coding: utf-8 -*-
 #
+from collections.abc import Sequence
+
 from .helpers import create_padding_tuple
 
 
 def _create_alignment(alignment, num_columns):
     if len(alignment) == 1:
         alignment = num_columns * alignment
+    assert len(alignment) == num_columns
     return alignment
 
 
 def _get_border_chars(border_style, ascii_mode):
-    if border_style is None:
+    if isinstance(border_style, tuple):
+        assert len(border_style) == 2
+    else:
+        border_style = (border_style, border_style)
+
+    # Take care of the regular border first, then the block separators.
+    border, block_sep = border_style
+
+    if border is None:
         border_chars = None
-    elif len(border_style) == 1:
-        border_chars = 11 * [border_style]
     elif isinstance(border_style, list):
-        assert len(border_style) == 11
-        border_chars = border_style
+        assert len(border) == 11
+        border_chars = border
     else:
         if ascii_mode:
             border_chars = {
                 "thin": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
-                "thin rounded": ["-", "|", "/", "\\", "\\", "/", "+", "+", "+", "+", "+"],
+                "rounded": ["-", "|", "/", "\\", "\\", "/", "+", "+", "+", "+", "+"],
                 "thick": ["=", "I", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
                 "double": ["=", "H", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
-            }[border_style]
+            }[border]
         else:
             border_chars = {
                 "thin": ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼"],
-                "thin rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
+                "rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
                 "thick": ["━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋"],
                 "double": ["═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬"],
-            }[border_style]
+            }[border]
 
-    return border_chars
-
-
-def _get_header_separator_chars(border_style, header_separator, ascii_mode):
-    if ascii_mode:
-        header_chars = {
-            ("thin", "thin"): ["+", "-", "+", "+"],
-            ("thin", "thin rounded"): ["+", "-", "+", "+"],
-            ("thin", "thick"): ["+", "=", "+", "+"],
-            ("thin", "double"): ["+", "=", "+", "+"],
-            #
-            ("thin rounded", "thin"): ["+", "-", "+", "+"],
-            ("thin rounded", "thin rounded"): ["+", "-", "+", "+"],
-            ("thin rounded", "thick"): ["+", "=", "+", "+"],
-            ("thin rounded", "double"): ["+", "=", "+", "+"],
-            #
-            ("thick", "thin"): ["+", "-", "+", "+"],
-            ("thick", "thin rounded"): ["+", "-", "+", "+"],
-            ("thick", "thick"): ["+", "=", "+", "+"],
-            ("thick", "double"): ["+", "=", "+", "+"],
-            #
-            ("double", "thin"): ["+", "-", "+", "+"],
-            ("double", "thin rounded"): ["+", "-", "+", "+"],
-            ("double", "thick"): ["+", "=", "+", "+"],
-            ("double", "double"): ["+", "=", "+", "+"],
-        }[(border_style, header_separator)]
+    # block separators
+    if block_sep is None:
+        block_chars = None
+    elif border == block_sep:
+        bc = border_chars
+        block_chars = [bc[6], bc[0], bc[10], bc[7]]
     else:
-        header_chars = {
-            ("thin", "thin"): ["├", "─", "┼", "┤"],
-            ("thin", "thin rounded"): ["├", "─", "┼", "┤"],
-            ("thin", "thick"): ["┝", "━", "┿", "┥"],
-            ("thin", "double"): ["╞", "═", "╪", "╡"],
-            #
-            ("thin rounded", "thin"): ["├", "─", "┼", "┤"],
-            ("thin rounded", "thin rounded"): ["├", "─", "┼", "┤"],
-            ("thin rounded", "thick"): ["┝", "━", "┿", "┥"],
-            ("thin rounded", "double"): ["╞", "═", "╪", "╡"],
-            #
-            ("thick", "thin"): ["┠", "─", "╂", "┨"],
-            ("thick", "thin rounded"): ["┠", "─", "╂", "┨"],
-            ("thick", "thick"): ["┣", "━", "╋", "┫"],
-            ("thick", "double"): ["┠", "═", "╂", "┨"],
-            #
-            ("double", "thin"): ["╟", "─", "╫", "╢"],
-            ("double", "thin rounded"): ["╟", "─", "╫", "╢"],
-            ("double", "thick"): ["╟", "━", "╫", "╢"],
-            ("double", "double"): ["╠", "═", "╬", "╣"],
-        }[(border_style, header_separator)]
+        if ascii_mode:
+            block_chars = {
+                ("thin", "thin"): ["+", "-", "+", "+"],
+                ("thin", "rounded"): ["+", "-", "+", "+"],
+                ("thin", "thick"): ["+", "=", "+", "+"],
+                ("thin", "double"): ["+", "=", "+", "+"],
+                #
+                ("rounded", "thin"): ["+", "-", "+", "+"],
+                ("rounded", "rounded"): ["+", "-", "+", "+"],
+                ("rounded", "thick"): ["+", "=", "+", "+"],
+                ("rounded", "double"): ["+", "=", "+", "+"],
+                #
+                ("thick", "thin"): ["+", "-", "+", "+"],
+                ("thick", "rounded"): ["+", "-", "+", "+"],
+                ("thick", "thick"): ["+", "=", "+", "+"],
+                ("thick", "double"): ["+", "=", "+", "+"],
+                #
+                ("double", "thin"): ["+", "-", "+", "+"],
+                ("double", "rounded"): ["+", "-", "+", "+"],
+                ("double", "thick"): ["+", "=", "+", "+"],
+                ("double", "double"): ["+", "=", "+", "+"],
+            }[(border, block_sep)]
+        else:
+            block_chars = {
+                ("thin", "thin"): ["├", "─", "┼", "┤"],
+                ("thin", "rounded"): ["├", "─", "┼", "┤"],
+                ("thin", "thick"): ["┝", "━", "┿", "┥"],
+                ("thin", "double"): ["╞", "═", "╪", "╡"],
+                #
+                ("rounded", "thin"): ["├", "─", "┼", "┤"],
+                ("rounded", "rounded"): ["├", "─", "┼", "┤"],
+                ("rounded", "thick"): ["┝", "━", "┿", "┥"],
+                ("rounded", "double"): ["╞", "═", "╪", "╡"],
+                #
+                ("thick", "thin"): ["┠", "─", "╂", "┨"],
+                ("thick", "rounded"): ["┠", "─", "╂", "┨"],
+                ("thick", "thick"): ["┣", "━", "╋", "┫"],
+                ("thick", "double"): ["┠", "═", "╂", "┨"],
+                #
+                ("double", "thin"): ["╟", "─", "╫", "╢"],
+                ("double", "rounded"): ["╟", "─", "╫", "╢"],
+                ("double", "thick"): ["╟", "━", "╫", "╢"],
+                ("double", "double"): ["╠", "═", "╬", "╣"],
+            }[(border, block_sep)]
 
-    return header_chars
+    return border_chars, block_chars
 
 
 def _get_column_widths(strings, num_columns):
     column_widths = num_columns * [0]
-    for row in strings:
-        for j, item in enumerate(row):
-            column_widths[j] = max(column_widths[j], len(item))
+    for block in strings:
+        for row in block:
+            for j, item in enumerate(row):
+                column_widths[j] = max(column_widths[j], len(item))
     return column_widths
 
 
 def _align(strings, alignments, column_widths):
-    for row in strings:
-        for k, (item, align, cw) in enumerate(zip(row, alignments, column_widths)):
-            rest = cw - len(item)
-            if rest <= 0:
-                row[k] = item[:cw]
-            else:
-                if align == "l":
-                    left = 0
-                elif align == "r":
-                    left = rest
+    for block in strings:
+        for row in block:
+            for k, (item, align, cw) in enumerate(zip(row, alignments, column_widths)):
+                rest = cw - len(item)
+                if rest <= 0:
+                    row[k] = item[:cw]
                 else:
-                    assert align == "c"
-                    left = rest // 2
-                right = rest - left
-                row[k] = " " * left + item + " " * right
+                    if align == "l":
+                        left = 0
+                    elif align == "r":
+                        left = rest
+                    else:
+                        assert align == "c"
+                        left = rest // 2
+                    right = rest - left
+                    row[k] = " " * left + item + " " * right
     return strings
 
 
 def _add_padding(strings, column_widths, padding):
-    for row in strings:
-        for k, (item, cw) in enumerate(zip(row, column_widths)):
-            cw += padding[1] + padding[3]
-            s = []
-            for _ in range(padding[0]):
-                s += [" " * cw]
-            s += [" " * padding[3] + item + " " * padding[1]]
-            for _ in range(padding[2]):
-                s += [" " * cw]
-            row[k] = "\n".join(s)
+    for block in strings:
+        for row in block:
+            for k, (item, cw) in enumerate(zip(row, column_widths)):
+                cw += padding[1] + padding[3]
+                s = []
+                for _ in range(padding[0]):
+                    s += [" " * cw]
+                s += [" " * padding[3] + item + " " * padding[1]]
+                for _ in range(padding[2]):
+                    s += [" " * cw]
+                row[k] = "\n".join(s)
     return strings
+
+
+def _seq_but_not_str(obj):
+    return isinstance(obj, Sequence) and not isinstance(obj, (str, bytes, bytearray))
+
+
+def _get_depth(l):
+    if _seq_but_not_str(l):
+        return 1 + max(_get_depth(item) for item in l)
+    return 0
+
+
+def _hjoin_multiline(join_char, strings):
+    """Horizontal join of multiline strings
+    """
+    cstrings = [string.split("\n") for string in strings]
+    max_num_lines = max(len(item) for item in cstrings)
+    pp = []
+    for k in range(max_num_lines):
+        p = [cstring[k] for cstring in cstrings]
+        pp.append(join_char + join_char.join(p) + join_char)
+
+    return "\n".join([p.rstrip() for p in pp])
 
 
 def table(
     data,
     alignment="l",
     padding=(0, 1),
-    header=None,
-    border_style="thin",
-    header_separator="double",
-    ascii_mode=False
+    border_style=("thin", "double"),
+    ascii_mode=False,
 ):
-    # Make sure the data is consistent
-    num_columns = len(data[0])
-    for row in data:
-        assert len(row) == num_columns
+    try:
+        depth = len(data.shape)
+    except AttributeError:
+        depth = _get_depth(data)
 
-    if header:
-        assert len(header) == num_columns
+    if depth == 1:
+        data = [[data]]
+    elif depth == 2:
+        data = [data]
+    else:
+        assert depth == 3
+
+    # Make sure the data is consistent
+    num_columns = len(data[0][0])
+    for block in data:
+        for row in block:
+            assert len(row) == num_columns
 
     padding = create_padding_tuple(padding)
     alignments = _create_alignment(alignment, num_columns)
-    border_chars = _get_border_chars(border_style, ascii_mode)
+    border_chars, block_sep_chars = _get_border_chars(border_style, ascii_mode)
 
-    strings = [["{}".format(item) for item in row] for row in data]
-
-    if header:
-        strings = [["{}".format(item) for item in header]] + strings
+    strings = [[["{}".format(item) for item in row] for row in block] for block in data]
 
     column_widths = _get_column_widths(strings, num_columns)
     column_widths_with_padding = [c + padding[1] + padding[3] for c in column_widths]
@@ -161,43 +204,42 @@ def table(
     # add spaces according to padding
     strings = _add_padding(strings, column_widths, padding)
 
-    # collect the table rows
-    srows = []
-    for row in strings:
-        cstrings = [item.split("\n") for item in row]
-        max_num_lines = max(len(item) for item in cstrings)
-        pp = []
-        for k in range(max_num_lines):
-            p = [cstring[k] for cstring in cstrings]
-            if border_chars:
-                join_char = border_chars[1]
-            else:
-                join_char = ""
-            pp.append(join_char + join_char.join(p) + join_char)
-        srows.append("\n".join([p.rstrip() for p in pp]))
+    # Join `strings` from the innermost to the outermost index.
+    join_char = border_chars[1] if border_chars else ""
+    for block in strings:
+        for k, row in enumerate(block):
+            block[k] = _hjoin_multiline(join_char, row)
 
-    # collect the table
     if border_chars:
         bc = border_chars
         cwp = column_widths_with_padding
-        first_border_row = bc[2] + bc[8].join([s * bc[0] for s in cwp]) + bc[3]
-        intermediate_border_row = bc[6] + bc[10].join([s * bc[0] for s in cwp]) + bc[7]
-        last_border_row = bc[4] + bc[9].join([s * bc[0] for s in cwp]) + bc[5]
-
-        out = [first_border_row]
-        if header:
-            hs = _get_header_separator_chars(border_style, header_separator, ascii_mode)
-            header_sep_row = hs[0] + hs[2].join([s * hs[1] for s in cwp]) + hs[3]
-            out += [srows[0], header_sep_row]
-            for k in range(1, len(srows) - 1):
-                out += [srows[k], intermediate_border_row]
-        else:
-            for k in range(len(srows) - 1):
-                out += [srows[k], intermediate_border_row]
-
-        out += [srows[-1]]
-        out += [last_border_row]
+        intermediate_border_row = (
+            "\n" + bc[6] + bc[10].join([s * bc[0] for s in cwp]) + bc[7] + "\n"
+        )
     else:
-        out = srows
+        intermediate_border_row = "\n"
 
-    return [s.rstrip() for s in out]
+    for k, block in enumerate(strings):
+        strings[k] = intermediate_border_row.join(block)
+
+    # bs = _get_block_separator_chars(border_style, block_separator, ascii_mode)
+    if block_sep_chars:
+        bs = block_sep_chars
+        block_sep_row = (
+            "\n" + bs[0] + bs[2].join([s * bs[1] for s in cwp]) + bs[3] + "\n"
+        )
+    else:
+        block_sep_row = "\n"
+
+    strings = block_sep_row.join(strings)
+
+    if border_chars:
+        bc = border_chars
+        first_border_row = bc[2] + bc[8].join([s * bc[0] for s in cwp]) + bc[3] + "\n"
+        last_border_row = "\n" + bc[4] + bc[9].join([s * bc[0] for s in cwp]) + bc[5]
+    else:
+        first_border_row = ""
+        last_border_row = ""
+    out = first_border_row + strings + last_border_row
+
+    return out.split("\n")
