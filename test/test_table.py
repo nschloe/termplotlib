@@ -101,6 +101,64 @@ def test_table_mixed():
     return
 
 
+def test_table_padding_top():
+    numpy.random.seed(0)
+    data = [[0, 0.123], [1, 2.13], [2, 613.2323]]
+
+    fig = apl.figure()
+    fig.table(data, padding=(1, 0))
+    string = fig.get_string()
+
+    print(string)
+
+    assert (
+        string
+        == """┌─┬────────┐
+│ │        │
+│0│0.123   │
+│ │        │
+├─┼────────┤
+│ │        │
+│1│2.13    │
+│ │        │
+├─┼────────┤
+│ │        │
+│2│613.2323│
+│ │        │
+└─┴────────┘"""
+    )
+    return
+
+
+def test_table_padding_both():
+    numpy.random.seed(0)
+    data = [[0, 0.123], [1, 2.13], [2, 613.2323]]
+
+    fig = apl.figure()
+    fig.table(data, padding=(1, 1))
+    string = fig.get_string()
+
+    print(string)
+
+    assert (
+        string
+        == """┌───┬──────────┐
+│   │          │
+│ 0 │ 0.123    │
+│   │          │
+├───┼──────────┤
+│   │          │
+│ 1 │ 2.13     │
+│   │          │
+├───┼──────────┤
+│   │          │
+│ 2 │ 613.2323 │
+│   │          │
+└───┴──────────┘"""
+    )
+    return
+
+
 def test_table_alignment():
     numpy.random.seed(0)
     data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]

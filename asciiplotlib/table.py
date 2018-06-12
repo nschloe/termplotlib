@@ -59,6 +59,7 @@ def _align(strings, alignments, column_widths):
 def _add_padding(strings, column_widths, padding):
     for row in strings:
         for k, (item, cw) in enumerate(zip(row, column_widths)):
+            cw += padding[1] + padding[3]
             s = []
             for _ in range(padding[0]):
                 s += [" " * cw]
@@ -103,7 +104,7 @@ def table(data, header=None, alignment="l", border_style="thin", padding=(0, 1))
         + border_chars[3]
     ]
 
-    # collect the subfigure rows
+    # collect the table rows
     srows = []
     for row in strings:
         cstrings = [item.split("\n") for item in row]
