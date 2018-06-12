@@ -60,7 +60,7 @@ def test_table_ascii():
     data = numpy.random.rand(5, 2)
 
     fig = apl.figure()
-    fig.table(data, border_style="ascii")
+    fig.table(data, border_style="thin", ascii_mode=True)
     string = fig.get_string()
 
     assert (
@@ -85,7 +85,7 @@ def test_table_mixed():
     data = [[0, 0.123], [1, 2.13], [2, 613.2323]]
 
     fig = apl.figure()
-    fig.table(data, border_style="ascii")
+    fig.table(data, border_style="thin", ascii_mode=True)
     string = fig.get_string()
 
     assert (
@@ -164,7 +164,7 @@ def test_table_alignment():
     data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
 
     fig = apl.figure()
-    fig.table(data, border_style="ascii", alignment="lcr")
+    fig.table(data, ascii_mode=True, alignment="lcr")
     string = fig.get_string()
 
     assert (
@@ -200,15 +200,59 @@ def test_header():
     data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
 
     fig = apl.figure()
-    fig.table(data, header=["a", "bb", "ccc"], border_style="ascii", alignment="lcr")
+    fig.table(data, header=["a", "bb", "ccc"], alignment="lcr")
+    string = fig.get_string()
+
+    assert (
+        string
+        == """┌─────────────────┬─────────────────┬─────────────────┐
+│ a               │       bb        │             ccc │
+╞═════════════════╪═════════════════╪═════════════════╡
+│ 1               │        2        │               3 │
+├─────────────────┼─────────────────┼─────────────────┤
+│ 613.23236243236 │ 613.23236243236 │ 613.23236243236 │
+└─────────────────┴─────────────────┴─────────────────┘"""
+    )
+    return
+
+
+def test_header_ascii():
+    numpy.random.seed(0)
+    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+
+    fig = apl.figure()
+    fig.table(data, header=["a", "bb", "ccc"], ascii_mode=True, alignment="lcr")
     string = fig.get_string()
 
     assert (
         string
         == """+-----------------+-----------------+-----------------+
+| a               |       bb        |             ccc |
++=================+=================+=================+
 | 1               |        2        |               3 |
 +-----------------+-----------------+-----------------+
 | 613.23236243236 | 613.23236243236 | 613.23236243236 |
 +-----------------+-----------------+-----------------+"""
+    )
+    return
+
+
+def test_header_thick():
+    numpy.random.seed(0)
+    data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+
+    fig = apl.figure()
+    fig.table(data, header=["a", "bb", "ccc"], header_separator="thick", alignment="lcr")
+    string = fig.get_string()
+
+    assert (
+        string
+        == """┌─────────────────┬─────────────────┬─────────────────┐
+│ a               │       bb        │             ccc │
+┝━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━┥
+│ 1               │        2        │               3 │
+├─────────────────┼─────────────────┼─────────────────┤
+│ 613.23236243236 │ 613.23236243236 │ 613.23236243236 │
+└─────────────────┴─────────────────┴─────────────────┘"""
     )
     return

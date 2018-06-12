@@ -9,7 +9,7 @@ def _create_alignment(alignment, num_columns):
     return alignment
 
 
-def _get_border_chars(border_style):
+def _get_border_chars(border_style, ascii_mode):
     if border_style is None:
         border_chars = None
     elif len(border_style) == 1:
@@ -18,15 +18,71 @@ def _get_border_chars(border_style):
         assert len(border_style) == 11
         border_chars = border_style
     else:
-        border_chars = {
-            "thin": ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼"],
-            "thin rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
-            "thick": ["━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋"],
-            "double": ["═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬"],
-            "ascii": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
-        }[border_style]
+        if ascii_mode:
+            border_chars = {
+                "thin": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
+                "thin rounded": ["-", "|", "/", "\\", "\\", "/", "+", "+", "+", "+", "+"],
+                "thick": ["=", "I", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
+                "double": ["=", "H", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
+            }[border_style]
+        else:
+            border_chars = {
+                "thin": ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼"],
+                "thin rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
+                "thick": ["━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋"],
+                "double": ["═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬"],
+            }[border_style]
 
     return border_chars
+
+
+def _get_header_separator_chars(border_style, header_separator, ascii_mode):
+    if ascii_mode:
+        header_chars = {
+            ("thin", "thin"): ["+", "-", "+", "+"],
+            ("thin", "thin rounded"): ["+", "-", "+", "+"],
+            ("thin", "thick"): ["+", "=", "+", "+"],
+            ("thin", "double"): ["+", "=", "+", "+"],
+            #
+            ("thin rounded", "thin"): ["+", "-", "+", "+"],
+            ("thin rounded", "thin rounded"): ["+", "-", "+", "+"],
+            ("thin rounded", "thick"): ["+", "=", "+", "+"],
+            ("thin rounded", "double"): ["+", "=", "+", "+"],
+            #
+            ("thick", "thin"): ["+", "-", "+", "+"],
+            ("thick", "thin rounded"): ["+", "-", "+", "+"],
+            ("thick", "thick"): ["+", "=", "+", "+"],
+            ("thick", "double"): ["+", "=", "+", "+"],
+            #
+            ("double", "thin"): ["+", "-", "+", "+"],
+            ("double", "thin rounded"): ["+", "-", "+", "+"],
+            ("double", "thick"): ["+", "=", "+", "+"],
+            ("double", "double"): ["+", "=", "+", "+"],
+        }[(border_style, header_separator)]
+    else:
+        header_chars = {
+            ("thin", "thin"): ["├", "─", "┼", "┤"],
+            ("thin", "thin rounded"): ["├", "─", "┼", "┤"],
+            ("thin", "thick"): ["┝", "━", "┿", "┥"],
+            ("thin", "double"): ["╞", "═", "╪", "╡"],
+            #
+            ("thin rounded", "thin"): ["├", "─", "┼", "┤"],
+            ("thin rounded", "thin rounded"): ["├", "─", "┼", "┤"],
+            ("thin rounded", "thick"): ["┝", "━", "┿", "┥"],
+            ("thin rounded", "double"): ["╞", "═", "╪", "╡"],
+            #
+            ("thick", "thin"): ["┠", "─", "╂", "┨"],
+            ("thick", "thin rounded"): ["┠", "─", "╂", "┨"],
+            ("thick", "thick"): ["┣", "━", "╋", "┫"],
+            ("thick", "double"): ["┠", "═", "╂", "┨"],
+            #
+            ("double", "thin"): ["╟", "─", "╫", "╢"],
+            ("double", "thin rounded"): ["╟", "─", "╫", "╢"],
+            ("double", "thick"): ["╟", "━", "╫", "╢"],
+            ("double", "double"): ["╠", "═", "╬", "╣"],
+        }[(border_style, header_separator)]
+
+    return header_chars
 
 
 def _get_column_widths(strings, num_columns):
@@ -76,20 +132,20 @@ def table(
     padding=(0, 1),
     header=None,
     border_style="thin",
-    header_seperator="double",
+    header_separator="double",
+    ascii_mode=False
 ):
     # Make sure the data is consistent
     num_columns = len(data[0])
     for row in data:
         assert len(row) == num_columns
 
-    # TODO header
     if header:
         assert len(header) == num_columns
 
     padding = create_padding_tuple(padding)
     alignments = _create_alignment(alignment, num_columns)
-    border_chars = _get_border_chars(border_style)
+    border_chars = _get_border_chars(border_style, ascii_mode)
 
     strings = [["{}".format(item) for item in row] for row in data]
 
@@ -122,34 +178,25 @@ def table(
 
     # collect the table
     if border_chars:
-        out = []
-        out += [
-            border_chars[2]
-            + border_chars[8].join(
-                [s * border_chars[0] for s in column_widths_with_padding]
-            )
-            + border_chars[3]
-        ]
+        bc = border_chars
+        cwp = column_widths_with_padding
+        first_border_row = bc[2] + bc[8].join([s * bc[0] for s in cwp]) + bc[3]
+        intermediate_border_row = bc[6] + bc[10].join([s * bc[0] for s in cwp]) + bc[7]
+        last_border_row = bc[4] + bc[9].join([s * bc[0] for s in cwp]) + bc[5]
 
-        intermediate_border_row = (
-            border_chars[6]
-            + border_chars[10].join(
-                [s * border_chars[0] for s in column_widths_with_padding]
-            )
-            + border_chars[7]
-        )
-        for k in range(len(srows) - 1):
-            out += [srows[k], intermediate_border_row]
+        out = [first_border_row]
+        if header:
+            hs = _get_header_separator_chars(border_style, header_separator, ascii_mode)
+            header_sep_row = hs[0] + hs[2].join([s * hs[1] for s in cwp]) + hs[3]
+            out += [srows[0], header_sep_row]
+            for k in range(1, len(srows) - 1):
+                out += [srows[k], intermediate_border_row]
+        else:
+            for k in range(len(srows) - 1):
+                out += [srows[k], intermediate_border_row]
+
         out += [srows[-1]]
-
-        # final row
-        out += [
-            border_chars[4]
-            + border_chars[9].join(
-                [s * border_chars[0] for s in column_widths_with_padding]
-            )
-            + border_chars[5]
-        ]
+        out += [last_border_row]
     else:
         out = srows
 
