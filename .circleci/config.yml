@@ -11,6 +11,7 @@ jobs:
       - run: pip3 install -U pytest pytest-cov black flake8
       - checkout
       - run: pip3 install .
+      - run: pip3 install -r test_requirements.txt
       # format and lint
       - run: LC_ALL=C.UTF-8 black --check setup.py asciiplotlib/ test/*.py
       - run: flake8 setup.py asciiplotlib/ test/*.py

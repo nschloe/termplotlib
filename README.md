@@ -7,6 +7,9 @@
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars)](https://github.com/nschloe/asciiplotlib)
 
 
+no requirements!
+
+
 ### Installation
 
 asciiplotlib is [available from the Python Package

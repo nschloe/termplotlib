@@ -2,8 +2,6 @@
 #
 from __future__ import division, print_function, unicode_literals
 
-import numpy
-
 
 def hist(
     counts,
@@ -24,6 +22,15 @@ def hist(
     )
 
 
+def _trim_trailing_zeros(lst):
+    k = 0
+    for item in lst[::-1]:
+        if item != 0:
+            break
+        k += 1
+    return lst[:-k] if k > 0 else lst
+
+
 def hist_horizontal(
     counts,
     bin_edges,
@@ -42,7 +49,7 @@ def hist_horizontal(
         efmt = "{:+.2e}"
         fmt.append(efmt + " - " + efmt)
     if show_counts:
-        cfmt = "{{:{}d}}".format(numpy.max([len(str(c)) for c in counts]))
+        cfmt = "{{:{}d}}".format(max([len(str(c)) for c in counts]))
         fmt.append("[" + cfmt + "]")
     fmt.append("{}")
     fmt = "  ".join(fmt)
@@ -57,11 +64,16 @@ def hist_horizontal(
             data.append(counts)
 
         # Cut off trailing zeros
-        r = numpy.trim_zeros(row, trim="b")
+        r = _trim_trailing_zeros(row)
         data.append("".join(chars[item] for item in r))
         out.append(fmt.format(*data))
 
     return out
+
+
+def _flip(matrix):
+    n = len(matrix[0])
+    return [[row[-(i + 1)] for row in matrix] for i in range(n)]
 
 
 def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgrid=None):
@@ -74,16 +86,16 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgri
         # Cut off leading and trailing rows of 0
         k0 = 0
         for row in matrix:
-            if numpy.any(row != 0):
+            if any([item != 0 for item in row]):
                 break
             k0 += 1
 
         k1 = 0
         for row in matrix[::-1]:
-            if numpy.any(row != 0):
+            if any([item != 0 for item in row]):
                 break
             k1 += 1
-        n = matrix.shape[0]
+        n = len(matrix)
         matrix = matrix[k0 : n - k1]
     else:
         k0 = 0
@@ -94,10 +106,10 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgri
 
     # print text matrix
     out = []
-    for row in numpy.flipud(matrix.T):
+    for row in _flip(matrix):
 
         # Cut off trailing zeros
-        r = numpy.trim_zeros(row, trim="b")
+        r = _trim_trailing_zeros(row)
 
         c = [block_chars[item] for item in r]
 
@@ -114,22 +126,24 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgri
 
 
 def _get_matrix_of_eighths(counts, max_size, bar_width):
-    max_count = numpy.max(counts)
+    max_count = max(counts)
 
     # translate to eighths of a textbox
-    eighths = numpy.array(
-        [int(round(count / max_count * max_size * 8)) for count in counts]
-    )
+    eighths = [int(round(count / max_count * max_size * 8)) for count in counts]
 
     # prepare matrix
-    matrix = numpy.zeros((len(eighths), max_size), dtype=int)
-    for k, eighth in enumerate(eighths):
+    matrix = [[0] * max_size for _ in range(len(eighths))]
+    for i, eighth in enumerate(eighths):
         num_full_blocks = eighth // 8
         remainder = eighth % 8
-        matrix[k, :num_full_blocks] = 8
+        for j in range(num_full_blocks):
+            matrix[i][j] = 8
         if remainder > 0:
-            matrix[k, num_full_blocks] = remainder
+            matrix[i][num_full_blocks] = remainder
 
     # Account for bar width
-    matrix = numpy.repeat(matrix, numpy.full(matrix.shape[0], bar_width), axis=0)
-    return matrix
+    out = []
+    for i in range(len(matrix)):
+        for _ in range(bar_width):
+            out.append(matrix[i])
+    return out

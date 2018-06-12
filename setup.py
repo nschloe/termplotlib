@@ -23,7 +23,7 @@ setup(
     url="https://github.com/nschloe/asciiplotlib",
     author=about["__author__"],
     author_email=about["__email__"],
-    install_requires=["numpy"],
+    install_requires=[],
     description="Plotting on the command line",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
