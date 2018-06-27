@@ -6,10 +6,14 @@
 [![PyPi Version](https://img.shields.io/pypi/v/asciiplotlib.svg)](https://pypi.org/project/asciiplotlib)
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars)](https://github.com/nschloe/asciiplotlib)
 
-asciiplotlib is a Python library for all your terminal plotting needs.
+asciiplotlib is a Python library for all your terminal plotting needs. It aims to work
+like [matplotlib](https://matplotlib.org/).
 
 
 ### Line plots
+
+For line plots, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/). With that in
+stalled the code
 ```
 import asciiplotlib as apl
 
@@ -22,7 +26,6 @@ fig.show()
 ```
 produces
 ```
-
     1 +---------------------------------------+
   0.8 |-+  **    +A*   +     +     +    +   +-|
   0.6 |-+ A         **           data ***A***-|
@@ -36,14 +39,13 @@ produces
  -0.8 |-+   +    +     +     +A*** **   +   +-|
    -1 +---------------------------------------+
       0     1    2     3     4     5    6     7
-
 ```
-Here, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/).
 
 
 ### Tables
 
-asciiplotlib
+asciiplotlib provides many options for table plotting. For the most basic example, the
+code
 ```python
 import asciiplotlib as apl
 
@@ -68,7 +70,9 @@ produces
 │ 0.9636627605010293 │ 0.3834415188257777 │
 └────────────────────┴────────────────────┘
 ```
-There are many options for the table plotter, e.g.,
+
+You can control border style, padding, alignment, and various other attributes. For
+example,
 ```python
 import asciiplotlib as apl
 
