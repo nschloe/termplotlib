@@ -126,6 +126,8 @@ produces
 +2.21e+00 - +2.89e+00  [  7]  █
 +2.89e+00 - +3.57e+00  [  2]  ▎
 ```
+(The plot looks a little funny when rendered on GitHub; best try it out on your own
+machine.)
 
 #### Vertical histograms
 
@@ -153,6 +155,8 @@ produces
   ██▉██▆
 ▂███▉██▉▂▁
 ```
+(The plot looks a little funny when rendered on GitHub; best try it out on your own
+machine.)
 
 ### Installation
 
