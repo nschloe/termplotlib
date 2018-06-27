@@ -199,7 +199,6 @@ def test_noborder():
 
 
 def test_header():
-    numpy.random.seed(0)
     data = [
         [["a", "bb", "ccc"]],
         [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]],
@@ -208,8 +207,6 @@ def test_header():
     fig = apl.figure()
     fig.table(data, alignment="lcr")
     string = fig.get_string()
-
-    print(string)
 
     assert (
         string
