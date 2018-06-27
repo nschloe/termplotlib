@@ -202,7 +202,7 @@ def test_header():
     numpy.random.seed(0)
     data = [
         [["a", "bb", "ccc"]],
-        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]],
     ]
 
     fig = apl.figure()
@@ -228,7 +228,7 @@ def test_header_ascii():
     numpy.random.seed(0)
     data = [
         [["a", "bb", "ccc"]],
-        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]],
     ]
 
     fig = apl.figure()
@@ -252,13 +252,11 @@ def test_header_thick():
     numpy.random.seed(0)
     data = [
         [["a", "bb", "ccc"]],
-        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
+        [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]],
     ]
 
     fig = apl.figure()
-    fig.table(
-        data, border_style=("thin", "thick"), alignment="lcr"
-    )
+    fig.table(data, border_style=("thin", "thick"), alignment="lcr")
     string = fig.get_string()
 
     assert (
