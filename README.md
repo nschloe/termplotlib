@@ -9,61 +9,7 @@
 asciiplotlib is a Python library for all your terminal plotting needs.
 
 
-#### Horizontal histograms
-
-```python
-import asciiplotlib as apl
-
-numpy.random.seed(123)
-sample = numpy.random.normal(size=1000)
-counts, bin_edges = numpy.histogram(sample)
-
-fig = apl.figure()
-fig.hist(counts, bin_edges, orientation="horizontal")
-fig.show()
-```
-produces
-```
--3.23e+00 - -2.55e+00  [  7]  █
--2.55e+00 - -1.87e+00  [ 27]  ███▊
--1.87e+00 - -1.19e+00  [ 95]  █████████████▎
--1.19e+00 - -5.10e-01  [183]  █████████████████████████▋
--5.10e-01 - +1.70e-01  [286]  ████████████████████████████████████████
-+1.70e-01 - +8.51e-01  [202]  ████████████████████████████▎
-+8.51e-01 - +1.53e+00  [142]  ███████████████████▉
-+1.53e+00 - +2.21e+00  [ 49]  ██████▉
-+2.21e+00 - +2.89e+00  [  7]  █
-+2.89e+00 - +3.57e+00  [  2]  ▎
-```
-
-#### Vertical histograms
-
-```python
-import asciiplotlib as apl
-
-numpy.random.seed(123)
-sample = numpy.random.normal(size=1000)
-counts, bin_edges = numpy.histogram(sample)
-
-fig = apl.figure()
-fig.hist(counts, bin_edges, grid=[5, 8])
-fig.show()
-```
-produces
-```
-    █
-    █
-    ▉▁
-   ▃▉█
-   █▉█
-   █▉██
-  ▃█▉██
-  ██▉██
-  ██▉██▆
-▂███▉██▉▂▁
-```
-
-#### Plot
+### Line plots
 ```
 import asciiplotlib as apl
 
@@ -95,7 +41,7 @@ produces
 Here, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/).
 
 
-#### Tables
+### Tables
 
 asciiplotlib
 ```python
@@ -149,6 +95,60 @@ See
 [`test/test_table.py`](https://github.com/nschloe/asciiplotlib/blob/master/test/test_table.py)
 for more examples.
 
+
+### Horizontal histograms
+
+```python
+import asciiplotlib as apl
+
+numpy.random.seed(123)
+sample = numpy.random.normal(size=1000)
+counts, bin_edges = numpy.histogram(sample)
+
+fig = apl.figure()
+fig.hist(counts, bin_edges, orientation="horizontal")
+fig.show()
+```
+produces
+```
+-3.23e+00 - -2.55e+00  [  7]  █
+-2.55e+00 - -1.87e+00  [ 27]  ███▊
+-1.87e+00 - -1.19e+00  [ 95]  █████████████▎
+-1.19e+00 - -5.10e-01  [183]  █████████████████████████▋
+-5.10e-01 - +1.70e-01  [286]  ████████████████████████████████████████
++1.70e-01 - +8.51e-01  [202]  ████████████████████████████▎
++8.51e-01 - +1.53e+00  [142]  ███████████████████▉
++1.53e+00 - +2.21e+00  [ 49]  ██████▉
++2.21e+00 - +2.89e+00  [  7]  █
++2.89e+00 - +3.57e+00  [  2]  ▎
+```
+
+#### Vertical histograms
+
+```python
+import asciiplotlib as apl
+
+numpy.random.seed(123)
+sample = numpy.random.normal(size=1000)
+counts, bin_edges = numpy.histogram(sample)
+
+fig = apl.figure()
+fig.hist(counts, bin_edges, grid=[5, 8])
+fig.show()
+```
+produces
+```
+    █
+    █
+    ▉▁
+   ▃▉█
+   █▉█
+   █▉██
+  ▃█▉██
+  ██▉██
+  ██▉██▆
+▂███▉██▉▂▁
+```
 
 ### Installation
 
