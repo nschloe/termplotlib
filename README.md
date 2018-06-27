@@ -14,7 +14,7 @@ like [matplotlib](https://matplotlib.org/).
 
 For line plots, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/). With that in
 stalled the code
-```
+```python
 import asciiplotlib as apl
 
 x = numpy.linspace(0, 2 * numpy.pi, 10)
@@ -129,7 +129,7 @@ produces
 (The plot looks a little funny when rendered on GitHub; best try it out on your own
 machine.)
 
-#### Vertical histograms
+### Vertical histograms
 
 ```python
 import asciiplotlib as apl
