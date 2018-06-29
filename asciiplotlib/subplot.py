@@ -11,11 +11,18 @@ def subplot_grid(*args, **kwargs):
 
 class SubplotGrid(object):
     def __init__(
-        self, layout, width=80, column_widths=None, border_style="thin", padding=(1, 2)
+        self,
+        layout,
+        width=None,
+        column_widths=None,
+        border_style="thin",
+        padding=(1, 2),
     ):
         assert (
             len(layout) == 2
         ), "layout must be an interable of length 2 (rows and columns)"
+
+        self._layout = layout
 
         if border_style is None:
             self._border_chars = None
@@ -36,18 +43,20 @@ class SubplotGrid(object):
         border_width = 1
         self._num_borders = layout[1] + 1
 
-        self._width = width
-
         if column_widths is None:
-            self._column_widths = [
-                (self._width - self._num_borders * border_width) // layout[1]
-                for _ in range(layout[1])
-            ]
-            for k in range(
-                (self._width - self._num_borders * border_width) % layout[1]
-            ):
-                self._column_widths[k] += 1
+            if width is None:
+                self._column_widths = [None] * layout[1]
+            else:
+                self._column_widths = [
+                    (width - self._num_borders * border_width) // layout[1]
+                    for _ in range(layout[1])
+                ]
+                for k in range((width - self._num_borders * border_width) % layout[1]):
+                    self._column_widths[k] += 1
         else:
+            assert (
+                width is None
+            ), "At most one of `width` and `column_widths` can be specified."
             assert len(column_widths) == layout[1]
             self._column_widths = column_widths
 
@@ -62,13 +71,29 @@ class SubplotGrid(object):
         return
 
     def get_string(self):
+        # compute column width
+        cstrings = [
+            [item.get_string(remove_trailing_whitespace=False) for item in row]
+            for row in self._subfigures
+        ]
+        column_widths = [
+            max(
+                [
+                    len(line)
+                    for i in range(self._layout[0])
+                    for line in cstrings[i][j].split("\n")
+                ]
+            )
+            for j in range(self._layout[1])
+        ]
+
         string = []
 
         if self._border_chars:
             string += [
                 self._border_chars[2]
                 + self._border_chars[8].join(
-                    [s * self._border_chars[0] for s in self._column_widths]
+                    [s * self._border_chars[0] for s in column_widths]
                 )
                 + self._border_chars[3]
             ]
@@ -86,11 +111,11 @@ class SubplotGrid(object):
                         s = cstring[k]
                     except IndexError:
                         s = ""
-                    # truncate or extend with spaces to match teh column width
-                    if len(s) >= self._column_widths[j]:
-                        s = s[: self._column_widths[j]]
+                    # truncate or extend with spaces to match the column width
+                    if len(s) >= column_widths[j]:
+                        s = s[: column_widths[j]]
                     else:
-                        s += " " * (self._column_widths[j] - len(s))
+                        s += " " * (column_widths[j] - len(s))
                     p.append(s)
                 if self._border_chars:
                     join_char = self._border_chars[1]
@@ -104,7 +129,7 @@ class SubplotGrid(object):
                 "\n"
                 + self._border_chars[6]
                 + self._border_chars[10].join(
-                    [s * self._border_chars[0] for s in self._column_widths]
+                    [s * self._border_chars[0] for s in column_widths]
                 )
                 + self._border_chars[7]
                 + "\n"
@@ -118,7 +143,7 @@ class SubplotGrid(object):
             string += [
                 self._border_chars[4]
                 + self._border_chars[9].join(
-                    [s * self._border_chars[0] for s in self._column_widths]
+                    [s * self._border_chars[0] for s in column_widths]
                 )
                 + self._border_chars[5]
             ]
