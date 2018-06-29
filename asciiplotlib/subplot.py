@@ -36,15 +36,13 @@ class SubplotGrid(object):
         border_width = 1
         self._num_borders = layout[1] + 1
 
-        self._width = width
-
         if column_widths is None:
             self._column_widths = [
-                (self._width - self._num_borders * border_width) // layout[1]
+                (width - self._num_borders * border_width) // layout[1]
                 for _ in range(layout[1])
             ]
             for k in range(
-                (self._width - self._num_borders * border_width) % layout[1]
+                (width - self._num_borders * border_width) % layout[1]
             ):
                 self._column_widths[k] += 1
         else:

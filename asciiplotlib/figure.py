@@ -12,7 +12,7 @@ def figure(*args, **kwargs):
 
 
 class Figure(object):
-    def __init__(self, width=80, padding=0):
+    def __init__(self, width=None, padding=0):
         self._content = []
         self._width = width
         self._subfigures = None
@@ -30,20 +30,25 @@ class Figure(object):
     def get_string(self):
         lines = []
 
-        # Top padding
-        lines += self._padding[0] * [" " * self._width]
-
         padding_lr = self._padding[1] + self._padding[3]
+
+        if self._width is None:
+            width = max([len(line) for c in self._content for line in c])
+            width += padding_lr
+        else:
+            width = self._width
+
+        # Top padding
+        lines += self._padding[0] * [" " * width]
+
         pr = " " * self._padding[1]
         pl = " " * self._padding[3]
         lines += [
-            pl + line[: self._width - padding_lr] + pr
-            for c in self._content
-            for line in c
+            pl + line[: width - padding_lr] + pr for c in self._content for line in c
         ]
 
         # Bottom padding
-        lines += self._padding[2] * [" " * self._width]
+        lines += self._padding[2] * [" " * width]
         return "\n".join([line.rstrip() for line in lines])
 
     def hist(self, *args, **kwargs):
