@@ -11,11 +11,13 @@ def test_horizontal():
     counts, bin_edges = numpy.histogram(sample)
     fig = apl.figure()
     fig.hist(counts, bin_edges, orientation="horizontal")
+    # fig.show()
     string = fig.get_string()
 
     assert (
         string
-        == """-3.23e+00 - -2.55e+00  [  7]  █
+        == """\
+-3.23e+00 - -2.55e+00  [  7]  █
 -2.55e+00 - -1.87e+00  [ 27]  ███▊
 -1.87e+00 - -1.19e+00  [ 95]  █████████████▎
 -1.19e+00 - -5.10e-01  [183]  █████████████████████████▋
@@ -24,7 +26,34 @@ def test_horizontal():
 +8.51e-01 - +1.53e+00  [142]  ███████████████████▉
 +1.53e+00 - +2.21e+00  [ 49]  ██████▉
 +2.21e+00 - +2.89e+00  [  7]  █
-+2.89e+00 - +3.57e+00  [  2]  ▎"""
++2.89e+00 - +3.57e+00  [  2]  ▎\
+"""
+    )
+    return
+
+
+def test_horizontal_ascii():
+    numpy.random.seed(123)
+    sample = numpy.random.normal(size=1000)
+    counts, bin_edges = numpy.histogram(sample)
+    fig = apl.figure()
+    fig.hist(counts, bin_edges, orientation="horizontal", ascii_mode=True)
+    string = fig.get_string()
+
+    assert (
+        string
+        == """\
+-3.23e+00 - -2.55e+00  [  7]  *
+-2.55e+00 - -1.87e+00  [ 27]  ****
+-1.87e+00 - -1.19e+00  [ 95]  **************
+-1.19e+00 - -5.10e-01  [183]  **************************
+-5.10e-01 - +1.70e-01  [286]  ****************************************
++1.70e-01 - +8.51e-01  [202]  *****************************
++8.51e-01 - +1.53e+00  [142]  ********************
++1.53e+00 - +2.21e+00  [ 49]  *******
++2.21e+00 - +2.89e+00  [  7]  *
++2.89e+00 - +3.57e+00  [  2]  *\
+"""
     )
     return
 
@@ -32,26 +61,55 @@ def test_horizontal():
 def test_vertical():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample)
-    # sample = numpy.random.rand(1000)
+    counts, bin_edges = numpy.histogram(sample, bins=40)
     fig = apl.figure()
     fig.hist(counts, bin_edges)
-    string = fig.get_string()
+    fig.show()
 
-    print(string)
+    string = fig.get_string()
 
     assert (
         string
-        == """    █
-    █
-    █▁
-   ▃██
-   ███
-   ████
-  ▃████
-  █████
-  █████▆
-▂███████▂▁"""
+        == """\
+                  ▆█
+                ▄▄██
+               ▃█████
+              ▁██████▃  ▅
+            ▂ ████████▇▅█
+           ▂█▅████████████
+          ▂███████████████▃▂
+        ▂▃██████████████████▃▁
+      ▁▂██████████████████████
+▂ ▃▂▄▄█████████████████████████▅▃▁▂▁▁  ▁\
+"""
+    )
+    return
+
+
+def test_vertical_ascii():
+    numpy.random.seed(123)
+    sample = numpy.random.normal(size=1000)
+    counts, bin_edges = numpy.histogram(sample, bins=40)
+    fig = apl.figure()
+    fig.hist(counts, bin_edges, ascii_mode=True)
+    # fig.show()
+
+    string = fig.get_string()
+
+    assert (
+        string
+        == """\
+                  **
+                ****
+               ******
+              ********  *
+            * ***********
+           ***************
+          ******************
+        **********************
+      ************************
+* ***********************************  *\
+"""
     )
     return
 
@@ -59,24 +117,26 @@ def test_vertical():
 def test_vertical_grid():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample)
-    # sample = numpy.random.rand(1000)
+    counts, bin_edges = numpy.histogram(sample, bins=40)
     fig = apl.figure()
-    fig.hist(counts, bin_edges, grid=[5, 8])
+    fig.hist(counts, bin_edges, grid=[15, 25])
+    # fig.show()
     string = fig.get_string()
 
     assert (
         string
-        == """    █
-    █
-    ▉▁
-   ▃▉█
-   █▉█
-   █▉██
-  ▃█▉██
-  ██▉██
-  ██▉██▆
-▂███▉██▉▂▁"""
+        == """\
+                  ▆█
+                ▄▄██
+               ▃█████
+              ▁██████▃  ▅
+            ▂ ▉███████▇▅█
+           ▂█▅▉█████████▉█
+          ▂███▉█████████▉█▃▂
+        ▂▃████▉█████████▉███▃▁
+      ▁▂██████▉█████████▉█████
+▂ ▃▂▄▄████████▉█████████▉██████▅▃▁▂▁▁  ▁\
+"""
     )
     return
 
@@ -93,7 +153,8 @@ def test_vertical_strip():
 
     assert (
         string
-        == """   ▉▆
+        == """\
+   ▉▆
    ▉█
    ▉█
   ▁▉█
@@ -102,11 +163,12 @@ def test_vertical_strip():
   █▉██
  ▁█▉██
  ██▉██▃
-▃██▉██▉▂"""
+▃██▉██▉▂\
+"""
     )
     return
 
 
 if __name__ == "__main__":
-    test_horizontal()
-    # test_vertical()
+    # test_horizontal_ascii()
+    test_vertical_grid()
