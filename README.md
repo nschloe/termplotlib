@@ -110,7 +110,7 @@ sample = numpy.random.normal(size=1000)
 counts, bin_edges = numpy.histogram(sample)
 
 fig = apl.figure()
-fig.hist(counts, bin_edges, orientation="horizontal")
+fig.hist(counts, bin_edges, orientation="horizontal", ascii_mode=False)
 fig.show()
 ```
 produces
@@ -136,24 +136,23 @@ import asciiplotlib as apl
 
 numpy.random.seed(123)
 sample = numpy.random.normal(size=1000)
-counts, bin_edges = numpy.histogram(sample)
-
+counts, bin_edges = numpy.histogram(sample, bins=40)
 fig = apl.figure()
-fig.hist(counts, bin_edges, grid=[5, 8])
+fig.hist(counts, bin_edges, grid=[15, 25], ascii_mode=False)
 fig.show()
 ```
 produces
 ```
-    █
-    █
-    ▉▁
-   ▃▉█
-   █▉█
-   █▉██
-  ▃█▉██
-  ██▉██
-  ██▉██▆
-▂███▉██▉▂▁
+                  ▆█
+                ▄▄██
+               ▃█████
+              ▁██████▃  ▅
+            ▂ ▉███████▇▅█
+           ▂█▅▉█████████▉█
+          ▂███▉█████████▉█▃▂
+        ▂▃████▉█████████▉███▃▁
+      ▁▂██████▉█████████▉█████
+▂ ▃▂▄▄████████▉█████████▉██████▅▃▁▂▁▁  ▁
 ```
 (The plot looks a little funny when rendered on GitHub; best try it out on your own
 machine.)

@@ -12,13 +12,21 @@ def hist(
     grid=None,
     bar_width=1,
     strip=False,
+    ascii_mode=False,
 ):
     if orientation == "vertical":
-        return hist_vertical(counts, xgrid=grid, bar_width=bar_width, strip=strip)
+        return hist_vertical(
+            counts, xgrid=grid, bar_width=bar_width, strip=strip, ascii_mode=ascii_mode
+        )
 
     assert orientation == "horizontal", "Unknown orientation '{}'".format(orientation)
     return hist_horizontal(
-        counts, bin_edges, max_width=40, bins=20, bar_width=bar_width
+        counts,
+        bin_edges,
+        max_width=40,
+        bins=20,
+        bar_width=bar_width,
+        ascii_mode=ascii_mode,
     )
 
 
@@ -39,10 +47,14 @@ def hist_horizontal(
     bar_width=1,
     show_bin_edges=True,
     show_counts=True,
+    ascii_mode=False,
 ):
     matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
 
-    chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
+    if ascii_mode:
+        chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
+    else:
+        chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
 
     fmt = []
     if show_bin_edges:
@@ -76,7 +88,15 @@ def _flip(matrix):
     return [[row[-(i + 1)] for row in matrix] for i in range(n)]
 
 
-def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgrid=None):
+def hist_vertical(
+    counts,
+    bins=30,
+    max_height=10,
+    bar_width=2,
+    strip=False,
+    xgrid=None,
+    ascii_mode=False,
+):
     if xgrid is None:
         xgrid = []
 
@@ -100,9 +120,12 @@ def hist_vertical(counts, bins=30, max_height=10, bar_width=2, strip=False, xgri
     else:
         k0 = 0
 
-    block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
-
-    left_seven_eighths = "▉"
+    if ascii_mode:
+        block_chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
+        left_seven_eighths = "*"
+    else:
+        block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+        left_seven_eighths = "▉"
 
     # print text matrix
     out = []
