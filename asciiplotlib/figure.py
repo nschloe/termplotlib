@@ -27,7 +27,7 @@ class Figure(object):
         print(self.get_string())
         return
 
-    def get_string(self):
+    def get_string(self, remove_trailing_whitespace=True):
         lines = []
 
         padding_lr = self._padding[1] + self._padding[3]
@@ -49,7 +49,11 @@ class Figure(object):
 
         # Bottom padding
         lines += self._padding[2] * [" " * width]
-        return "\n".join([line.rstrip() for line in lines])
+
+        if remove_trailing_whitespace:
+            lines = [line.rstrip() for line in lines]
+
+        return "\n".join(lines)
 
     def hist(self, *args, **kwargs):
         self._content.append(hist(*args, **kwargs))
