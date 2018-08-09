@@ -82,7 +82,7 @@ data = [
 ]
 
 fig = apl.figure()
-fig.table(data, border_style="thin", ascii_mode=True, padding=(0, 1), alignment="lcr")
+fig.table(data, border_style="thin", force_ascii=True, padding=(0, 1), alignment="lcr")
 fig.show()
 ```
 produces
@@ -110,7 +110,7 @@ sample = numpy.random.normal(size=1000)
 counts, bin_edges = numpy.histogram(sample)
 
 fig = apl.figure()
-fig.hist(counts, bin_edges, orientation="horizontal", ascii_mode=False)
+fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=False)
 fig.show()
 ```
 produces
@@ -138,7 +138,7 @@ numpy.random.seed(123)
 sample = numpy.random.normal(size=1000)
 counts, bin_edges = numpy.histogram(sample, bins=40)
 fig = apl.figure()
-fig.hist(counts, bin_edges, grid=[15, 25], ascii_mode=False)
+fig.hist(counts, bin_edges, grid=[15, 25], force_ascii=False)
 fig.show()
 ```
 produces

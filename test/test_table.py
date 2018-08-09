@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 #
+import sys
+
 import numpy
+import pytest
 
 import asciiplotlib as apl
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_table():
     numpy.random.seed(0)
     data = numpy.random.rand(5, 2)
@@ -30,6 +37,10 @@ def test_table():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_table_double():
     numpy.random.seed(0)
     data = numpy.random.rand(5, 2)
@@ -60,7 +71,7 @@ def test_table_ascii():
     data = numpy.random.rand(5, 2)
 
     fig = apl.figure()
-    fig.table(data, border_style="thin", ascii_mode=True)
+    fig.table(data, border_style="thin", force_ascii=True)
     string = fig.get_string()
 
     assert (
@@ -85,7 +96,7 @@ def test_table_mixed():
     data = [[0, 0.123], [1, 2.13], [2, 613.2323]]
 
     fig = apl.figure()
-    fig.table(data, border_style="thin", ascii_mode=True)
+    fig.table(data, border_style="thin", force_ascii=True)
     string = fig.get_string()
 
     assert (
@@ -101,6 +112,10 @@ def test_table_mixed():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_table_padding_top():
     numpy.random.seed(0)
     data = [[0, 0.123], [1, 2.13], [2, 613.2323]]
@@ -130,6 +145,10 @@ def test_table_padding_top():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_table_padding_both():
     numpy.random.seed(0)
     data = [[0, 0.123], [1, 2.13], [2, 613.2323]]
@@ -164,7 +183,7 @@ def test_table_alignment():
     data = [[1, 2, 3], [613.23236243236, 613.23236243236, 613.23236243236]]
 
     fig = apl.figure()
-    fig.table(data, ascii_mode=True, alignment="lcr")
+    fig.table(data, force_ascii=True, alignment="lcr")
     string = fig.get_string()
 
     assert (
@@ -198,6 +217,10 @@ def test_noborder():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_header():
     data = [
         [["a", "bb", "ccc"]],
@@ -229,7 +252,7 @@ def test_header_ascii():
     ]
 
     fig = apl.figure()
-    fig.table(data, ascii_mode=True, alignment="lcr")
+    fig.table(data, force_ascii=True, alignment="lcr")
     string = fig.get_string()
 
     assert (
@@ -245,6 +268,10 @@ def test_header_ascii():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_header_thick():
     numpy.random.seed(0)
     data = [

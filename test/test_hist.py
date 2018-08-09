@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 #
+import sys
+
 import numpy
+import pytest
 
 import asciiplotlib as apl
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_horizontal():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
@@ -37,7 +44,7 @@ def test_horizontal_ascii():
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
     fig = apl.figure()
-    fig.hist(counts, bin_edges, orientation="horizontal", ascii_mode=True)
+    fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=True)
     string = fig.get_string()
 
     assert (
@@ -58,6 +65,10 @@ def test_horizontal_ascii():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_vertical():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
@@ -91,7 +102,7 @@ def test_vertical_ascii():
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample, bins=40)
     fig = apl.figure()
-    fig.hist(counts, bin_edges, ascii_mode=True)
+    fig.hist(counts, bin_edges, force_ascii=True)
     # fig.show()
 
     string = fig.get_string()
@@ -114,6 +125,10 @@ def test_vertical_ascii():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_vertical_grid():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
@@ -141,6 +156,10 @@ def test_vertical_grid():
     return
 
 
+@pytest.mark.skipif(
+    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+)
 def test_vertical_strip():
     numpy.random.seed(20)
     sample = numpy.random.normal(size=10000)
@@ -148,8 +167,6 @@ def test_vertical_strip():
     fig = apl.figure()
     fig.hist(counts, bin_edges, grid=[5, 8], strip=True)
     string = fig.get_string()
-
-    print(string)
 
     assert (
         string
