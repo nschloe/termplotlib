@@ -28,7 +28,7 @@ def _get_border_chars(border_style, force_ascii):
         assert len(border) == 11
         border_chars = border
     else:
-        if sys.stdout.encoding == "UTF-8" and not force_ascii:
+        if sys.stdout.encoding in ["UTF-8", "UTF8"] and not force_ascii:
             border_chars = {
                 "thin": ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼"],
                 "rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
@@ -50,7 +50,7 @@ def _get_border_chars(border_style, force_ascii):
         bc = border_chars
         block_chars = [bc[6], bc[0], bc[10], bc[7]]
     else:
-        if sys.stdout.encoding == "UTF-8" and not force_ascii:
+        if sys.stdout.encoding in ["UTF-8", "UTF8"] and not force_ascii:
             block_chars = {
                 ("thin", "thin"): ["├", "─", "┼", "┤"],
                 ("thin", "rounded"): ["├", "─", "┼", "┤"],
