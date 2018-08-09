@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 from collections.abc import Sequence
+import sys
 
 from .helpers import create_padding_tuple
 
@@ -12,7 +13,7 @@ def _create_alignment(alignment, num_columns):
     return alignment
 
 
-def _get_border_chars(border_style, ascii_mode):
+def _get_border_chars(border_style, force_ascii):
     if isinstance(border_style, tuple):
         assert len(border_style) == 2
     else:
@@ -27,19 +28,19 @@ def _get_border_chars(border_style, ascii_mode):
         assert len(border) == 11
         border_chars = border
     else:
-        if ascii_mode:
-            border_chars = {
-                "thin": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
-                "rounded": ["-", "|", "/", "\\", "\\", "/", "+", "+", "+", "+", "+"],
-                "thick": ["=", "I", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
-                "double": ["=", "H", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
-            }[border]
-        else:
+        if sys.stdout.encoding == "UTF-8" and not force_ascii:
             border_chars = {
                 "thin": ["─", "│", "┌", "┐", "└", "┘", "├", "┤", "┬", "┴", "┼"],
                 "rounded": ["─", "│", "╭", "╮", "╰", "╯", "├", "┤", "┬", "┴", "┼"],
                 "thick": ["━", "┃", "┏", "┓", "┗", "┛", "┣", "┫", "┳", "┻", "╋"],
                 "double": ["═", "║", "╔", "╗", "╚", "╝", "╠", "╣", "╦", "╩", "╬"],
+            }[border]
+        else:
+            border_chars = {
+                "thin": ["-", "|", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
+                "rounded": ["-", "|", "/", "\\", "\\", "/", "+", "+", "+", "+", "+"],
+                "thick": ["=", "I", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
+                "double": ["=", "H", "+", "+", "+", "+", "+", "+", "+", "+", "+"],
             }[border]
 
     # block separators
@@ -49,29 +50,7 @@ def _get_border_chars(border_style, ascii_mode):
         bc = border_chars
         block_chars = [bc[6], bc[0], bc[10], bc[7]]
     else:
-        if ascii_mode:
-            block_chars = {
-                ("thin", "thin"): ["+", "-", "+", "+"],
-                ("thin", "rounded"): ["+", "-", "+", "+"],
-                ("thin", "thick"): ["+", "=", "+", "+"],
-                ("thin", "double"): ["+", "=", "+", "+"],
-                #
-                ("rounded", "thin"): ["+", "-", "+", "+"],
-                ("rounded", "rounded"): ["+", "-", "+", "+"],
-                ("rounded", "thick"): ["+", "=", "+", "+"],
-                ("rounded", "double"): ["+", "=", "+", "+"],
-                #
-                ("thick", "thin"): ["+", "-", "+", "+"],
-                ("thick", "rounded"): ["+", "-", "+", "+"],
-                ("thick", "thick"): ["+", "=", "+", "+"],
-                ("thick", "double"): ["+", "=", "+", "+"],
-                #
-                ("double", "thin"): ["+", "-", "+", "+"],
-                ("double", "rounded"): ["+", "-", "+", "+"],
-                ("double", "thick"): ["+", "=", "+", "+"],
-                ("double", "double"): ["+", "=", "+", "+"],
-            }[(border, block_sep)]
-        else:
+        if sys.stdout.encoding == "UTF-8" and not force_ascii:
             block_chars = {
                 ("thin", "thin"): ["├", "─", "┼", "┤"],
                 ("thin", "rounded"): ["├", "─", "┼", "┤"],
@@ -92,6 +71,28 @@ def _get_border_chars(border_style, ascii_mode):
                 ("double", "rounded"): ["╟", "─", "╫", "╢"],
                 ("double", "thick"): ["╟", "━", "╫", "╢"],
                 ("double", "double"): ["╠", "═", "╬", "╣"],
+            }[(border, block_sep)]
+        else:
+            block_chars = {
+                ("thin", "thin"): ["+", "-", "+", "+"],
+                ("thin", "rounded"): ["+", "-", "+", "+"],
+                ("thin", "thick"): ["+", "=", "+", "+"],
+                ("thin", "double"): ["+", "=", "+", "+"],
+                #
+                ("rounded", "thin"): ["+", "-", "+", "+"],
+                ("rounded", "rounded"): ["+", "-", "+", "+"],
+                ("rounded", "thick"): ["+", "=", "+", "+"],
+                ("rounded", "double"): ["+", "=", "+", "+"],
+                #
+                ("thick", "thin"): ["+", "-", "+", "+"],
+                ("thick", "rounded"): ["+", "-", "+", "+"],
+                ("thick", "thick"): ["+", "=", "+", "+"],
+                ("thick", "double"): ["+", "=", "+", "+"],
+                #
+                ("double", "thin"): ["+", "-", "+", "+"],
+                ("double", "rounded"): ["+", "-", "+", "+"],
+                ("double", "thick"): ["+", "=", "+", "+"],
+                ("double", "double"): ["+", "=", "+", "+"],
             }[(border, block_sep)]
 
     return border_chars, block_chars
@@ -169,7 +170,7 @@ def table(
     alignment="l",
     padding=(0, 1),
     border_style=("thin", "double"),
-    ascii_mode=False,
+    force_ascii=False,
 ):
     try:
         depth = len(data.shape)
@@ -191,7 +192,7 @@ def table(
 
     padding = create_padding_tuple(padding)
     alignments = _create_alignment(alignment, num_columns)
-    border_chars, block_sep_chars = _get_border_chars(border_style, ascii_mode)
+    border_chars, block_sep_chars = _get_border_chars(border_style, force_ascii)
 
     strings = [[["{}".format(item) for item in row] for row in block] for block in data]
 
@@ -222,7 +223,7 @@ def table(
     for k, block in enumerate(strings):
         strings[k] = intermediate_border_row.join(block)
 
-    # bs = _get_block_separator_chars(border_style, block_separator, ascii_mode)
+    # bs = _get_block_separator_chars(border_style, block_separator, force_ascii)
     if block_sep_chars:
         bs = block_sep_chars
         block_sep_row = (

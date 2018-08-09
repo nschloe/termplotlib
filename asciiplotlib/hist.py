@@ -2,6 +2,8 @@
 #
 from __future__ import division, print_function, unicode_literals
 
+import sys
+
 
 def hist(
     counts,
@@ -12,11 +14,15 @@ def hist(
     grid=None,
     bar_width=1,
     strip=False,
-    ascii_mode=False,
+    force_ascii=False,
 ):
     if orientation == "vertical":
         return hist_vertical(
-            counts, xgrid=grid, bar_width=bar_width, strip=strip, ascii_mode=ascii_mode
+            counts,
+            xgrid=grid,
+            bar_width=bar_width,
+            strip=strip,
+            force_ascii=force_ascii,
         )
 
     assert orientation == "horizontal", "Unknown orientation '{}'".format(orientation)
@@ -26,7 +32,7 @@ def hist(
         max_width=40,
         bins=20,
         bar_width=bar_width,
-        ascii_mode=ascii_mode,
+        force_ascii=force_ascii,
     )
 
 
@@ -47,14 +53,14 @@ def hist_horizontal(
     bar_width=1,
     show_bin_edges=True,
     show_counts=True,
-    ascii_mode=False,
+    force_ascii=False,
 ):
     matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
 
-    if ascii_mode:
-        chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
-    else:
+    if sys.stdout.encoding == "UTF-8" and not force_ascii:
         chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
+    else:
+        chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
 
     fmt = []
     if show_bin_edges:
@@ -95,7 +101,7 @@ def hist_vertical(
     bar_width=2,
     strip=False,
     xgrid=None,
-    ascii_mode=False,
+    force_ascii=False,
 ):
     if xgrid is None:
         xgrid = []
@@ -120,12 +126,12 @@ def hist_vertical(
     else:
         k0 = 0
 
-    if ascii_mode:
-        block_chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
-        left_seven_eighths = "*"
-    else:
+    if sys.stdout.encoding == "UTF-8" and not force_ascii:
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
         left_seven_eighths = "▉"
+    else:
+        block_chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
+        left_seven_eighths = "*"
 
     # print text matrix
     out = []

@@ -37,7 +37,7 @@ def test_horizontal_ascii():
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
     fig = apl.figure()
-    fig.hist(counts, bin_edges, orientation="horizontal", ascii_mode=True)
+    fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=True)
     string = fig.get_string()
 
     assert (
@@ -91,7 +91,7 @@ def test_vertical_ascii():
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample, bins=40)
     fig = apl.figure()
-    fig.hist(counts, bin_edges, ascii_mode=True)
+    fig.hist(counts, bin_edges, force_ascii=True)
     # fig.show()
 
     string = fig.get_string()
