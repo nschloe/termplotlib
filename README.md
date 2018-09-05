@@ -4,7 +4,7 @@
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/asciiplotlib.svg)](https://codecov.io/gh/nschloe/asciiplotlib)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 [![PyPi Version](https://img.shields.io/pypi/v/asciiplotlib.svg)](https://pypi.org/project/asciiplotlib)
-[![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars)](https://github.com/nschloe/asciiplotlib)
+[![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/asciiplotlib)
 
 asciiplotlib is a Python library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
@@ -57,19 +57,8 @@ fig.table(data)
 fig.show()
 ```
 produces
-```
-┌────────────────────┬────────────────────┐
-│ 0.5488135039273248 │ 0.7151893663724195 │
-├────────────────────┼────────────────────┤
-│ 0.6027633760716439 │ 0.5448831829968969 │
-├────────────────────┼────────────────────┤
-│ 0.4236547993389047 │ 0.6458941130666561 │
-├────────────────────┼────────────────────┤
-│ 0.4375872112626925 │ 0.8917730007820798 │
-├────────────────────┼────────────────────┤
-│ 0.9636627605010293 │ 0.3834415188257777 │
-└────────────────────┴────────────────────┘
-```
+
+![table1](https://nschloe.github.io/asciiplotlib/table1.png)
 
 You can control border style, padding, alignment, and various other attributes. For
 example,
@@ -114,20 +103,8 @@ fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=False)
 fig.show()
 ```
 produces
-```
--3.23e+00 - -2.55e+00  [  7]  █
--2.55e+00 - -1.87e+00  [ 27]  ███▊
--1.87e+00 - -1.19e+00  [ 95]  █████████████▎
--1.19e+00 - -5.10e-01  [183]  █████████████████████████▋
--5.10e-01 - +1.70e-01  [286]  ████████████████████████████████████████
-+1.70e-01 - +8.51e-01  [202]  ████████████████████████████▎
-+8.51e-01 - +1.53e+00  [142]  ███████████████████▉
-+1.53e+00 - +2.21e+00  [ 49]  ██████▉
-+2.21e+00 - +2.89e+00  [  7]  █
-+2.89e+00 - +3.57e+00  [  2]  ▎
-```
-(The plot looks a little funny when rendered on GitHub; best try it out on your own
-machine.)
+
+![hist1](https://nschloe.github.io/asciiplotlib/hist1.png)
 
 ### Vertical histograms
 
@@ -142,20 +119,8 @@ fig.hist(counts, bin_edges, grid=[15, 25], force_ascii=False)
 fig.show()
 ```
 produces
-```
-                  ▆█
-                ▄▄██
-               ▃█████
-              ▁██████▃  ▅
-            ▂ ▉███████▇▅█
-           ▂█▅▉█████████▉█
-          ▂███▉█████████▉█▃▂
-        ▂▃████▉█████████▉███▃▁
-      ▁▂██████▉█████████▉█████
-▂ ▃▂▄▄████████▉█████████▉██████▅▃▁▂▁▁  ▁
-```
-(The plot looks a little funny when rendered on GitHub; best try it out on your own
-machine.)
+
+![hist2](https://nschloe.github.io/asciiplotlib/hist2.png)
 
 ### Installation
 
