@@ -57,7 +57,11 @@ def hist_horizontal(
 ):
     matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
 
-    if sys.stdout.encoding in ["UTF-8", "UTF8"] and not force_ascii:
+    if (
+        hasattr(sys.stdout, "encoding")
+        and sys.stdout.encoding in ["UTF-8", "UTF8"]
+        and not force_ascii
+    ):
         chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
     else:
         chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
@@ -126,7 +130,11 @@ def hist_vertical(
     else:
         k0 = 0
 
-    if sys.stdout.encoding in ["UTF-8", "UTF8"] and not force_ascii:
+    if (
+        hasattr(sys.stdout, "encoding")
+        and sys.stdout.encoding in ["UTF-8", "UTF8"]
+        and not force_ascii
+    ):
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
         left_seven_eighths = "▉"
     else:
