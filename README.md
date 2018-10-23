@@ -6,14 +6,13 @@
 [![PyPi Version](https://img.shields.io/pypi/v/asciiplotlib.svg)](https://pypi.org/project/asciiplotlib)
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/asciiplotlib)
 
-asciiplotlib is a Python library for all your terminal plotting needs. It aims to work
+asciiplotlib is a Python 3 library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
 
 
 ### Line plots
 
-For line plots, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/). With that in
-stalled the code
+For line plots, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
 ```python
 import asciiplotlib as apl
 

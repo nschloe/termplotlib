@@ -33,7 +33,6 @@ setup(
         about["__status__"],
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
         "Environment :: Console",
         "Intended Audience :: Developers",
