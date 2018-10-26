@@ -4,7 +4,16 @@ import subprocess
 
 
 def plot(
-    x, y, width=80, height=25, label=None, xlim=None, ylim=None, xlabel=None, title=None
+    x,
+    y,
+    width=80,
+    height=25,
+    label=None,
+    xlim=None,
+    ylim=None,
+    xlabel=None,
+    title=None,
+    extra_gnuplot_arguments=None,
 ):
     p = subprocess.Popen(
         ["gnuplot"],
@@ -26,6 +35,9 @@ def plot(
 
     if title:
         gnuplot_input.append('set title "{}"'.format(title))
+
+    if extra_gnuplot_arguments:
+        gnuplot_input += extra_gnuplot_arguments
 
     string = "plot '-' using 1:2 with linespoints"
     if label:
