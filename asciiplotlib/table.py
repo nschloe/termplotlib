@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-from collections.abc import Sequence
+from collections import Sequence
 import sys
 
 from .helpers import create_padding_tuple
