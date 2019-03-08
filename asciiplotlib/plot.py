@@ -14,6 +14,8 @@ def plot(
     xlabel=None,
     title=None,
     extra_gnuplot_arguments=None,
+    plot_command="plot '-' w lines",
+    ticks_scale=0,
 ):
     p = subprocess.Popen(
         ["gnuplot"],
@@ -22,7 +24,11 @@ def plot(
         stderr=subprocess.PIPE,
     )
 
-    gnuplot_input = ["set term dumb {} {}".format(width, height)]
+    gnuplot_input = []
+
+    gnuplot_input.append("set term dumb mono {},{}".format(width, height))
+    # gnuplot_input.append("set tics nomirror")
+    gnuplot_input.append("set tics scale {}".format(ticks_scale))
 
     if xlim:
         gnuplot_input.append("set xrange [{}:{}]".format(xlim[0], xlim[1]))
@@ -39,7 +45,7 @@ def plot(
     if extra_gnuplot_arguments:
         gnuplot_input += extra_gnuplot_arguments
 
-    string = "plot '-' using 1:2 with linespoints"
+    string = plot_command
     if label:
         string += " title '{}'".format(label)
 
@@ -51,4 +57,8 @@ def plot(
 
     out = p.communicate(input="\n".join(gnuplot_input).encode())[0]
 
-    return out.decode().split("\n")
+    return _remove_empty_lines(out.decode())
+
+
+def _remove_empty_lines(string):
+    return string.split("\n")[1:-2]
