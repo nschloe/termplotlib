@@ -15,6 +15,7 @@ like [matplotlib](https://matplotlib.org/).
 For line plots, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
 ```python
 import asciiplotlib as apl
+import numpy
 
 x = numpy.linspace(0, 2 * numpy.pi, 10)
 y = numpy.sin(x)
@@ -26,16 +27,16 @@ fig.show()
 produces
 ```
     1 +---------------------------------------+
-  0.8 |-+  **    +A*   +     +     +    +   +-|
-  0.6 |-+ A         **           data ***A***-|
-  0.4 |-**                                  +-|
-  0.2 |*+             A*                    +-|
-    0 |-+               **                  +-|
-      |                                   A   |
- -0.2 |-+                 A*            **  +-|
- -0.4 |-+                   **         *    +-|
- -0.6 |-+                            *A     +-|
- -0.8 |-+   +    +     +     +A*** **   +   +-|
+  0.8 |    **     **                          |
+  0.6 |   *         **           data ******* |
+  0.4 | **                                    |
+  0.2 |*              **                      |
+    0 |                 **                    |
+      |                                   *   |
+ -0.2 |                   **            **    |
+ -0.4 |                     **         *      |
+ -0.6 |                              **       |
+ -0.8 |                       **** **         |
    -1 +---------------------------------------+
       0     1    2     3     4     5    6     7
 ```
