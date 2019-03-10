@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 #
-import asciiplotlib as apl
+import termiplot as tp
 
 
 def test_simple():
-    fig = apl.figure()
+    fig = tp.figure()
     fig.aprint("abc")
     string = fig.get_string()
     assert string == """abc"""
@@ -12,7 +12,7 @@ def test_simple():
 
 
 def test_padding_1():
-    fig = apl.figure(padding=1)
+    fig = tp.figure(padding=1)
     fig.aprint("abc")
     string = fig.get_string()
     assert (
@@ -25,7 +25,7 @@ def test_padding_1():
 
 
 def test_padding_1b():
-    fig = apl.figure(padding=(1,))
+    fig = tp.figure(padding=(1,))
     fig.aprint("abc")
     string = fig.get_string()
     assert (
@@ -38,7 +38,7 @@ def test_padding_1b():
 
 
 def test_padding_2():
-    fig = apl.figure(padding=(1, 2))
+    fig = tp.figure(padding=(1, 2))
     fig.aprint("abc")
     string = fig.get_string()
     assert (
@@ -51,7 +51,7 @@ def test_padding_2():
 
 
 def test_padding_3():
-    fig = apl.figure(padding=(1, 2, 3))
+    fig = tp.figure(padding=(1, 2, 3))
     fig.aprint("abc")
     string = fig.get_string()
     assert (
@@ -66,7 +66,7 @@ def test_padding_3():
 
 
 def test_padding_4():
-    fig = apl.figure(padding=(1, 2, 3, 4))
+    fig = tp.figure(padding=(1, 2, 3, 4))
     fig.aprint("abc")
     string = fig.get_string()
     assert (
