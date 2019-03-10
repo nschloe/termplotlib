@@ -1,4 +1,4 @@
-VERSION=$(shell python3 -c "import asciiplotlib; print(asciiplotlib.__version__)")
+VERSION=$(shell python3 -c "import termiplot; print(termiplot.__version__)")
 
 default:
 	@echo "\"make publish\"?"
@@ -24,8 +24,8 @@ clean:
 	@rm -rf *.egg-info/ build/ dist/ MANIFEST .pytest_cache/
 
 lint:
-	black --check setup.py asciiplotlib/ test/*.py
-	flake8 setup.py asciiplotlib/ test/*.py
+	black --check setup.py termiplot/ test/*.py
+	flake8 setup.py termiplot/ test/*.py
 
 black:
-	black setup.py asciiplotlib/ test/*.py
+	black setup.py termiplot/ test/*.py
