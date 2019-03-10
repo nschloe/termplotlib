@@ -48,6 +48,8 @@ def plot(
     string = plot_command
     if label:
         string += " title '{}'".format(label)
+    else:
+        string += " notitle"
 
     gnuplot_input.append(string)
 
