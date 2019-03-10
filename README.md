@@ -48,6 +48,7 @@ asciiplotlib provides many options for table plotting. For the most basic exampl
 code
 ```python
 import asciiplotlib as apl
+import numpy
 
 numpy.random.seed(0)
 data = numpy.random.rand(5, 2)
@@ -93,6 +94,7 @@ for more examples.
 
 ```python
 import asciiplotlib as apl
+import numpy
 
 numpy.random.seed(123)
 sample = numpy.random.normal(size=1000)
@@ -110,6 +112,7 @@ produces
 
 ```python
 import asciiplotlib as apl
+import numpy
 
 numpy.random.seed(123)
 sample = numpy.random.normal(size=1000)
@@ -127,10 +130,10 @@ produces
 asciiplotlib is [available from the Python Package
 Index](https://pypi.org/project/asciiplotlib/), so simply do
 ```
-pip install -U asciiplotlib
+pip3 install -U asciiplotlib
 ```
 to install or upgrade. Use `sudo -H` to install as root or the `--user` option
-of `pip` to install in `$HOME`.
+of `pip3` to install in `$HOME`.
 
 
 ### Testing
