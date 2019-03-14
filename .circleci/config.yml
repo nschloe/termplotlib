@@ -13,10 +13,10 @@ jobs:
       - run: pip3 install .
       - run: pip3 install -r test_requirements.txt
       # format and lint
-      - run: LC_ALL=C.UTF-8 black --check setup.py termiplot/ test/*.py
-      - run: flake8 setup.py termiplot/ test/*.py
+      - run: LC_ALL=C.UTF-8 black --check setup.py asciiplotlib/ test/*.py
+      - run: flake8 setup.py asciiplotlib/ test/*.py
       # The tests
-      - run: cd test/ && MPLBACKEND=Agg pytest --cov termiplot
+      - run: cd test/ && MPLBACKEND=Agg pytest --cov asciiplotlib
       # submit to codecov
       - run: apt-get install -y curl
       - run: bash <(curl -s https://codecov.io/bash) -R ~/work

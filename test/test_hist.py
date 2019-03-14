@@ -5,7 +5,7 @@ import sys
 import numpy
 import pytest
 
-import termiplot as tp
+import asciiplotlib as apl
 
 
 @pytest.mark.skipif(
@@ -16,7 +16,7 @@ def test_horizontal():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
-    fig = tp.figure()
+    fig = apl.figure()
     fig.hist(counts, bin_edges, orientation="horizontal")
     # fig.show()
     string = fig.get_string()
@@ -43,7 +43,7 @@ def test_horizontal_ascii():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample)
-    fig = tp.figure()
+    fig = apl.figure()
     fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=True)
     string = fig.get_string()
 
@@ -73,7 +73,7 @@ def test_vertical():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample, bins=40)
-    fig = tp.figure()
+    fig = apl.figure()
     fig.hist(counts, bin_edges)
     fig.show()
 
@@ -101,7 +101,7 @@ def test_vertical_ascii():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample, bins=40)
-    fig = tp.figure()
+    fig = apl.figure()
     fig.hist(counts, bin_edges, force_ascii=True)
     # fig.show()
 
@@ -133,7 +133,7 @@ def test_vertical_grid():
     numpy.random.seed(123)
     sample = numpy.random.normal(size=1000)
     counts, bin_edges = numpy.histogram(sample, bins=40)
-    fig = tp.figure()
+    fig = apl.figure()
     fig.hist(counts, bin_edges, grid=[15, 25])
     # fig.show()
     string = fig.get_string()
@@ -164,7 +164,7 @@ def test_vertical_strip():
     numpy.random.seed(20)
     sample = numpy.random.normal(size=10000)
     counts, bin_edges = numpy.histogram(sample)
-    fig = tp.figure()
+    fig = apl.figure()
     fig.hist(counts, bin_edges, grid=[5, 8], strip=True)
     string = fig.get_string()
 
