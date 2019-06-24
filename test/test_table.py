@@ -9,7 +9,7 @@ import asciiplotlib as apl
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_table():
@@ -38,7 +38,7 @@ def test_table():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_table_double():
@@ -113,7 +113,7 @@ def test_table_mixed():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_table_padding_top():
@@ -146,7 +146,7 @@ def test_table_padding_top():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_table_padding_both():
@@ -218,7 +218,7 @@ def test_noborder():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_header():
@@ -269,7 +269,7 @@ def test_header_ascii():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_header_thick():

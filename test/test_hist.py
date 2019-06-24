@@ -9,7 +9,7 @@ import asciiplotlib as apl
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_horizontal():
@@ -66,7 +66,7 @@ def test_horizontal_ascii():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_vertical():
@@ -126,7 +126,7 @@ def test_vertical_ascii():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_vertical_grid():
@@ -157,7 +157,7 @@ def test_vertical_grid():
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding not in ["utf-8", "UTF-8", "UTF8"],
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_vertical_strip():
