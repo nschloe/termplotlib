@@ -90,8 +90,6 @@ def test_plot_lim():
         title="header",
     )
     string = fig.get_string()
-    with open('/tmp/fig.txt', 'w') as f:
-        f.write(string)
 
     ref = """                                     header
 
