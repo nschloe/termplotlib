@@ -30,7 +30,7 @@ def _get_border_chars(border_style, force_ascii):
     else:
         if (
             hasattr(sys.stdout, "encoding")
-            and sys.stdout.encoding in ["UTF-8", "UTF8"]
+            and sys.stdout.encoding in ["utf-8", "UTF-8", "UTF8"]
             and not force_ascii
         ):
             border_chars = {
@@ -56,7 +56,7 @@ def _get_border_chars(border_style, force_ascii):
     else:
         if (
             hasattr(sys.stdout, "encoding")
-            and sys.stdout.encoding in ["UTF-8", "UTF8"]
+            and sys.stdout.encoding in ["utf-8", "UTF-8", "UTF8"]
             and not force_ascii
         ):
             block_chars = {
