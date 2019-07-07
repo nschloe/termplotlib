@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
-#
-import os
 import codecs
+import os
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 # https://packaging.python.org/single_source_version/
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -28,6 +26,7 @@ setup(
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     license=about["__license__"],
+    python_requires=">=3",
     classifiers=[
         about["__license__"],
         about["__status__"],

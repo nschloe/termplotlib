@@ -1,17 +1,13 @@
-# -*- coding: utf-8 -*-
-#
+from .helpers import create_padding_tuple
 from .hist import hist
 from .plot import plot
-from .table import table
-
-from .helpers import create_padding_tuple
 
 
 def figure(*args, **kwargs):
     return Figure(*args, **kwargs)
 
 
-class Figure(object):
+class Figure:
     def __init__(self, width=None, padding=0):
         self._content = []
         self._width = width
@@ -61,8 +57,4 @@ class Figure(object):
 
     def plot(self, *args, **kwargs):
         self._content.append(plot(*args, **kwargs))
-        return
-
-    def table(self, *args, **kwargs):
-        self._content.append(table(*args, **kwargs))
         return

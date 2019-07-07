@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-from __future__ import unicode_literals
-
 from .figure import Figure
 
 
@@ -9,7 +5,7 @@ def subplot_grid(*args, **kwargs):
     return SubplotGrid(*args, **kwargs)
 
 
-class SubplotGrid(object):
+class SubplotGrid:
     def __init__(
         self,
         layout,
