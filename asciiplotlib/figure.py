@@ -1,7 +1,6 @@
+from .helpers import create_padding_tuple
 from .hist import hist
 from .plot import plot
-
-from .helpers import create_padding_tuple
 
 
 def figure(*args, **kwargs):
