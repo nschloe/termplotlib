@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 from .hist import hist
 from .plot import plot
 

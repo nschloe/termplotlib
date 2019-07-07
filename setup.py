@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 import os
 import codecs
 
@@ -28,6 +26,7 @@ setup(
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     license=about["__license__"],
+    python_requires=">=3",
     classifiers=[
         about["__license__"],
         about["__status__"],

@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-
-
 def create_padding_tuple(padding):
     # self._padding is a 4-tuple: top, right, bottom, left (just like CSS)
     if isinstance(padding, int):
