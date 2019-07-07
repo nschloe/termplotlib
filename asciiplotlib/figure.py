@@ -8,7 +8,7 @@ def figure(*args, **kwargs):
     return Figure(*args, **kwargs)
 
 
-class Figure(object):
+class Figure:
     def __init__(self, width=None, padding=0):
         self._content = []
         self._width = width
