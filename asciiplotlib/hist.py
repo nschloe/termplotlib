@@ -55,7 +55,7 @@ def hist_horizontal(
 
     if (
         hasattr(sys.stdout, "encoding")
-        and sys.stdout.encoding in ["UTF-8", "UTF8"]
+        and sys.stdout.encoding in ["utf-8", "UTF-8", "UTF8"]
         and not force_ascii
     ):
         chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
@@ -128,7 +128,7 @@ def hist_vertical(
 
     if (
         hasattr(sys.stdout, "encoding")
-        and sys.stdout.encoding in ["UTF-8", "UTF8"]
+        and sys.stdout.encoding in ["utf-8", "UTF-8", "UTF8"]
         and not force_ascii
     ):
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
