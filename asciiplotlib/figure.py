@@ -2,7 +2,6 @@
 #
 from .hist import hist
 from .plot import plot
-from .table import table
 
 from .helpers import create_padding_tuple
 
@@ -61,8 +60,4 @@ class Figure(object):
 
     def plot(self, *args, **kwargs):
         self._content.append(plot(*args, **kwargs))
-        return
-
-    def table(self, *args, **kwargs):
-        self._content.append(table(*args, **kwargs))
         return
