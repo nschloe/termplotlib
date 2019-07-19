@@ -1,5 +1,6 @@
 from .helpers import create_padding_tuple
 from .hist import hist
+from .barh import barh
 from .plot import plot
 
 
@@ -53,6 +54,10 @@ class Figure:
 
     def hist(self, *args, **kwargs):
         self._content.append(hist(*args, **kwargs))
+        return
+
+    def barh(self, *args, **kwargs):
+        self._content.append(barh(*args, **kwargs))
         return
 
     def plot(self, *args, **kwargs):
