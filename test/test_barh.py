@@ -11,7 +11,7 @@ import asciiplotlib as apl
 )
 def test_barh():
     fig = apl.figure()
-    fig.barh([3, 10, 5, 2], ['Cats', 'Dogs', 'Cows', 'Geese'])
+    fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"])
     # fig.show()
     string = fig.get_string()
 
@@ -29,7 +29,7 @@ Geese  [ 2]  ████████\
 
 def test_barh_ascii():
     fig = apl.figure()
-    fig.barh([3, 10, 5, 2], ['Cats', 'Dogs', 'Cows', 'Geese'], force_ascii=True)
+    fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"], force_ascii=True)
     # fig.show()
     string = fig.get_string()
 

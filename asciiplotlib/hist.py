@@ -1,5 +1,6 @@
 import sys
-from .barh import barh, _get_matrix_of_eighths, _trim_trailing_zeros
+
+from .barh import _get_matrix_of_eighths, _trim_trailing_zeros, barh
 
 
 def hist(

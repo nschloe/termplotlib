@@ -1,6 +1,6 @@
+from .barh import barh
 from .helpers import create_padding_tuple
 from .hist import hist
-from .barh import barh
 from .plot import plot
 
 

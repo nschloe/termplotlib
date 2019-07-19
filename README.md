@@ -60,6 +60,24 @@ produces
 
 ![hist1](https://nschloe.github.io/asciiplotlib/hist1.png)
 
+Horizontal bar charts are covered as well. This
+```python
+fig = apl.figure()
+fig.barh(
+    [3, 10, 5, 2],
+    ['Cats', 'Dogs', 'Cows', 'Geese'],
+    force_ascii=True
+)
+fig.show()
+```
+produces
+```
+Cats   [ 3]  ************
+Dogs   [10]  ****************************************
+Cows   [ 5]  ********************
+Geese  [ 2]  ********
+```
+
 ### Vertical histograms
 
 ```python

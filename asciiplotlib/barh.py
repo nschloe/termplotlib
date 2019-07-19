@@ -11,12 +11,7 @@ def _trim_trailing_zeros(lst):
 
 
 def barh(
-    counts,
-    labels=None,
-    max_width=40,
-    bar_width=1,
-    show_counts=True,
-    force_ascii=False,
+    counts, labels=None, max_width=40, bar_width=1, show_counts=True, force_ascii=False
 ):
     matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
 
