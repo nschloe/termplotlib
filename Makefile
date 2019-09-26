@@ -1,4 +1,4 @@
-VERSION=$(shell python3 -c "import asciiplotlib; print(asciiplotlib.__version__)")
+VERSION=$(shell python3 -c "import termplotlib; print(termplotlib.__version__)")
 
 default:
 	@echo "\"make publish\"?"
@@ -25,7 +25,7 @@ clean:
 
 lint:
 	black --check .
-	flake8 setup.py asciiplotlib/ test/*.py
+	flake8 .
 
 format:
 	isort -rc .

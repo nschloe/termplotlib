@@ -38,6 +38,6 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
-        pytest --cov asciiplotlib
-    - name: Submit to codecov
-      run: bash <(curl -s https://codecov.io/bash) -R ~/work
+        pytest --cov termplotlib
+    # - name: Submit to codecov
+    #   run: bash <(curl -s https://codecov.io/bash) -R ~/work

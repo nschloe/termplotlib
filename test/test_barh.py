@@ -2,7 +2,7 @@ import sys
 
 import pytest
 
-import asciiplotlib as apl
+import termplotlib as tpl
 
 
 @pytest.mark.skipif(
@@ -10,7 +10,7 @@ import asciiplotlib as apl
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_barh():
-    fig = apl.figure()
+    fig = tpl.figure()
     fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"])
     # fig.show()
     string = fig.get_string()
@@ -28,7 +28,7 @@ Geese  [ 2]  ████████\
 
 
 def test_barh_ascii():
-    fig = apl.figure()
+    fig = tpl.figure()
     fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"], force_ascii=True)
     # fig.show()
     string = fig.get_string()
@@ -50,7 +50,7 @@ Geese  [ 2]  ********\
     reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
 )
 def test_barh_floats():
-    fig = apl.figure()
+    fig = tpl.figure()
     fig.barh([0.3, 0.4, 0.6, 0.2], ["Cats", "Dogs", "Cows", "Geese"])
     # fig.show()
     string = fig.get_string()
