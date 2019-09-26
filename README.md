@@ -1,8 +1,3 @@
-termplotlib has been renamed [**termplotlib**](https://github.com/nschloe/termplotlib).
-There will be no further releases of termplotlib.
-
---
-
 # termplotlib
 
 [![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg)](https://circleci.com/gh/nschloe/termplotlib)
@@ -12,7 +7,7 @@ There will be no further releases of termplotlib.
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
 [![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg)](https://pypistats.org/packages/termplotlib)
 
-termplotlib is a Python 3 library for all your terminal plotting needs. It aims to work
+termplotlib is a Python library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
 
 
