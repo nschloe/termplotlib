@@ -1,3 +1,8 @@
+asciiplotlib has been renamed [**termplotlib**](https://github.com/nschloe/termplotlib).
+There will be no further releases of asciiplotlib.
+
+--
+
 # asciiplotlib
 
 [![CircleCI](https://img.shields.io/circleci/project/github/nschloe/asciiplotlib/master.svg)](https://circleci.com/gh/nschloe/asciiplotlib)
