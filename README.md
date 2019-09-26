@@ -20,13 +20,13 @@ like [matplotlib](https://matplotlib.org/).
 
 For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
 ```python
-import termplotlib as apl
+import termplotlib as tpl
 import numpy
 
 x = numpy.linspace(0, 2 * numpy.pi, 10)
 y = numpy.sin(x)
 
-fig = apl.figure()
+fig = tpl.figure()
 fig.plot(x, y, label="data", width=50, height=15)
 fig.show()
 ```
@@ -50,14 +50,14 @@ produces
 ### Horizontal histograms
 
 ```python
-import termplotlib as apl
+import termplotlib as tpl
 import numpy
 
 numpy.random.seed(123)
 sample = numpy.random.normal(size=1000)
 counts, bin_edges = numpy.histogram(sample)
 
-fig = apl.figure()
+fig = tpl.figure()
 fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=False)
 fig.show()
 ```
@@ -67,7 +67,7 @@ produces
 
 Horizontal bar charts are covered as well. This
 ```python
-fig = apl.figure()
+fig = tpl.figure()
 fig.barh(
     [3, 10, 5, 2],
     ['Cats', 'Dogs', 'Cows', 'Geese'],
@@ -86,13 +86,13 @@ Geese  [ 2]  ********
 ### Vertical histograms
 
 ```python
-import termplotlib as apl
+import termplotlib as tpl
 import numpy
 
 numpy.random.seed(123)
 sample = numpy.random.normal(size=1000)
 counts, bin_edges = numpy.histogram(sample, bins=40)
-fig = apl.figure()
+fig = tpl.figure()
 fig.hist(counts, bin_edges, grid=[15, 25], force_ascii=False)
 fig.show()
 ```
