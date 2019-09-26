@@ -1,26 +1,26 @@
-asciiplotlib has been renamed [**termplotlib**](https://github.com/nschloe/termplotlib).
-There will be no further releases of asciiplotlib.
+termplotlib has been renamed [**termplotlib**](https://github.com/nschloe/termplotlib).
+There will be no further releases of termplotlib.
 
 --
 
-# asciiplotlib
+# termplotlib
 
-[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/asciiplotlib/master.svg)](https://circleci.com/gh/nschloe/asciiplotlib)
-[![codecov](https://img.shields.io/codecov/c/github/nschloe/asciiplotlib.svg)](https://codecov.io/gh/nschloe/asciiplotlib)
+[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg)](https://circleci.com/gh/nschloe/termplotlib)
+[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg)](https://codecov.io/gh/nschloe/termplotlib)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![PyPi Version](https://img.shields.io/pypi/v/asciiplotlib.svg)](https://pypi.org/project/asciiplotlib)
-[![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/asciiplotlib)
-[![PyPi downloads](https://img.shields.io/pypi/dm/asciiplotlib.svg)](https://pypistats.org/packages/asciiplotlib)
+[![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg)](https://pypi.org/project/termplotlib)
+[![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
+[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg)](https://pypistats.org/packages/termplotlib)
 
-asciiplotlib is a Python 3 library for all your terminal plotting needs. It aims to work
+termplotlib is a Python 3 library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
 
 
 ### Line plots
 
-For line plots, asciiplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
+For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
 ```python
-import asciiplotlib as apl
+import termplotlib as apl
 import numpy
 
 x = numpy.linspace(0, 2 * numpy.pi, 10)
@@ -50,7 +50,7 @@ produces
 ### Horizontal histograms
 
 ```python
-import asciiplotlib as apl
+import termplotlib as apl
 import numpy
 
 numpy.random.seed(123)
@@ -63,7 +63,7 @@ fig.show()
 ```
 produces
 
-![hist1](https://nschloe.github.io/asciiplotlib/hist1.png)
+![hist1](https://nschloe.github.io/termplotlib/hist1.png)
 
 Horizontal bar charts are covered as well. This
 ```python
@@ -86,7 +86,7 @@ Geese  [ 2]  ********
 ### Vertical histograms
 
 ```python
-import asciiplotlib as apl
+import termplotlib as apl
 import numpy
 
 numpy.random.seed(123)
@@ -98,7 +98,7 @@ fig.show()
 ```
 produces
 
-![hist2](https://nschloe.github.io/asciiplotlib/hist2.png)
+![hist2](https://nschloe.github.io/termplotlib/hist2.png)
 
 
 ### Tables
@@ -109,10 +109,10 @@ Support for tables has moved over to
 
 ### Installation
 
-asciiplotlib is [available from the Python Package
-Index](https://pypi.org/project/asciiplotlib/), so simply do
+termplotlib is [available from the Python Package
+Index](https://pypi.org/project/termplotlib/), so simply do
 ```
-pip3 install -U asciiplotlib
+pip3 install -U termplotlib
 ```
 to install or upgrade. Use `sudo -H` to install as root or the `--user` option
 of `pip3` to install in `$HOME`.
@@ -120,11 +120,11 @@ of `pip3` to install in `$HOME`.
 
 ### Testing
 
-To run the asciiplotlib unit tests, check out this repository and type
+To run the termplotlib unit tests, check out this repository and type
 ```
 pytest
 ```
 
 ### License
 
-asciiplotlib is published under the [MIT license](https://en.wikipedia.org/wiki/MIT_License).
+termplotlib is published under the [MIT license](https://en.wikipedia.org/wiki/MIT_License).

@@ -21,7 +21,7 @@ jobs:
       - run: pip3 install -r test_requirements.txt --user
       # The tests
       - run:
-          command: pytest --cov asciiplotlib
+          command: pytest --cov termplotlib
           working_directory: test/
           environment:
             MPLBACKEND: Agg

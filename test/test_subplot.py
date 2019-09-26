@@ -1,8 +1,8 @@
-import asciiplotlib as apl
+import termplotlib as tpl
 
 
 def _generate_content(*args, **kwargs):
-    grid = apl.subplot_grid((2, 3), *args, **kwargs)
+    grid = tpl.subplot_grid((2, 3), *args, **kwargs)
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text\nand more")
     grid[0, 2].aprint("Some more text\nand more\neven more")
@@ -13,7 +13,7 @@ def _generate_content(*args, **kwargs):
 
 
 def test_subplot():
-    grid = apl.subplot_grid((1, 2), width=20)
+    grid = tpl.subplot_grid((1, 2), width=20)
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text")
     string = grid.get_string()
@@ -29,7 +29,7 @@ def test_subplot():
 
 
 def test_subplot_custom_border():
-    grid = apl.subplot_grid((1, 2), border_style="x", width=20)
+    grid = tpl.subplot_grid((1, 2), border_style="x", width=20)
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text")
     string = grid.get_string()
@@ -45,7 +45,7 @@ xxxxxxxxxxxxxxxxxxxx"""
 
 
 def test_subplot2():
-    grid = apl.subplot_grid((1, 2), width=20, border_style="thick")
+    grid = tpl.subplot_grid((1, 2), width=20, border_style="thick")
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text\nand more")
     string = grid.get_string()
@@ -62,7 +62,7 @@ def test_subplot2():
 
 
 def test_subplot_padding():
-    grid = apl.subplot_grid((1, 2), width=20, padding=2, border_style="double")
+    grid = tpl.subplot_grid((1, 2), width=20, padding=2, border_style="double")
     grid[0, 0].aprint("Some text")
     grid[0, 1].aprint("Some more text\nand more")
     string = grid.get_string()

@@ -1,13 +1,13 @@
 import numpy
 
-import asciiplotlib as apl
+import termplotlib as tpl
 
 
 def test_plot():
     x = numpy.linspace(0, 2 * numpy.pi, 10)
     y = numpy.sin(x)
 
-    fig = apl.figure()
+    fig = tpl.figure()
     fig.plot(x, y, label="data", width=50, height=15)
     string = fig.get_string()
 
@@ -33,7 +33,7 @@ def test_nolabel():
     x = numpy.linspace(0, 2 * numpy.pi, 10)
     y = numpy.sin(x)
 
-    fig = apl.figure()
+    fig = tpl.figure()
     fig.plot(x, y, width=50, height=15)
     string = fig.get_string()
 
@@ -59,7 +59,7 @@ def test_plot_lim():
     x = numpy.linspace(0, 2 * numpy.pi, 10)
     y = numpy.sin(x)
 
-    fig = apl.figure()
+    fig = tpl.figure()
     fig.plot(
         x,
         y,
