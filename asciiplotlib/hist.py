@@ -57,7 +57,7 @@ def hist_horizontal(
         labels=labels,
         max_width=max_width,
         bar_width=bar_width,
-        show_counts=show_counts,
+        show_vals=show_counts,
         force_ascii=force_ascii,
     )
 

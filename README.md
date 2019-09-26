@@ -2,10 +2,10 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/nschloe/asciiplotlib/master.svg)](https://circleci.com/gh/nschloe/asciiplotlib)
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/asciiplotlib.svg)](https://codecov.io/gh/nschloe/asciiplotlib)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![PyPi Version](https://img.shields.io/pypi/v/asciiplotlib.svg)](https://pypi.org/project/asciiplotlib)
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/asciiplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/asciiplotlib)
-[![PyPi downloads](https://img.shields.io/pypi/dd/asciiplotlib.svg)](https://pypistats.org/packages/asciiplotlib)
+[![PyPi downloads](https://img.shields.io/pypi/dm/asciiplotlib.svg)](https://pypistats.org/packages/asciiplotlib)
 
 asciiplotlib is a Python 3 library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).

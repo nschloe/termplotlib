@@ -11,9 +11,9 @@ def _trim_trailing_zeros(lst):
 
 
 def barh(
-    counts, labels=None, max_width=40, bar_width=1, show_counts=True, force_ascii=False
+    vals, labels=None, max_width=40, bar_width=1, show_vals=True, force_ascii=False
 ):
-    matrix = _get_matrix_of_eighths(counts, max_width, bar_width)
+    matrix = _get_matrix_of_eighths(vals, max_width, bar_width)
 
     if (
         hasattr(sys.stdout, "encoding")
@@ -29,20 +29,24 @@ def barh(
         cfmt = "{{:{}s}}".format(max([len(str(label)) for label in labels]))
         fmt.append(cfmt)
 
-    if show_counts:
-        cfmt = "{{:{}d}}".format(max([len(str(c)) for c in counts]))
+    if show_vals:
+        all_int = all(val == int(val) for val in vals)
+        if all_int:
+            cfmt = "{{:{}d}}".format(max([len(str(val)) for val in vals]))
+        else:
+            cfmt = "{}"
         fmt.append("[" + cfmt + "]")
 
     fmt.append("{}")
     fmt = "  ".join(fmt)
 
     out = []
-    for k, (counts, row) in enumerate(zip(counts, matrix)):
+    for k, (val, row) in enumerate(zip(vals, matrix)):
         data = []
         if labels:
             data.append(labels[k])
-        if show_counts:
-            data.append(counts)
+        if show_vals:
+            data.append(val)
 
         # Cut off trailing zeros
         r = _trim_trailing_zeros(row)
