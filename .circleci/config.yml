@@ -14,7 +14,6 @@ jobs:
     docker:
       - image: circleci/python:3
     steps:
-      - run: sudo apt-get update
       - run: sudo apt-get install -y gnuplot
       - run: pip3 install -U pytest pytest-cov --user
       - checkout
