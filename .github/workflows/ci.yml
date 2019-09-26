@@ -33,6 +33,7 @@ jobs:
     - name: Install package
       run: |
         pip install --upgrade pip
+        pip install -r test_requirements.txt
         pip install .[all]
     - name: Test with pytest
       run: |
