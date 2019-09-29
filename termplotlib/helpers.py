@@ -1,3 +1,6 @@
+import sys
+
+
 def create_padding_tuple(padding):
     # self._padding is a 4-tuple: top, right, bottom, left (just like CSS)
     if isinstance(padding, int):
@@ -13,3 +16,10 @@ def create_padding_tuple(padding):
             assert len(padding) == 4
             out = (padding[0], padding[1], padding[2], padding[3])
     return out
+
+
+def is_unicode_standard_output():
+    return hasattr(sys.stdout, "encoding") and sys.stdout.encoding.lower() in (
+        "utf-8",
+        "utf8",
+    )
