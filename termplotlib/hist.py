@@ -1,6 +1,5 @@
-import sys
-
 from .barh import _get_matrix_of_eighths, _trim_trailing_zeros, barh
+from .helpers import is_unicode_standard_output
 
 
 def hist(
@@ -101,11 +100,7 @@ def hist_vertical(
     else:
         k0 = 0
 
-    if (
-        hasattr(sys.stdout, "encoding")
-        and sys.stdout.encoding in ["utf-8", "UTF-8", "UTF8"]
-        and not force_ascii
-    ):
+    if is_unicode_standard_output() and not force_ascii:
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
         left_seven_eighths = "▉"
     else:

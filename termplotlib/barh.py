@@ -1,4 +1,4 @@
-import sys
+from .helpers import is_unicode_standard_output
 
 
 def _trim_trailing_zeros(lst):
@@ -15,11 +15,7 @@ def barh(
 ):
     matrix = _get_matrix_of_eighths(vals, max_width, bar_width)
 
-    if (
-        hasattr(sys.stdout, "encoding")
-        and sys.stdout.encoding in ["utf-8", "UTF-8", "UTF8"]
-        and not force_ascii
-    ):
+    if is_unicode_standard_output() and not force_ascii:
         chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
     else:
         chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
