@@ -11,7 +11,7 @@ def plot(
     ylim=None,
     xlabel=None,
     title=None,
-    extra_gnuplot_arguments=None,
+    extra_gnuplot_arguments=[],
     plot_command="plot '-' w lines",
     ticks_scale=0,
 ):
