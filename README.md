@@ -14,7 +14,8 @@ like [matplotlib](https://matplotlib.org/).
 
 ### Line plots
 
-For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
+For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/).
+With that installed, the code
 ```python
 import termplotlib as tpl
 import numpy
@@ -108,10 +109,9 @@ Support for tables has moved over to
 termplotlib is [available from the Python Package
 Index](https://pypi.org/project/termplotlib/), so simply do
 ```
-pip3 install -U termplotlib
+pip install termplotlib
 ```
-to install or upgrade. Use `sudo -H` to install as root or the `--user` option
-of `pip3` to install in `$HOME`.
+to install.
 
 
 ### Testing
