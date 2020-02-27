@@ -1,11 +1,12 @@
 # termplotlib
 
-[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg)](https://circleci.com/gh/nschloe/termplotlib)
-[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg)](https://codecov.io/gh/nschloe/termplotlib)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg)](https://pypi.org/project/termplotlib)
-[![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
-[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg)](https://pypistats.org/packages/termplotlib)
+[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg?style=flat-square)](https://circleci.com/gh/nschloe/termplotlib)
+[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg?style=flat-square)](https://codecov.io/gh/nschloe/termplotlib)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/termplotlib.svg?style=flat-square)](https://pypi.org/pypi/termplotlib/)
+[![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg?style=flat-square)](https://pypi.org/project/termplotlib)
+[![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
+[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg?style=flat-square)](https://pypistats.org/packages/termplotlib)
 
 termplotlib is a Python library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
@@ -13,7 +14,8 @@ like [matplotlib](https://matplotlib.org/).
 
 ### Line plots
 
-For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/). With that installed, the code
+For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/).
+With that installed, the code
 ```python
 import termplotlib as tpl
 import numpy
@@ -107,10 +109,9 @@ Support for tables has moved over to
 termplotlib is [available from the Python Package
 Index](https://pypi.org/project/termplotlib/), so simply do
 ```
-pip3 install -U termplotlib
+pip install termplotlib
 ```
-to install or upgrade. Use `sudo -H` to install as root or the `--user` option
-of `pip3` to install in `$HOME`.
+to install.
 
 
 ### Testing
