@@ -6,7 +6,7 @@ jobs:
       - image: circleci/python:3
     steps:
       - checkout
-      - run: pip3 install -U black flake8 --user
+      - run: pip install -U black flake8 --user
       - run: black --check .
       - run: flake8 .
   build:
@@ -15,10 +15,10 @@ jobs:
       - image: circleci/python:3
     steps:
       - run: sudo apt-get install -y gnuplot
-      - run: pip3 install -U pytest pytest-cov --user
+      - run: pip install -U pytest pytest-cov --user
       - checkout
-      - run: pip3 install . --user
-      - run: pip3 install -r test_requirements.txt --user
+      - run: pip install . --user
+      - run: pip install -r test_requirements.txt --user
       # The tests
       - run:
           command: pytest --cov termplotlib
@@ -26,7 +26,7 @@ jobs:
           environment:
             MPLBACKEND: Agg
       # submit to codecov
-      - run: bash <(curl -s https://codecov.io/bash) -R ~/work
+      - run: bash <(curl -s https://codecov.io/bash)
 
 workflows:
   version: 2
