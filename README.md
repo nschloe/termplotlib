@@ -1,12 +1,12 @@
 # termplotlib
 
-[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg)](https://circleci.com/gh/nschloe/termplotlib)
-[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg)](https://codecov.io/gh/nschloe/termplotlib)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg?style=flat-square)](https://circleci.com/gh/nschloe/termplotlib)
+[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg?style=flat-square)](https://codecov.io/gh/nschloe/termplotlib)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/termplotlib.svg?style=flat-square)](https://pypi.org/pypi/termplotlib/)
-[![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg)](https://pypi.org/project/termplotlib)
-[![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
-[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg)](https://pypistats.org/packages/termplotlib)
+[![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg?style=flat-square)](https://pypi.org/project/termplotlib)
+[![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
+[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg?style=flat-square)](https://pypistats.org/packages/termplotlib)
 
 termplotlib is a Python library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
