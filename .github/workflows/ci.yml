@@ -36,5 +36,7 @@ jobs:
       run: |
         pip install tox
         tox
-    # - name: Submit to codecov
-    #   run: bash <(curl -s https://codecov.io/bash) -R ~/work
+    - name: Submit to codecov
+      if: matrix.python-version == 3.8
+      uses: codecov/codecov-action@v1.0.6
+    #     run: bash <(curl -s https://codecov.io/bash)
