@@ -15,15 +15,9 @@ jobs:
       - image: circleci/python:3
     steps:
       - run: sudo apt-get install -y gnuplot
-      - run: pip install tox
       - checkout
+      - run: pip install tox
       - run: tox
-      # The tests
-      - run:
-          command: pytest --cov termplotlib
-          working_directory: test/
-          environment:
-            MPLBACKEND: Agg
       # submit to codecov
       - run: bash <(curl -s https://codecov.io/bash)
 
