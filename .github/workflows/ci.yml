@@ -12,7 +12,6 @@ jobs:
     - uses: actions/checkout@v2
     - name: Lint with flake8
       run: |
-        pip install --upgrade pip
         pip install flake8
         flake8 .
     - name: Lint with black
@@ -33,14 +32,11 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get install -y gnuplot
-    - name: Install package
+    - name: Test with tox
       run: |
-        pip install --upgrade pip
-        pip install -r test_requirements.txt
-        pip install .[all]
-    - name: Test with pytest
-      run: |
-        pip install pytest pytest-cov
-        pytest --cov termplotlib
-    # - name: Submit to codecov
-    #   run: bash <(curl -s https://codecov.io/bash) -R ~/work
+        pip install tox
+        tox
+    - name: Submit to codecov
+      if: matrix.python-version == 3.8
+      uses: codecov/codecov-action@v1.0.6
+    #     run: bash <(curl -s https://codecov.io/bash)
