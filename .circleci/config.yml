@@ -6,7 +6,7 @@ jobs:
       - image: circleci/python:3
     steps:
       - checkout
-      - run: pip install -U black flake8 --user
+      - run: pip install black flake8
       - run: black --check .
       - run: flake8 .
   build:
@@ -15,10 +15,9 @@ jobs:
       - image: circleci/python:3
     steps:
       - run: sudo apt-get install -y gnuplot
-      - run: pip install -U pytest pytest-cov --user
+      - run: pip install tox
       - checkout
-      - run: pip install . --user
-      - run: pip install -r test_requirements.txt --user
+      - run: tox
       # The tests
       - run:
           command: pytest --cov termplotlib
