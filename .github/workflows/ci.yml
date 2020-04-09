@@ -1,6 +1,6 @@
 name: ci
 
-on: [push]
+on: [pull_request]
 
 jobs:
   lint:
@@ -39,4 +39,4 @@ jobs:
     - name: Submit to codecov
       if: matrix.python-version == 3.8
       uses: codecov/codecov-action@v1.0.6
-    #     run: bash <(curl -s https://codecov.io/bash)
+        run: bash <(curl -s https://codecov.io/bash)
