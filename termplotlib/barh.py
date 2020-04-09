@@ -21,7 +21,7 @@ def barh(
         chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
 
     fmt = []
-    if labels:
+    if labels is not None:
         cfmt = "{{:{}s}}".format(max([len(str(label)) for label in labels]))
         fmt.append(cfmt)
 
@@ -39,8 +39,8 @@ def barh(
     out = []
     for k, (val, row) in enumerate(zip(vals, matrix)):
         data = []
-        if labels:
-            data.append(labels[k])
+        if labels is not None:
+            data.append(str(labels[k]))
         if show_vals:
             data.append(val)
 
