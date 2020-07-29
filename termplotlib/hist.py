@@ -22,7 +22,7 @@ def hist(
             force_ascii=force_ascii,
         )
 
-    assert orientation == "horizontal", "Unknown orientation '{}'".format(orientation)
+    assert orientation == "horizontal", f"Unknown orientation '{orientation}'"
     return hist_horizontal(
         counts,
         bin_edges,
