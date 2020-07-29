@@ -8,7 +8,7 @@ import termplotlib as tpl
 
 @pytest.mark.skipif(
     sys.stdout.encoding not in ["UTF-8", "UTF8"],
-    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+    reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_horizontal():
     numpy.random.seed(123)
@@ -65,7 +65,7 @@ def test_horizontal_ascii():
 
 @pytest.mark.skipif(
     sys.stdout.encoding not in ["UTF-8", "UTF8"],
-    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+    reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_vertical():
     numpy.random.seed(123)
@@ -125,7 +125,7 @@ def test_vertical_ascii():
 
 @pytest.mark.skipif(
     sys.stdout.encoding not in ["UTF-8", "UTF8"],
-    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+    reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_vertical_grid():
     numpy.random.seed(123)
@@ -156,7 +156,7 @@ def test_vertical_grid():
 
 @pytest.mark.skipif(
     sys.stdout.encoding not in ["UTF-8", "UTF8"],
-    reason="Need UTF-8 terminal (not {})".format(sys.stdout.encoding),
+    reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_vertical_strip():
     numpy.random.seed(20)

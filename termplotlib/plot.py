@@ -24,9 +24,9 @@ def plot(
 
     gnuplot_input = []
 
-    gnuplot_input.append("set term dumb mono {},{}".format(width, height))
+    gnuplot_input.append(f"set term dumb mono {width},{height}")
     # gnuplot_input.append("set tics nomirror")
-    gnuplot_input.append("set tics scale {}".format(ticks_scale))
+    gnuplot_input.append(f"set tics scale {ticks_scale}")
 
     if xlim:
         gnuplot_input.append("set xrange [{}:{}]".format(xlim[0], xlim[1]))
@@ -35,24 +35,24 @@ def plot(
         gnuplot_input.append("set yrange [{}:{}]".format(ylim[0], ylim[1]))
 
     if xlabel:
-        gnuplot_input.append('set xlabel "{}"'.format(xlabel))
+        gnuplot_input.append(f'set xlabel "{xlabel}"')
 
     if title:
-        gnuplot_input.append('set title "{}"'.format(title))
+        gnuplot_input.append(f'set title "{title}"')
 
     if extra_gnuplot_arguments:
         gnuplot_input += extra_gnuplot_arguments
 
     string = plot_command
     if label:
-        string += " title '{}'".format(label)
+        string += f" title '{label}'"
     else:
         string += " notitle"
 
     gnuplot_input.append(string)
 
     for xx, yy in zip(x, y):
-        gnuplot_input.append("{:e} {:e}".format(xx, yy))
+        gnuplot_input.append(f"{xx:e} {yy:e}")
     gnuplot_input.append("e")
 
     out = p.communicate(input="\n".join(gnuplot_input).encode())[0]
