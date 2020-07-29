@@ -29,8 +29,5 @@ lint:
 	flake8 .
 
 format:
-	isort -rc .
-	black .
-
-black:
+	isort .
 	black .
