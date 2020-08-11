@@ -1,5 +1,12 @@
 import subprocess
+import numpy as np
+import ipdb as pdb
 
+def is_litup(v):
+    return (type(v) is list or type(v) is tuple)
+
+def is_array(v):
+    return (type(v) is list or type(v) is np.ndarray or type(v) is tuple)
 
 def plot(
     x,
@@ -12,7 +19,8 @@ def plot(
     xlabel=None,
     title=None,
     extra_gnuplot_arguments=None,
-    plot_command="plot '-' w lines",
+    gnuplot_term_arguments='',
+    plot_command="plot $data w lines",
     ticks_scale=0,
 ):
     p = subprocess.Popen(
@@ -21,10 +29,29 @@ def plot(
         stdin=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    plot_multi_count = None
 
     gnuplot_input = []
 
-    gnuplot_input.append(f"set term dumb mono {width},{height}")
+    ###########################################################################
+    # Prepare heredoc in gnuplot
+    # If multiple plots in y as a list of lists or a multi-dim numpy array
+    # We will send out the plots separated by blank lines for gnuplot
+    gnuplot_input.append("$data <<EOD")
+    if (is_array(y) and is_array(y[0])):
+        plot_multi_count = len(y)
+        for plot_i in range(len(y)):
+            for xx, yy in zip(x, y[plot_i]):
+                gnuplot_input.append(f"{xx:e} {yy:e}")
+            gnuplot_input.append("")
+    else: # Single plot provided by caller
+        for xx, yy in zip(x, y):
+            gnuplot_input.append(f"{xx:e} {yy:e}")
+    gnuplot_input.append("EOD")
+
+    ###########################################################################
+    gnuplot_input.append("set colorsequence classic")
+    gnuplot_input.append(f"set term dumb {width},{height} {gnuplot_term_arguments}")
     # gnuplot_input.append("set tics nomirror")
     gnuplot_input.append(f"set tics scale {ticks_scale}")
 
@@ -43,17 +70,18 @@ def plot(
     if extra_gnuplot_arguments:
         gnuplot_input += extra_gnuplot_arguments
 
-    string = plot_command
-    if label:
-        string += f" title '{label}'"
+    if plot_multi_count is None:
+        string = plot_command
+        if label:
+            string += f" title '{label}'"
+        else:
+            string += " notitle"
     else:
-        string += " notitle"
+        string = "plot"
+        string += ", ".join(
+            [f"$data every:::{i}::{i} w lines title '{i}'" for i in range(plot_multi_count)])
 
     gnuplot_input.append(string)
-
-    for xx, yy in zip(x, y):
-        gnuplot_input.append(f"{xx:e} {yy:e}")
-    gnuplot_input.append("e")
 
     out = p.communicate(input="\n".join(gnuplot_input).encode())[0]
 
