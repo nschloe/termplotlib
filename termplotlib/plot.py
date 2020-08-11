@@ -2,9 +2,6 @@ import subprocess
 import numpy as np
 import ipdb as pdb
 
-def is_litup(v):
-    return (type(v) is list or type(v) is tuple)
-
 def is_array(v):
     return (type(v) is list or type(v) is np.ndarray or type(v) is tuple)
 
