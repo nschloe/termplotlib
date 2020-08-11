@@ -44,6 +44,14 @@ produces
       0     1    2     3     4     5    6     7
 ```
 
+#### Multiple plots
+
+If y is a tuple, list, or numpy array, multiple graphs will be displayed in the one plot.
+
+#### Colors
+
+Passing plot() gnuplot_term_arguments='ansi', or 'ansi256', etc. will provide color output if your terminal supports it. Gnuplot defaults to 'mono'.
+
 ### Horizontal histograms
 
 ```python
