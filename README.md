@@ -1,12 +1,14 @@
 # termplotlib
 
-[![CircleCI](https://img.shields.io/circleci/project/github/nschloe/termplotlib/master.svg?style=flat-square)](https://circleci.com/gh/nschloe/termplotlib)
-[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg?style=flat-square)](https://codecov.io/gh/nschloe/termplotlib)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/termplotlib.svg?style=flat-square)](https://pypi.org/pypi/termplotlib/)
 [![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg?style=flat-square)](https://pypi.org/project/termplotlib)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/termplotlib.svg?style=flat-square)](https://pypi.org/pypi/termplotlib/)
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
 [![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg?style=flat-square)](https://pypistats.org/packages/termplotlib)
+
+[![gh-actions](https://img.shields.io/github/workflow/status/nschloe/termplotlib/ci?style=flat-square)](https://github.com/nschloe/termplotlib/actions?query=workflow%3Aci)
+[![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg?style=flat-square)](https://codecov.io/gh/nschloe/termplotlib)
+[![LGTM](https://img.shields.io/lgtm/grade/python/github/nschloe/termplotlib.svg?style=flat-square)](https://lgtm.com/projects/g/nschloe/termplotlib)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
 termplotlib is a Python library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
@@ -63,6 +65,7 @@ produces
 ![hist1](https://nschloe.github.io/termplotlib/hist1.png)
 
 Horizontal bar charts are covered as well. This
+<!--exdown-skip-->
 ```python
 fig = tpl.figure()
 fig.barh(

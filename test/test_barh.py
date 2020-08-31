@@ -6,7 +6,7 @@ import termplotlib as tpl
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding.upper() not in ["UTF-8", "UTF8"],
     reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_barh():
@@ -46,7 +46,7 @@ Geese  [ 2]  ********\
 
 
 @pytest.mark.skipif(
-    sys.stdout.encoding not in ["UTF-8", "UTF8"],
+    sys.stdout.encoding.upper() not in ["UTF-8", "UTF8"],
     reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_barh_floats():
