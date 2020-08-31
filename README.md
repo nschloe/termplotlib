@@ -65,6 +65,7 @@ produces
 ![hist1](https://nschloe.github.io/termplotlib/hist1.png)
 
 Horizontal bar charts are covered as well. This
+<!--exdown-skip-->
 ```python
 fig = tpl.figure()
 fig.barh(
