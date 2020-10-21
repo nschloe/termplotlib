@@ -30,7 +30,8 @@ class Figure:
         padding_lr = self._padding[1] + self._padding[3]
 
         if self._width is None:
-            width = max([len(line) for c in self._content for line in c])
+            line_lengths = [len(line) for c in self._content for line in c]
+            width = max(line_lengths) if line_lengths else 0
             width += padding_lr
         else:
             width = self._width

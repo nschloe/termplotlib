@@ -148,4 +148,12 @@ class SubplotGrid:
 
     def __getitem__(self, ij):
         i, j = ij
+        if i >= self._layout[0]:
+            raise IndexError(
+                f"Row index too large! (idx {i}, only {self._layout[0]} rows)"
+            )
+        if j >= self._layout[1]:
+            raise IndexError(
+                f"Col index too large! (idx {j}, only {self._layout[1]} cols)"
+            )
         return self._subfigures[i][j]
