@@ -68,11 +68,7 @@ Horizontal bar charts are covered as well. This
 <!--exdown-skip-->
 ```python
 fig = tpl.figure()
-fig.barh(
-    [3, 10, 5, 2],
-    ['Cats', 'Dogs', 'Cows', 'Geese'],
-    force_ascii=True
-)
+fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"], force_ascii=True)
 fig.show()
 ```
 produces

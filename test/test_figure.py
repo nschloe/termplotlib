@@ -6,7 +6,6 @@ def test_simple():
     fig.aprint("abc")
     string = fig.get_string()
     assert string == """abc"""
-    return
 
 
 def test_padding_1():
@@ -19,7 +18,6 @@ def test_padding_1():
  abc
 """
     )
-    return
 
 
 def test_padding_1b():
@@ -32,7 +30,6 @@ def test_padding_1b():
  abc
 """
     )
-    return
 
 
 def test_padding_2():
@@ -45,7 +42,6 @@ def test_padding_2():
   abc
 """
     )
-    return
 
 
 def test_padding_3():
@@ -60,7 +56,6 @@ def test_padding_3():
 
 """
     )
-    return
 
 
 def test_padding_4():
@@ -76,4 +71,3 @@ def test_padding_4():
 """
     )
     fig.show()
-    return

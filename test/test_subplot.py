@@ -25,7 +25,6 @@ def test_subplot():
 │         │        │
 └─────────┴────────┘"""
     )
-    return
 
 
 def test_subplot_custom_border():
@@ -41,7 +40,6 @@ x  Some   x  Some  x
 x         x        x
 xxxxxxxxxxxxxxxxxxxx"""
     )
-    return
 
 
 def test_subplot2():
@@ -58,7 +56,6 @@ def test_subplot2():
 ┃         ┃        ┃
 ┗━━━━━━━━━┻━━━━━━━━┛"""
     )
-    return
 
 
 def test_subplot_padding():
@@ -77,7 +74,6 @@ def test_subplot_padding():
 ║         ║        ║
 ╚═════════╩════════╝"""
     )
-    return
 
 
 def test_subplot_3x2():
@@ -100,7 +96,6 @@ def test_subplot_3x2():
 │            │            │            │
 └────────────┴────────────┴────────────┘"""
     )
-    return
 
 
 def test_subplot_ascii():
@@ -123,7 +118,6 @@ def test_subplot_ascii():
 |            |            |            |
 ----------------------------------------"""
     )
-    return
 
 
 def test_subplot_thin_rounded():
@@ -146,7 +140,6 @@ def test_subplot_thin_rounded():
 │            │            │            │
 ╰────────────┴────────────┴────────────╯"""
     )
-    return
 
 
 def test_subplot_custom():
@@ -173,7 +166,6 @@ def test_subplot_custom():
     )
 
     grid.show()
-    return
 
 
 def test_subplot_no_borders():
@@ -191,7 +183,6 @@ def test_subplot_no_borders():
   even mor"""
 
     assert string == ref
-    return
 
 
 def test_subplot_column_widths():
@@ -216,7 +207,6 @@ def test_subplot_column_widths():
 │                              │               │                    │
 └──────────────────────────────┴───────────────┴────────────────────┘"""
     )
-    return
 
 
 if __name__ == "__main__":

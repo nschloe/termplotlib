@@ -14,18 +14,15 @@ class Figure:
         self._width = width
         self._subfigures = None
         self._padding = create_padding_tuple(padding)
-        return
 
     def __rich_console__(self, *args):
         yield self.get_string()
 
     def aprint(self, string):
         self._content.append(string.split("\n"))
-        return
 
     def show(self):
         print(self.get_string())
-        return
 
     def get_string(self, remove_trailing_whitespace=True):
         lines = []
@@ -58,12 +55,9 @@ class Figure:
 
     def hist(self, *args, **kwargs):
         self._content.append(hist(*args, **kwargs))
-        return
 
     def barh(self, *args, **kwargs):
         self._content.append(barh(*args, **kwargs))
-        return
 
     def plot(self, *args, **kwargs):
         self._content.append(plot(*args, **kwargs))
-        return

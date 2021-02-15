@@ -60,11 +60,9 @@ class SubplotGrid:
             [Figure(self._column_widths[j], padding=padding) for j in range(layout[1])]
             for _ in range(layout[0])
         ]
-        return
 
     def show(self):
         print(self.get_string())
-        return
 
     def get_string(self):
         # compute column width

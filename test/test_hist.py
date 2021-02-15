@@ -34,7 +34,6 @@ def test_horizontal():
 +2.89e+00 - +3.57e+00  [  2]  ▎\
 """
     )
-    return
 
 
 def test_horizontal_ascii():
@@ -60,7 +59,6 @@ def test_horizontal_ascii():
 +2.89e+00 - +3.57e+00  [  2]  *\
 """
     )
-    return
 
 
 @pytest.mark.skipif(
@@ -92,7 +90,6 @@ def test_vertical():
 ▂ ▃▂▄▄█████████████████████████▅▃▁▂▁▁  ▁\
 """
     )
-    return
 
 
 def test_vertical_ascii():
@@ -120,7 +117,6 @@ def test_vertical_ascii():
 * ***********************************  *\
 """
     )
-    return
 
 
 @pytest.mark.skipif(
@@ -151,7 +147,6 @@ def test_vertical_grid():
 ▂ ▃▂▄▄████████▉█████████▉██████▅▃▁▂▁▁  ▁\
 """
     )
-    return
 
 
 @pytest.mark.skipif(
@@ -181,7 +176,6 @@ def test_vertical_strip():
 ▃██▉██▉▂\
 """
     )
-    return
 
 
 if __name__ == "__main__":
