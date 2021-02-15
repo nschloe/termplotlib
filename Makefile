@@ -26,3 +26,4 @@ lint:
 format:
 	isort .
 	black .
+	blacken-docs README.md
