@@ -16,6 +16,9 @@ class Figure:
         self._padding = create_padding_tuple(padding)
         return
 
+    def __rich_console__(self, *args):
+        yield self.get_string()
+
     def aprint(self, string):
         self._content.append(string.split("\n"))
         return
