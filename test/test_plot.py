@@ -26,7 +26,6 @@ def test_plot():
       0     1    2     3     4     5    6     7"""
 
     assert string == ref
-    return
 
 
 def test_nolabel():
@@ -52,7 +51,6 @@ def test_nolabel():
       0     1    2     3     4     5    6     7"""
 
     assert string == ref
-    return
 
 
 def test_plot_lim():
@@ -88,4 +86,3 @@ def test_plot_lim():
                        x vals"""
 
     assert string == ref
-    return

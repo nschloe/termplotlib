@@ -24,7 +24,6 @@ Cows   [ 5]  ████████████████████
 Geese  [ 2]  ████████\
 """
     )
-    return
 
 
 def test_barh_ascii():
@@ -42,7 +41,6 @@ Cows   [ 5]  ********************
 Geese  [ 2]  ********\
 """
     )
-    return
 
 
 @pytest.mark.skipif(
@@ -64,7 +62,6 @@ Cows   [0.6]  ██████████████████████
 Geese  [0.2]  █████████████▍\
 """
     )
-    return
 
 
 if __name__ == "__main__":
