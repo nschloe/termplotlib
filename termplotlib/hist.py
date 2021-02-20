@@ -114,7 +114,7 @@ def hist_vertical(
         # Cut off trailing zeros
         trimmed_row = _trim_trailing_zeros(row)
 
-        # converts trimmed row into block chars. if
+        # converts trimmed row into block chars
         c = [block_chars[item] for item in trimmed_row]
 
         # add grid lines
