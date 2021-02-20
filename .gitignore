@@ -8,3 +8,5 @@ build/
 .cache/
 *.egg-info/
 .pytest_cache/
+venv/
+.idea/
