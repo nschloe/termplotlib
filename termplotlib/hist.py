@@ -64,8 +64,9 @@ def hist_horizontal(
 
 
 def _flip(matrix):
-    n = len(matrix[0])
-    return [[row[-(i + 1)] for row in matrix] for i in range(n)]
+    """Mirrors a matrix left to right"""
+    n_cols = len(matrix[0])
+    return [[row[-(col_i + 1)] for row in matrix] for col_i in range(n_cols)]
 
 
 def hist_vertical(
@@ -84,21 +85,21 @@ def hist_vertical(
 
     if strip:
         # Cut off leading and trailing rows of 0
-        k0 = 0
+        num_head_rows_delete = 0
         for row in matrix:
             if any([item != 0 for item in row]):
                 break
-            k0 += 1
+            num_head_rows_delete += 1
 
-        k1 = 0
-        for row in matrix[::-1]:
+        num_tail_rows_delete = 0
+        for row in matrix[::-1]:  # trim from bottom row upwards
             if any([item != 0 for item in row]):
                 break
-            k1 += 1
-        n = len(matrix)
-        matrix = matrix[k0 : n - k1]
+            num_tail_rows_delete += 1  # if row was all zeros, mark it for deletions
+        n_total_rows = len(matrix)
+        matrix = matrix[num_head_rows_delete : n_total_rows - num_tail_rows_delete]
     else:
-        k0 = 0
+        num_head_rows_delete = 0
 
     if is_unicode_standard_output() and not force_ascii:
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
@@ -110,16 +111,15 @@ def hist_vertical(
     # print text matrix
     out = []
     for row in _flip(matrix):
-
         # Cut off trailing zeros
-        r = _trim_trailing_zeros(row)
+        trimmed_row = _trim_trailing_zeros(row)
 
-        c = [block_chars[item] for item in r]
+        # converts trimmed row into block chars
+        c = [block_chars[item] for item in trimmed_row]
 
         # add grid lines
         for i in xgrid:
-            # print(row[xgrid])
-            pos = (i - k0) * bar_width - 1
+            pos = (i - num_head_rows_delete) * bar_width - 1
             if row[pos] == 8 and (pos + 1 == len(row) or row[pos + 1] > 0):
                 c[pos] = left_seven_eighths
 

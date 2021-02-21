@@ -1,3 +1,5 @@
+from typing import List
+
 from .helpers import is_unicode_standard_output
 
 
@@ -52,7 +54,14 @@ def barh(
     return out
 
 
-def _get_matrix_of_eighths(counts, max_size, bar_width):
+def _get_matrix_of_eighths(counts, max_size, bar_width) -> List[List[int]]:
+    """
+    Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
+
+    For instance, if one of the sublists is [8, 8, 8, 3, 0, 0, 0, 0, 0, 0], it means that the first 3 segments should
+    be graphed with full blocks, the 4th block should be 3/8ths full, and that the rest of the bar should be empty.
+    """
+
     max_count = max(counts)
 
     # translate to eighths of a textbox
