@@ -71,8 +71,8 @@ def test_plot_lim():
     )
     string = fig.get_string()
 
-    ref = """
-                       header
+    ref = """                       header
+
     1 +---------------------------------------+
       |                               ********|
   0.5 |                          ************ |
