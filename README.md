@@ -5,6 +5,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
 [![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg?style=flat-square)](https://pypistats.org/packages/termplotlib)
 
+[![Discord](https://img.shields.io/static/v1?logo=discord&label=chat&message=on%20discord&color=7289da&style=flat-square)](https://discord.gg/hnTJ5MRX2Y)
+
 [![gh-actions](https://img.shields.io/github/workflow/status/nschloe/termplotlib/ci?style=flat-square)](https://github.com/nschloe/termplotlib/actions?query=workflow%3Aci)
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg?style=flat-square)](https://codecov.io/gh/nschloe/termplotlib)
 [![LGTM](https://img.shields.io/lgtm/grade/python/github/nschloe/termplotlib.svg?style=flat-square)](https://lgtm.com/projects/g/nschloe/termplotlib)
