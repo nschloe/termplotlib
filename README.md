@@ -30,6 +30,7 @@ fig.plot(x, y, label="data", width=50, height=15)
 fig.show()
 ```
 produces
+<!--pytest-codeblocks:expected-output-->
 ```
     1 +---------------------------------------+
   0.8 |    **     **                          |
@@ -65,13 +66,15 @@ produces
 ![hist1](https://nschloe.github.io/termplotlib/hist1.png)
 
 Horizontal bar charts are covered as well. This
-<!--exdown-skip-->
 ```python
+import termplotlib as tpl
+
 fig = tpl.figure()
 fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"], force_ascii=True)
 fig.show()
 ```
 produces
+<!--pytest-codeblocks:expected-output-->
 ```
 Cats   [ 3]  ************
 Dogs   [10]  ****************************************

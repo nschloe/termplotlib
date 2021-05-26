@@ -19,6 +19,9 @@ def create_padding_tuple(padding):
 
 
 def is_unicode_standard_output():
+    if sys.stdout.encoding is None:
+        return True
+
     return hasattr(sys.stdout, "encoding") and sys.stdout.encoding.lower() in (
         "utf-8",
         "utf8",
