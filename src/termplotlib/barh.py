@@ -32,7 +32,9 @@ def barh(
         if all_int:
             cfmt = "{{:{}d}}".format(max([len(str(val)) for val in vals]))
         else:
-            cfmt = "{}"
+            whole = [len(str(val).split('.')[0]) for val in vals]
+            decimals = [str(val)[::-1].find('.') for val in vals]
+            cfmt = "{{:{}.{}f}}".format(1 + max(whole) + max(decimals), max(decimals))
         fmt.append("[" + cfmt + "]")
 
     fmt.append("{}")
