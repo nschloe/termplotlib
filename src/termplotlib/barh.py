@@ -28,7 +28,7 @@ def barh(
         fmt.append(cfmt)
 
     if show_vals:
-        all_int = all(val == int(val) for val in vals)
+        all_int = all(isinstance(val, int) for val in vals)
         if all_int:
             cfmt = "{{:{}d}}".format(max([len(str(val)) for val in vals]))
         else:
