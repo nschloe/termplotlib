@@ -1,5 +1,7 @@
 from typing import List
 
+import numpy
+
 from .helpers import is_unicode_standard_output
 
 
@@ -28,7 +30,7 @@ def barh(
         fmt.append(cfmt)
 
     if show_vals:
-        all_int = all(isinstance(val, int) for val in vals)
+        all_int = all(isinstance(val, (int, numpy.integer)) for val in vals)
         if all_int:
             cfmt = "{{:{}d}}".format(max([len(str(val)) for val in vals]))
         else:
