@@ -15,7 +15,12 @@ def _trim_trailing_zeros(lst):
 
 
 def barh(
-    vals, labels=None, max_width=40, bar_width=1, show_vals=True, force_ascii=False
+    vals,
+    labels=None,
+    max_width: int = 40,
+    bar_width: int = 1,
+    show_vals: bool = True,
+    force_ascii: bool = False,
 ):
     matrix = _get_matrix_of_eighths(vals, max_width, bar_width)
 
@@ -57,7 +62,7 @@ def barh(
     return out
 
 
-def _get_matrix_of_eighths(counts, max_size, bar_width) -> List[List[int]]:
+def _get_matrix_of_eighths(counts, max_size: int, bar_width: int) -> List[List[int]]:
     """
     Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
 
