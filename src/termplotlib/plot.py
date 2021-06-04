@@ -29,10 +29,10 @@ def plot(
     gnuplot_input.append(f"set tics scale {ticks_scale}")
 
     if xlim:
-        gnuplot_input.append("set xrange [{}:{}]".format(xlim[0], xlim[1]))
+        gnuplot_input.append(f"set xrange [{xlim[0]}:{xlim[1]}]")
 
     if ylim:
-        gnuplot_input.append("set yrange [{}:{}]".format(ylim[0], ylim[1]))
+        gnuplot_input.append(f"set yrange [{ylim[0]}:{ylim[1]}]")
 
     if xlabel:
         gnuplot_input.append(f'set xlabel "{xlabel}"')

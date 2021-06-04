@@ -5,13 +5,12 @@ from .helpers import is_unicode_standard_output
 def hist(
     counts,
     bin_edges,
-    orientation="vertical",
-    max_width=40,
-    bins=20,
+    orientation: str = "vertical",
+    max_width: int = 40,
     grid=None,
-    bar_width=1,
-    strip=False,
-    force_ascii=False,
+    bar_width: int = 1,
+    strip: bool = False,
+    force_ascii: bool = False,
 ):
     if orientation == "vertical":
         return hist_vertical(
@@ -26,8 +25,7 @@ def hist(
     return hist_horizontal(
         counts,
         bin_edges,
-        max_width=40,
-        bins=20,
+        max_width=max_width,
         bar_width=bar_width,
         force_ascii=force_ascii,
     )
@@ -36,16 +34,15 @@ def hist(
 def hist_horizontal(
     counts,
     bin_edges,
-    max_width=40,
-    bins=20,
-    bar_width=1,
-    show_bin_edges=True,
-    show_counts=True,
-    force_ascii=False,
+    max_width: int = 40,
+    bar_width: int = 1,
+    show_bin_edges: bool = True,
+    show_counts: bool = True,
+    force_ascii: bool = False,
 ):
     if show_bin_edges:
         labels = [
-            "{:+.2e} - {:+.2e}".format(bin_edges[k], bin_edges[k + 1])
+            f"{bin_edges[k]:+.2e} - {bin_edges[k+1]:+.2e}"
             for k in range(len(bin_edges) - 1)
         ]
     else:
@@ -59,7 +56,6 @@ def hist_horizontal(
         show_vals=show_counts,
         force_ascii=force_ascii,
     )
-
     return out
 
 
@@ -71,12 +67,11 @@ def _flip(matrix):
 
 def hist_vertical(
     counts,
-    bins=30,
-    max_height=10,
-    bar_width=2,
-    strip=False,
+    max_height: int = 10,
+    bar_width: int = 2,
+    strip: bool = False,
     xgrid=None,
-    force_ascii=False,
+    force_ascii: bool = False,
 ):
     if xgrid is None:
         xgrid = []
