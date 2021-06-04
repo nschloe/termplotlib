@@ -1,5 +1,5 @@
 import sys
-from typing import List, Union
+from typing import List, Tuple, Union
 
 
 def create_padding_tuple(padding: Union[int, List[int], Tuple[int, int]]):
