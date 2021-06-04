@@ -17,7 +17,7 @@ publish: tag upload
 
 clean:
 	@find . | grep -E "(__pycache__|\.pyc|\.pyo$\)" | xargs rm -rf
-	@rm -rf *.egg-info/ build/ dist/ MANIFEST .pytest_cache/
+	@rm -rf src/*.egg-info/ build/ dist/ MANIFEST .pytest_cache/ .tox/
 
 lint:
 	black --check .
