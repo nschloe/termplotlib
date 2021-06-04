@@ -1,3 +1,5 @@
+from typing import Optional
+
 from .barh import barh
 from .helpers import create_padding_tuple
 from .hist import hist
@@ -9,7 +11,7 @@ def figure(*args, **kwargs):
 
 
 class Figure:
-    def __init__(self, width=None, padding=0):
+    def __init__(self, width: Optional[int] = None, padding: int = 0):
         self._content = []
         self._width = width
         self._subfigures = None

@@ -1,10 +1,12 @@
+from typing import List, Optional
+
 from .barh import _get_matrix_of_eighths, _trim_trailing_zeros, barh
 from .helpers import is_unicode_standard_output
 
 
 def hist(
-    counts,
-    bin_edges,
+    counts: List[int],
+    bin_edges: List[float],
     orientation: str = "vertical",
     max_width: int = 40,
     grid=None,
@@ -32,8 +34,8 @@ def hist(
 
 
 def hist_horizontal(
-    counts,
-    bin_edges,
+    counts: List[int],
+    bin_edges: List[float],
     max_width: int = 40,
     bar_width: int = 1,
     show_bin_edges: bool = True,
@@ -59,18 +61,18 @@ def hist_horizontal(
     return out
 
 
-def _flip(matrix):
+def _flip(matrix: List[List[int]]) -> List[List[int]]:
     """Mirrors a matrix left to right"""
     n_cols = len(matrix[0])
     return [[row[-(col_i + 1)] for row in matrix] for col_i in range(n_cols)]
 
 
 def hist_vertical(
-    counts,
+    counts: List[int],
     max_height: int = 10,
     bar_width: int = 2,
     strip: bool = False,
-    xgrid=None,
+    xgrid: Optional[List[int]] = None,
     force_ascii: bool = False,
 ):
     if xgrid is None:

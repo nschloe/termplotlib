@@ -1,3 +1,5 @@
+from typing import List, Optional, Tuple, Union
+
 from .figure import Figure
 
 
@@ -9,10 +11,10 @@ class SubplotGrid:
     def __init__(
         self,
         layout,
-        width=None,
-        column_widths=None,
-        border_style="thin",
-        padding=(1, 2),
+        width: Optional[int] = None,
+        column_widths: Optional[List[int]] = None,
+        border_style: str = "thin",
+        padding: Union[int, List[int], Tuple[int, int]] = (1, 2),
     ):
         assert (
             len(layout) == 2

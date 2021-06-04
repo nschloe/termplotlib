@@ -71,8 +71,10 @@ def test_plot_lim():
     )
     string = fig.get_string()
 
-    ref = """
-                       header
+    # for some reason, this gives a different result locally; perhaps a different
+    # gnuplotlib version
+    ref = """                       header
+
     1 +---------------------------------------+
       |                               ********|
   0.5 |                          ************ |

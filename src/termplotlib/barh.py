@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import numpy as np
 
@@ -15,8 +15,8 @@ def _trim_trailing_zeros(lst):
 
 
 def barh(
-    vals,
-    labels=None,
+    vals: List[int],
+    labels: Optional[List[str]] = None,
     max_width: int = 40,
     bar_width: int = 1,
     show_vals: bool = True,
