@@ -26,13 +26,13 @@ def barh(
 
     fmt = []
     if labels is not None:
-        max_len = max([len(str(label)) for label in labels])
+        max_len = max(len(str(label)) for label in labels)
         cfmt = f"{{:{max_len}s}}"
         fmt.append(cfmt)
 
     if show_vals:
         if np.issubdtype(np.asarray(vals).dtype, np.integer):
-            max_len = max([len(str(val)) for val in vals])
+            max_len = max(len(str(val)) for val in vals)
             cfmt = f"{{:{max_len}d}}"
         else:
             cfmt = "{}"

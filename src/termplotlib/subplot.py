@@ -72,11 +72,9 @@ class SubplotGrid:
         ]
         column_widths = [
             max(
-                [
-                    len(line)
-                    for i in range(self._layout[0])
-                    for line in cstrings[i][j].split("\n")
-                ]
+                len(line)
+                for i in range(self._layout[0])
+                for line in cstrings[i][j].split("\n")
             )
             for j in range(self._layout[1])
         ]
