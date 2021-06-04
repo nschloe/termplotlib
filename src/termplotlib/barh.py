@@ -1,5 +1,7 @@
 from typing import List
 
+import numpy as np
+
 from .helpers import is_unicode_standard_output
 
 
@@ -24,13 +26,14 @@ def barh(
 
     fmt = []
     if labels is not None:
-        cfmt = "{{:{}s}}".format(max([len(str(label)) for label in labels]))
+        max_len = max([len(str(label)) for label in labels])
+        cfmt = f"{{:{max_len}s}}"
         fmt.append(cfmt)
 
     if show_vals:
-        all_int = all(val == int(val) for val in vals)
-        if all_int:
-            cfmt = "{{:{}d}}".format(max([len(str(val)) for val in vals]))
+        if np.issubdtype(np.asarray(vals).dtype, np.integer):
+            max_len = max([len(str(val)) for val in vals])
+            cfmt = f"{{:{max_len}d}}"
         else:
             cfmt = "{}"
         fmt.append("[" + cfmt + "]")
