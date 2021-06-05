@@ -1,19 +1,20 @@
 import subprocess
+from typing import List, Optional, Tuple
 
 
 def plot(
-    x,
-    y,
-    width=80,
-    height=25,
-    label=None,
-    xlim=None,
-    ylim=None,
-    xlabel=None,
-    title=None,
-    extra_gnuplot_arguments=None,
-    plot_command="plot '-' w lines",
-    ticks_scale=0,
+    x: List[float],
+    y: List[float],
+    width: int = 80,
+    height: int = 25,
+    label: Optional[str] = None,
+    xlim: Optional[Tuple[float, float]] = None,
+    ylim: Optional[Tuple[float, float]] = None,
+    xlabel: Optional[str] = None,
+    title: Optional[str] = None,
+    extra_gnuplot_arguments: Optional[List[str]] = None,
+    plot_command: str = "plot '-' w lines",
+    ticks_scale: int = 0,
 ):
     p = subprocess.Popen(
         ["gnuplot"],
@@ -29,10 +30,10 @@ def plot(
     gnuplot_input.append(f"set tics scale {ticks_scale}")
 
     if xlim:
-        gnuplot_input.append("set xrange [{}:{}]".format(xlim[0], xlim[1]))
+        gnuplot_input.append(f"set xrange [{xlim[0]}:{xlim[1]}]")
 
     if ylim:
-        gnuplot_input.append("set yrange [{}:{}]".format(ylim[0], ylim[1]))
+        gnuplot_input.append(f"set yrange [{ylim[0]}:{ylim[1]}]")
 
     if xlabel:
         gnuplot_input.append(f'set xlabel "{xlabel}"')
@@ -60,5 +61,5 @@ def plot(
     return _remove_empty_lines(out.decode())
 
 
-def _remove_empty_lines(string):
+def _remove_empty_lines(string: str):
     return string.split("\n")[1:-2]
