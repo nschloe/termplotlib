@@ -26,6 +26,7 @@ def plot(
     gnuplot_input = []
 
     gnuplot_input.append(f"set term dumb mono {width},{height}")
+
     # gnuplot_input.append("set tics nomirror")
     gnuplot_input.append(f"set tics scale {ticks_scale}")
 
