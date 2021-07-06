@@ -123,5 +123,11 @@ To run the termplotlib unit tests, check out this repository and type
 pytest
 ```
 
+### Similar projects
+
+ * [bashplotlib](https://github.com/glamp/bashplotlib)
+ * [asciichart](https://github.com/kroitor/asciichart)
+ * [plotext](https://github.com/piccolomo/plotext)
+
 ### License
 This software is published under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html).
