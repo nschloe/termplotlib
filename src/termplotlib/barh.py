@@ -73,7 +73,10 @@ def _get_matrix_of_eighths(counts, max_size: int, bar_width: int) -> List[List[i
     max_count = max(counts)
 
     # translate to eighths of a textbox
-    eighths = [int(round(count / max_count * max_size * 8)) for count in counts]
+    if max_count == 0:
+        eighths = [0 for _ in counts]
+    else:
+        eighths = [int(round(count / max_count * max_size * 8)) for count in counts]
 
     # prepare matrix
     matrix = [[0] * max_size for _ in range(len(eighths))]
