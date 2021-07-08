@@ -66,7 +66,7 @@ Geese  [0.2]  █████████████▍\
 
 def test_div_by_zero():
     fig = tpl.figure()
-    fig.barh([0, 0], ['Eggs', 'Dogs'])
+    fig.barh([0, 0], ["Eggs", "Dogs"])
     string = fig.get_string()
     print(string)
     assert (
