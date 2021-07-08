@@ -64,6 +64,20 @@ Geese  [0.2]  █████████████▍\
     )
 
 
+def test_div_by_zero():
+    fig = tpl.figure()
+    fig.barh([0, 0], ['Eggs', 'Dogs'])
+    string = fig.get_string()
+    print(string)
+    assert (
+        string
+        == """\
+Eggs  [0]
+Dogs  [0]\
+"""
+    )
+
+
 if __name__ == "__main__":
     # test_horizontal_ascii()
     # test_barh()
