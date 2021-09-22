@@ -1,6 +1,8 @@
 from typing import List, Optional
 
-from .barh import _get_matrix_of_eighths, _trim_trailing_zeros, barh
+import numpy as np
+
+from .barh import _get_partition, barh
 from .helpers import is_unicode_standard_output
 
 
@@ -50,7 +52,7 @@ def hist_horizontal(
     else:
         labels = None
 
-    out = barh(
+    return barh(
         counts,
         labels=labels,
         max_width=max_width,
@@ -58,13 +60,6 @@ def hist_horizontal(
         show_vals=show_counts,
         force_ascii=force_ascii,
     )
-    return out
-
-
-def _flip(matrix: List[List[int]]) -> List[List[int]]:
-    """Mirrors a matrix left to right"""
-    n_cols = len(matrix[0])
-    return [[row[-(col_i + 1)] for row in matrix] for col_i in range(n_cols)]
 
 
 def hist_vertical(
@@ -78,25 +73,19 @@ def hist_vertical(
     if xgrid is None:
         xgrid = []
 
-    matrix = _get_matrix_of_eighths(counts, max_height, bar_width)
+    partition = _get_partition(counts, max_height)
 
     if strip:
         # Cut off leading and trailing rows of 0
-        num_head_rows_delete = 0
-        for row in matrix:
-            if any([item != 0 for item in row]):
-                break
-            num_head_rows_delete += 1
+        num_head_rows_delete = np.argmax(np.any(partition != 0, axis=0))
+        num_tail_rows_delete = np.argmax(np.any(partition != 0, axis=0)[::-1])
 
-        num_tail_rows_delete = 0
-        for row in matrix[::-1]:  # trim from bottom row upwards
-            if any([item != 0 for item in row]):
-                break
-            num_tail_rows_delete += 1  # if row was all zeros, mark it for deletions
-        n_total_rows = len(matrix)
-        matrix = matrix[num_head_rows_delete : n_total_rows - num_tail_rows_delete]
+        n = partition.shape[1]
+        partition = partition[:, num_head_rows_delete : n - num_tail_rows_delete]
     else:
         num_head_rows_delete = 0
+
+    matrix = _get_matrix_of_eighths(partition[0], partition[1], max_height, bar_width)
 
     if is_unicode_standard_output() and not force_ascii:
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
@@ -105,14 +94,12 @@ def hist_vertical(
         block_chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
         left_seven_eighths = "*"
 
-    # print text matrix
-    out = []
-    for row in _flip(matrix):
-        # Cut off trailing zeros
-        trimmed_row = _trim_trailing_zeros(row)
+    block_chars = np.array(block_chars)
 
-        # converts trimmed row into block chars
-        c = [block_chars[item] for item in trimmed_row]
+    out = []
+    for row in np.flipud(matrix.T):
+        # converts row into block chars
+        c = block_chars[row]
 
         # add grid lines
         for i in xgrid:
@@ -123,3 +110,23 @@ def hist_vertical(
         out.append("".join(c))
 
     return out
+
+
+def _get_matrix_of_eighths(
+    nums_full_blocks, remainders, max_size, bar_width: int
+) -> np.ndarray:
+    """
+    Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
+
+    For instance, if one of the sublists is [8, 8, 8, 3, 0, 0, 0, 0, 0, 0], it means
+    that the first 3 segments should be graphed with full blocks, the 4th block should
+    be 3/8ths full, and that the rest of the bar should be empty.
+    """
+    matrix = np.zeros((len(nums_full_blocks), max_size), dtype=int)
+
+    for row, num_full_blocks, remainder in zip(matrix, nums_full_blocks, remainders):
+        row[:num_full_blocks] = 8
+        if num_full_blocks < matrix.shape[1]:
+            row[num_full_blocks] = remainder
+
+    return np.repeat(matrix, bar_width, axis=0)
