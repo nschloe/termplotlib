@@ -1,14 +1,13 @@
 from typing import List, Optional
 
 import numpy as np
-from numpy.typing import ArrayLike
 
-from .barh import barh
+from .barh import _get_partition, barh
 from .helpers import is_unicode_standard_output
 
 
 def _get_matrix_of_eighths(
-    counts: ArrayLike, max_size: int, bar_width: int
+    nums_full_blocks, remainders, max_size, bar_width: int
 ) -> np.ndarray:
     """
     Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
@@ -17,19 +16,8 @@ def _get_matrix_of_eighths(
     that the first 3 segments should be graphed with full blocks, the 4th block should
     be 3/8ths full, and that the rest of the bar should be empty.
     """
-    counts = np.asarray(counts)
-    max_count = np.max(counts)
+    matrix = np.zeros((len(nums_full_blocks), max_size), dtype=int)
 
-    # translate to eighths of a textbox
-    if max_count == 0:
-        eighths = np.zeros(len(counts), dtype=int)
-    else:
-        eighths = np.around(counts / max_count * max_size * 8).astype(int)
-
-    # prepare matrix
-    matrix = np.zeros((len(eighths), max_size), dtype=int)
-    nums_full_blocks = eighths // 8
-    remainders = eighths % 8
     for row, num_full_blocks, remainder in zip(matrix, nums_full_blocks, remainders):
         row[:num_full_blocks] = 8
         if num_full_blocks < matrix.shape[1]:
@@ -105,25 +93,32 @@ def hist_vertical(
     if xgrid is None:
         xgrid = []
 
-    matrix = _get_matrix_of_eighths(counts, max_height, bar_width)
+    nums_full_blocks, remainders = _get_partition(counts, max_height)
 
     if strip:
         # Cut off leading and trailing rows of 0
         num_head_rows_delete = 0
-        for row in matrix:
-            if any([item != 0 for item in row]):
+        for nfb, rem in zip(nums_full_blocks, remainders):
+            if nfb != 0 or rem != 0:
                 break
             num_head_rows_delete += 1
 
         num_tail_rows_delete = 0
-        for row in matrix[::-1]:  # trim from bottom row upwards
-            if any([item != 0 for item in row]):
+        # trim from bottom row upwards
+        for nfb, rem in zip(nums_full_blocks[::-1], remainders[::-1]):
+            if nfb != 0 or rem != 0:
                 break
             num_tail_rows_delete += 1  # if row was all zeros, mark it for deletions
-        n_total_rows = len(matrix)
-        matrix = matrix[num_head_rows_delete : n_total_rows - num_tail_rows_delete]
+
+        n = len(nums_full_blocks)
+        nums_full_blocks = nums_full_blocks[
+            num_head_rows_delete : n - num_tail_rows_delete
+        ]
+        remainders = remainders[num_head_rows_delete : n - num_tail_rows_delete]
     else:
         num_head_rows_delete = 0
+
+    matrix = _get_matrix_of_eighths(nums_full_blocks, remainders, max_height, bar_width)
 
     if is_unicode_standard_output() and not force_ascii:
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
