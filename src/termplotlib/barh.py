@@ -60,7 +60,7 @@ def _get_partition(values: ArrayLike, max_size: int):
     assert np.all(values >= 0)
     maxval = np.max(values)
     if maxval == 0:
-        maxval == 1
+        maxval = 1
 
     eighths = np.around(values / maxval * max_size * 8).astype(int)
     return eighths // 8, eighths % 8
