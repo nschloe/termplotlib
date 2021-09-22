@@ -128,3 +128,4 @@ pytest
  * [bashplotlib](https://github.com/glamp/bashplotlib)
  * [asciichart](https://github.com/kroitor/asciichart)
  * [plotext](https://github.com/piccolomo/plotext)
+ * [plotille](https://github.com/tammoippen/plotille)
