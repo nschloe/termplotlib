@@ -1,7 +1,50 @@
 from typing import List, Optional
 
-from .barh import _get_matrix_of_eighths, _trim_trailing_zeros, barh
+import numpy as np
+from numpy.typing import ArrayLike
+
+from .barh import barh
 from .helpers import is_unicode_standard_output
+
+
+def _trim_trailing_zeros(lst):
+    k = 0
+    for item in lst[::-1]:
+        if item != 0:
+            break
+        k += 1
+    return lst[:-k] if k > 0 else lst
+
+
+def _get_matrix_of_eighths(
+    counts: ArrayLike, max_size: int, bar_width: int
+) -> np.ndarray:
+    """
+    Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
+
+    For instance, if one of the sublists is [8, 8, 8, 3, 0, 0, 0, 0, 0, 0], it means
+    that the first 3 segments should be graphed with full blocks, the 4th block should
+    be 3/8ths full, and that the rest of the bar should be empty.
+    """
+    counts = np.asarray(counts)
+    max_count = np.max(counts)
+
+    # translate to eighths of a textbox
+    if max_count == 0:
+        eighths = np.zeros(len(counts), dtype=int)
+    else:
+        eighths = np.around(counts / max_count * max_size * 8).astype(int)
+
+    # prepare matrix
+    matrix = np.zeros((len(eighths), max_size), dtype=int)
+    nums_full_blocks = eighths // 8
+    remainders = eighths % 8
+    for row, num_full_blocks, remainder in zip(matrix, nums_full_blocks, remainders):
+        row[:num_full_blocks] = 8
+        if num_full_blocks < matrix.shape[1]:
+            row[num_full_blocks] = remainder
+
+    return np.repeat(matrix, bar_width, axis=0)
 
 
 def hist(
@@ -50,7 +93,7 @@ def hist_horizontal(
     else:
         labels = None
 
-    out = barh(
+    return barh(
         counts,
         labels=labels,
         max_width=max_width,
@@ -58,13 +101,6 @@ def hist_horizontal(
         show_vals=show_counts,
         force_ascii=force_ascii,
     )
-    return out
-
-
-def _flip(matrix: List[List[int]]) -> List[List[int]]:
-    """Mirrors a matrix left to right"""
-    n_cols = len(matrix[0])
-    return [[row[-(col_i + 1)] for row in matrix] for col_i in range(n_cols)]
 
 
 def hist_vertical(
@@ -107,7 +143,7 @@ def hist_vertical(
 
     # print text matrix
     out = []
-    for row in _flip(matrix):
+    for row in np.flipud(matrix.T):
         # Cut off trailing zeros
         trimmed_row = _trim_trailing_zeros(row)
 

@@ -73,8 +73,8 @@ def test_plot_lim():
 
     # for some reason, this gives a different result locally; perhaps a different
     # gnuplotlib version
-    ref = """                       header
-
+    ref = """
+                       header
     1 +---------------------------------------+
       |                               ********|
   0.5 |                          ************ |
@@ -87,4 +87,4 @@ def test_plot_lim():
      -1       -0.5        0        0.5        1
                        x vals"""
 
-    assert string == ref
+    assert string == ref, string
