@@ -4,9 +4,9 @@ import termplotlib as tpl
 
 
 def test_scatter():
-    np.random.seed(0)
+    rng = np.random.default_rng(0)
     x = np.arange(0.0, 50.0, 2.0)
-    y = x ** 1.3 + np.random.rand(*x.shape) * 30.0
+    y = x ** 1.3 + rng.random(x.shape) * 30.0
 
     fig = tpl.figure()
     fig.plot(x, y, plot_command="plot '-' w points", width=50, height=15)
@@ -14,20 +14,20 @@ def test_scatter():
     string = fig.get_string()
 
     ref = """  180 +---------------------------------------+
-  160 |                                    AA |
-  140 |                             A A AA    |
-      |                          A A          |
-  120 |                                       |
-  100 |                    A    A             |
-   80 |                  A  A A               |
-   60 |          A A  A A                     |
-      |             A                         |
-   40 |    AA A A                             |
-   20 | AA                                    |
+  160 |                                  A AA |
+  140 |                                       |
+      |                             A   A     |
+  120 |                         AA A  A       |
+  100 |                     A                 |
+   80 |                  A    A               |
+   60 |             A A    A                  |
+      |       A AA A    A                     |
+   40 |     A                                 |
+   20 | A  A                                  |
     0 +---------------------------------------+
       0   5   10  15  20  25  30  35  40  45  50"""
 
-    assert string == ref
+    assert string == ref, string
 
 
 if __name__ == "__main__":

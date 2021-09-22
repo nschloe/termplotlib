@@ -6,26 +6,6 @@ from .barh import _get_partition, barh
 from .helpers import is_unicode_standard_output
 
 
-def _get_matrix_of_eighths(
-    nums_full_blocks, remainders, max_size, bar_width: int
-) -> np.ndarray:
-    """
-    Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
-
-    For instance, if one of the sublists is [8, 8, 8, 3, 0, 0, 0, 0, 0, 0], it means
-    that the first 3 segments should be graphed with full blocks, the 4th block should
-    be 3/8ths full, and that the rest of the bar should be empty.
-    """
-    matrix = np.zeros((len(nums_full_blocks), max_size), dtype=int)
-
-    for row, num_full_blocks, remainder in zip(matrix, nums_full_blocks, remainders):
-        row[:num_full_blocks] = 8
-        if num_full_blocks < matrix.shape[1]:
-            row[num_full_blocks] = remainder
-
-    return np.repeat(matrix, bar_width, axis=0)
-
-
 def hist(
     counts: List[int],
     bin_edges: List[float],
@@ -114,11 +94,12 @@ def hist_vertical(
         block_chars = [" ", "*", "*", "*", "*", "*", "*", "*", "*"]
         left_seven_eighths = "*"
 
-    # print text matrix
+    block_chars = np.array(block_chars)
+
     out = []
     for row in np.flipud(matrix.T):
         # converts row into block chars
-        c = [block_chars[item] for item in row]
+        c = block_chars[row]
 
         # add grid lines
         for i in xgrid:
@@ -129,3 +110,23 @@ def hist_vertical(
         out.append("".join(c))
 
     return out
+
+
+def _get_matrix_of_eighths(
+    nums_full_blocks, remainders, max_size, bar_width: int
+) -> np.ndarray:
+    """
+    Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
+
+    For instance, if one of the sublists is [8, 8, 8, 3, 0, 0, 0, 0, 0, 0], it means
+    that the first 3 segments should be graphed with full blocks, the 4th block should
+    be 3/8ths full, and that the rest of the bar should be empty.
+    """
+    matrix = np.zeros((len(nums_full_blocks), max_size), dtype=int)
+
+    for row, num_full_blocks, remainder in zip(matrix, nums_full_blocks, remainders):
+        row[:num_full_blocks] = 8
+        if num_full_blocks < matrix.shape[1]:
+            row[num_full_blocks] = remainder
+
+    return np.repeat(matrix, bar_width, axis=0)

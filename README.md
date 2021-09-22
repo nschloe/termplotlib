@@ -53,8 +53,8 @@ produces
 import termplotlib as tpl
 import numpy as np
 
-np.random.seed(123)
-sample = np.random.normal(size=1000)
+rng = np.random.default_rng(123)
+sample = rng.standard_normal(size=1000)
 counts, bin_edges = np.histogram(sample)
 
 fig = tpl.figure()
@@ -88,8 +88,8 @@ Geese  [ 2]  ********
 import termplotlib as tpl
 import numpy as np
 
-np.random.seed(123)
-sample = np.random.normal(size=1000)
+rng = np.random.default_rng(123)
+sample = rng.standard_normal(size=1000)
 counts, bin_edges = np.histogram(sample, bins=40)
 fig = tpl.figure()
 fig.hist(counts, bin_edges, grid=[15, 25], force_ascii=False)
