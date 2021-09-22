@@ -1,3 +1,5 @@
+import re
+import subprocess
 import sys
 from typing import List, Tuple, Union
 
@@ -27,3 +29,12 @@ def is_unicode_standard_output():
         "utf-8",
         "utf8",
     )
+
+
+def get_gnuplot_version():
+    out = subprocess.check_output(["gnuplot", "--version"]).decode()
+    m = re.match("gnuplot (\\d).(\\d) patchlevel (\\d)\n", out)
+    if m is None:
+        raise RuntimeError("Couldn't get gnuplot version")
+
+    return int(m.group(1)), int(m.group(2)), int(m.group(3))

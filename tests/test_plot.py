@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 import termplotlib as tpl
 
@@ -53,6 +54,9 @@ def test_nolabel():
     assert string == ref
 
 
+@pytest.mark.skipif(
+    tpl.get_gnuplot_version() < (5, 4), reason="Need at least gnuplot 5.4"
+)
 def test_plot_lim():
     x = np.linspace(0, 2 * np.pi, 10)
     y = np.sin(x)
@@ -72,7 +76,7 @@ def test_plot_lim():
     string = fig.get_string()
 
     # for some reason, this gives a different result locally; perhaps a different
-    # gnuplotlib version
+    # gnuplot version
     ref = """
                        header
     1 +---------------------------------------+
