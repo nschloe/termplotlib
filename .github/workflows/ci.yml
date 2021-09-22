@@ -37,4 +37,4 @@ jobs:
         pip install tox
         tox -- --cov termplotlib --cov-report xml --cov-report term
     - uses: codecov/codecov-action@v1
-      if: ${{ matrix.python-version == "3.9" }}
+      if: ${{ matrix.python-version == '3.9' }}
