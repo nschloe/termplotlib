@@ -20,10 +20,10 @@ For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/).
 With that installed, the code
 ```python
 import termplotlib as tpl
-import numpy
+import numpy as np
 
-x = numpy.linspace(0, 2 * numpy.pi, 10)
-y = numpy.sin(x)
+x = np.linspace(0, 2 * np.pi, 10)
+y = np.sin(x)
 
 fig = tpl.figure()
 fig.plot(x, y, label="data", width=50, height=15)
@@ -51,11 +51,11 @@ produces
 
 ```python
 import termplotlib as tpl
-import numpy
+import numpy as np
 
-numpy.random.seed(123)
-sample = numpy.random.normal(size=1000)
-counts, bin_edges = numpy.histogram(sample)
+np.random.seed(123)
+sample = np.random.normal(size=1000)
+counts, bin_edges = np.histogram(sample)
 
 fig = tpl.figure()
 fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=False)
@@ -86,11 +86,11 @@ Geese  [ 2]  ********
 
 ```python
 import termplotlib as tpl
-import numpy
+import numpy as np
 
-numpy.random.seed(123)
-sample = numpy.random.normal(size=1000)
-counts, bin_edges = numpy.histogram(sample, bins=40)
+np.random.seed(123)
+sample = np.random.normal(size=1000)
+counts, bin_edges = np.histogram(sample, bins=40)
 fig = tpl.figure()
 fig.hist(counts, bin_edges, grid=[15, 25], force_ascii=False)
 fig.show()
@@ -128,6 +128,3 @@ pytest
  * [bashplotlib](https://github.com/glamp/bashplotlib)
  * [asciichart](https://github.com/kroitor/asciichart)
  * [plotext](https://github.com/piccolomo/plotext)
-
-### License
-This software is published under the [GPLv3 license](https://www.gnu.org/licenses/gpl-3.0.en.html).

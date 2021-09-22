@@ -1,12 +1,12 @@
-import numpy
+import numpy as np
 
 import termplotlib as tpl
 
 
 def test_scatter():
-    numpy.random.seed(0)
-    x = numpy.arange(0.0, 50.0, 2.0)
-    y = x ** 1.3 + numpy.random.rand(*x.shape) * 30.0
+    np.random.seed(0)
+    x = np.arange(0.0, 50.0, 2.0)
+    y = x ** 1.3 + np.random.rand(*x.shape) * 30.0
 
     fig = tpl.figure()
     fig.plot(x, y, plot_command="plot '-' w points", width=50, height=15)

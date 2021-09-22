@@ -7,15 +7,6 @@ from .barh import barh
 from .helpers import is_unicode_standard_output
 
 
-def _trim_trailing_zeros(lst):
-    k = 0
-    for item in lst[::-1]:
-        if item != 0:
-            break
-        k += 1
-    return lst[:-k] if k > 0 else lst
-
-
 def _get_matrix_of_eighths(
     counts: ArrayLike, max_size: int, bar_width: int
 ) -> np.ndarray:
@@ -144,11 +135,8 @@ def hist_vertical(
     # print text matrix
     out = []
     for row in np.flipud(matrix.T):
-        # Cut off trailing zeros
-        trimmed_row = _trim_trailing_zeros(row)
-
-        # converts trimmed row into block chars
-        c = [block_chars[item] for item in trimmed_row]
+        # converts row into block chars
+        c = [block_chars[item] for item in row]
 
         # add grid lines
         for i in xgrid:

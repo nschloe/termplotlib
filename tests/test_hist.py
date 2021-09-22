@@ -1,6 +1,6 @@
 import sys
 
-import numpy
+import numpy as np
 import pytest
 
 import termplotlib as tpl
@@ -11,9 +11,9 @@ import termplotlib as tpl
     reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_horizontal():
-    numpy.random.seed(123)
-    sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample)
+    np.random.seed(123)
+    sample = np.random.normal(size=1000)
+    counts, bin_edges = np.histogram(sample)
     fig = tpl.figure()
     fig.hist(counts, bin_edges, orientation="horizontal")
     # fig.show()
@@ -37,9 +37,9 @@ def test_horizontal():
 
 
 def test_horizontal_ascii():
-    numpy.random.seed(123)
-    sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample)
+    np.random.seed(123)
+    sample = np.random.normal(size=1000)
+    counts, bin_edges = np.histogram(sample)
     fig = tpl.figure()
     fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=True)
     string = fig.get_string()
@@ -66,9 +66,9 @@ def test_horizontal_ascii():
     reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_vertical():
-    numpy.random.seed(123)
-    sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample, bins=40)
+    np.random.seed(123)
+    sample = np.random.normal(size=1000)
+    counts, bin_edges = np.histogram(sample, bins=40)
     fig = tpl.figure()
     fig.hist(counts, bin_edges)
     fig.show()
@@ -93,9 +93,9 @@ def test_vertical():
 
 
 def test_vertical_ascii():
-    numpy.random.seed(123)
-    sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample, bins=40)
+    np.random.seed(123)
+    sample = np.random.normal(size=1000)
+    counts, bin_edges = np.histogram(sample, bins=40)
     fig = tpl.figure()
     fig.hist(counts, bin_edges, force_ascii=True)
     # fig.show()
@@ -124,9 +124,9 @@ def test_vertical_ascii():
     reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_vertical_grid():
-    numpy.random.seed(123)
-    sample = numpy.random.normal(size=1000)
-    counts, bin_edges = numpy.histogram(sample, bins=40)
+    np.random.seed(123)
+    sample = np.random.normal(size=1000)
+    counts, bin_edges = np.histogram(sample, bins=40)
     fig = tpl.figure()
     fig.hist(counts, bin_edges, grid=[15, 25])
     # fig.show()
@@ -154,9 +154,9 @@ def test_vertical_grid():
     reason=f"Need UTF-8 terminal (not {sys.stdout.encoding})",
 )
 def test_vertical_strip():
-    numpy.random.seed(20)
-    sample = numpy.random.normal(size=10000)
-    counts, bin_edges = numpy.histogram(sample)
+    np.random.seed(20)
+    sample = np.random.normal(size=10000)
+    counts, bin_edges = np.histogram(sample)
     fig = tpl.figure()
     fig.hist(counts, bin_edges, grid=[5, 8], strip=True)
     string = fig.get_string()
