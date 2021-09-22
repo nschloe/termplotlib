@@ -14,9 +14,8 @@ def barh(
     show_vals: bool = True,
     force_ascii: bool = False,
 ):
-    nums_full, remainders = _get_partition(vals, max_width)
-    nums_full = np.repeat(nums_full, bar_width)
-    remainders = np.repeat(remainders, bar_width)
+    partition = _get_partition(vals, max_width)
+    partition = np.repeat(partition, bar_width, axis=1)
 
     if is_unicode_standard_output() and not force_ascii:
         chars = [" ", "▏", "▎", "▍", "▌", "▋", "▊", "▉", "█"]
@@ -41,7 +40,9 @@ def barh(
     fmt = "  ".join(fmt)
 
     out = []
-    for k, (val, num_full, remainder) in enumerate(zip(vals, nums_full, remainders)):
+    for k, (val, num_full, remainder) in enumerate(
+        zip(vals, partition[0], partition[1])
+    ):
         data = []
         if labels is not None:
             data.append(str(labels[k]))
@@ -63,4 +64,4 @@ def _get_partition(values: ArrayLike, max_size: int):
         maxval = 1
 
     eighths = np.around(values / maxval * max_size * 8).astype(int)
-    return eighths // 8, eighths % 8
+    return np.array([eighths // 8, eighths % 8])

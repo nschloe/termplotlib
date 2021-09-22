@@ -93,32 +93,19 @@ def hist_vertical(
     if xgrid is None:
         xgrid = []
 
-    nums_full_blocks, remainders = _get_partition(counts, max_height)
+    partition = _get_partition(counts, max_height)
 
     if strip:
         # Cut off leading and trailing rows of 0
-        num_head_rows_delete = 0
-        for nfb, rem in zip(nums_full_blocks, remainders):
-            if nfb != 0 or rem != 0:
-                break
-            num_head_rows_delete += 1
+        num_head_rows_delete = np.argmax(np.any(partition != 0, axis=0))
+        num_tail_rows_delete = np.argmax(np.any(partition != 0, axis=0)[::-1])
 
-        num_tail_rows_delete = 0
-        # trim from bottom row upwards
-        for nfb, rem in zip(nums_full_blocks[::-1], remainders[::-1]):
-            if nfb != 0 or rem != 0:
-                break
-            num_tail_rows_delete += 1  # if row was all zeros, mark it for deletions
-
-        n = len(nums_full_blocks)
-        nums_full_blocks = nums_full_blocks[
-            num_head_rows_delete : n - num_tail_rows_delete
-        ]
-        remainders = remainders[num_head_rows_delete : n - num_tail_rows_delete]
+        n = partition.shape[1]
+        partition = partition[:, num_head_rows_delete : n - num_tail_rows_delete]
     else:
         num_head_rows_delete = 0
 
-    matrix = _get_matrix_of_eighths(nums_full_blocks, remainders, max_height, bar_width)
+    matrix = _get_matrix_of_eighths(partition[0], partition[1], max_height, bar_width)
 
     if is_unicode_standard_output() and not force_ascii:
         block_chars = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
