@@ -1,3 +1,4 @@
+import decimal
 from typing import List, Optional
 
 import numpy as np
@@ -12,6 +13,7 @@ def barh(
     max_width: int = 40,
     bar_width: int = 1,
     show_vals: bool = True,
+    val_format: Optional[str] = None,
     force_ascii: bool = False,
 ):
     partition = _get_partition(vals, max_width)
@@ -29,7 +31,17 @@ def barh(
         fmt.append(cfmt)
 
     if show_vals:
-        if np.issubdtype(np.asarray(vals).dtype, np.integer):
+        if val_format is not None:
+            cfmt = val_format
+        elif np.issubdtype(np.asarray(vals).dtype, float):
+            # find max decimal length
+            # https://stackoverflow.com/a/6190291/353337
+            num_digits = max(
+                -decimal.Decimal(str(val)).as_tuple().exponent for val in vals
+            )
+            max_len = max(len(str(val)) for val in vals)
+            cfmt = f"{{:.{num_digits}f}}"
+        elif np.issubdtype(np.asarray(vals).dtype, np.integer):
             max_len = max(len(str(val)) for val in vals)
             cfmt = f"{{:{max_len}d}}"
         else:

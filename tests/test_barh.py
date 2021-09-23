@@ -64,6 +64,19 @@ Geese  [0.2]  █████████████▍\
     )
 
 
+def test_barh_floats_different_precision():
+    fig = tpl.figure()
+    fig.barh([3, 2.5341234], ["Cats", "Dogs"])
+    # fig.show()
+    string = fig.get_string()
+
+    ref = """\
+Cats  [3.0000000]  ████████████████████████████████████████
+Dogs  [2.5341234]  █████████████████████████████████▊"""
+
+    assert string == ref, "\n" + string
+
+
 def test_div_by_zero():
     fig = tpl.figure()
     fig.barh([0, 0], ["Eggs", "Dogs"])
