@@ -13,11 +13,11 @@
 termplotlib is a Python library for all your terminal plotting needs. It aims to work
 like [matplotlib](https://matplotlib.org/).
 
-
 ### Line plots
 
 For line plots, termplotlib relies on [gnuplot](http://www.gnuplot.info/).
 With that installed, the code
+
 ```python
 import termplotlib as tpl
 import numpy as np
@@ -29,8 +29,11 @@ fig = tpl.figure()
 fig.plot(x, y, label="data", width=50, height=15)
 fig.show()
 ```
+
 produces
+
 <!--pytest-codeblocks:expected-output-->
+
 ```
     1 +---------------------------------------+
   0.8 |    **     **                          |
@@ -61,11 +64,13 @@ fig = tpl.figure()
 fig.hist(counts, bin_edges, orientation="horizontal", force_ascii=False)
 fig.show()
 ```
+
 produces
 
 ![hist1](https://nschloe.github.io/termplotlib/hist1.png)
 
 Horizontal bar charts are covered as well. This
+
 ```python
 import termplotlib as tpl
 
@@ -73,8 +78,11 @@ fig = tpl.figure()
 fig.barh([3, 10, 5, 2], ["Cats", "Dogs", "Cows", "Geese"], force_ascii=True)
 fig.show()
 ```
+
 produces
+
 <!--pytest-codeblocks:expected-output-->
+
 ```
 Cats   [ 3]  ************
 Dogs   [10]  ****************************************
@@ -95,37 +103,38 @@ fig = tpl.figure()
 fig.hist(counts, bin_edges, grid=[15, 25], force_ascii=False)
 fig.show()
 ```
+
 produces
 
 ![hist2](https://nschloe.github.io/termplotlib/hist2.png)
-
 
 ### Tables
 
 Support for tables has moved over to
 [termtables](https://github.com/nschloe/termtables).
 
-
 ### Installation
 
 termplotlib is [available from the Python Package
 Index](https://pypi.org/project/termplotlib/), so simply do
+
 ```
 pip install termplotlib
 ```
-to install.
 
+to install.
 
 ### Testing
 
 To run the termplotlib unit tests, check out this repository and type
+
 ```
 pytest
 ```
 
 ### Similar projects
 
- * [asciichart](https://github.com/kroitor/asciichart)
- * [bashplotlib](https://github.com/glamp/bashplotlib)
- * [plotext](https://github.com/piccolomo/plotext)
- * [plotille](https://github.com/tammoippen/plotille)
+- [asciichart](https://github.com/kroitor/asciichart)
+- [bashplotlib](https://github.com/glamp/bashplotlib)
+- [plotext](https://github.com/piccolomo/plotext)
+- [plotille](https://github.com/tammoippen/plotille)
