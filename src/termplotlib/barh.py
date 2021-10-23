@@ -39,7 +39,6 @@ def barh(
             num_digits = max(
                 -decimal.Decimal(str(val)).as_tuple().exponent for val in vals
             )
-            max_len = max(len(str(val)) for val in vals)
             cfmt = f"{{:.{num_digits}f}}"
         elif np.issubdtype(np.asarray(vals).dtype, np.integer):
             max_len = max(len(str(val)) for val in vals)
