@@ -1,9 +1,13 @@
-# termplotlib
+<p align="center">
+  <a href="https://github.com/nschloe/termplotlib"><img alt="termplotlib" src="https://nschloe.github.io/termplotlib/termplotlib-logo.svg" width="60%"></a>
+  <p align="center">Plotting on the command line.</p>
+</p>
 
 [![PyPi Version](https://img.shields.io/pypi/v/termplotlib.svg?style=flat-square)](https://pypi.org/project/termplotlib)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/termplotlib.svg?style=flat-square)](https://pypi.org/pypi/termplotlib/)
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/termplotlib.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/termplotlib)
-[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg?style=flat-square)](https://pypistats.org/packages/termplotlib)
+[![Downloads](https://pepy.tech/badge/termplotlib/month?style=flat-square)](https://pepy.tech/project/termplotlib)
+<!--[![PyPi downloads](https://img.shields.io/pypi/dm/termplotlib.svg?style=flat-square)](https://pypistats.org/packages/termplotlib)-->
 
 [![gh-actions](https://img.shields.io/github/workflow/status/nschloe/termplotlib/ci?style=flat-square)](https://github.com/nschloe/termplotlib/actions?query=workflow%3Aci)
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/termplotlib.svg?style=flat-square)](https://codecov.io/gh/nschloe/termplotlib)
