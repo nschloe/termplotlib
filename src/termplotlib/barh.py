@@ -2,9 +2,6 @@ from __future__ import annotations
 
 import decimal
 
-import numpy as np
-from numpy.typing import ArrayLike
-
 from .helpers import is_unicode_standard_output
 
 
@@ -17,6 +14,8 @@ def barh(
     val_format: str | None = None,
     force_ascii: bool = False,
 ):
+    import numpy as np
+
     partition = _get_partition(vals, max_width)
     partition = np.repeat(partition, bar_width, axis=1)
 
@@ -68,7 +67,9 @@ def barh(
     return out
 
 
-def _get_partition(values: ArrayLike, max_size: int):
+def _get_partition(values, max_size: int):
+    import numpy as np
+
     values = np.asarray(values)
     assert np.all(values >= 0)
     maxval = np.max(values)

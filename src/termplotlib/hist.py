@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import numpy as np
-
 from .barh import _get_partition, barh
 from .helpers import is_unicode_standard_output
 
@@ -70,6 +68,8 @@ def hist_vertical(
     xgrid: list[int] | None = None,
     force_ascii: bool = False,
 ):
+    import numpy as np
+
     if xgrid is None:
         xgrid = []
 
@@ -112,9 +112,7 @@ def hist_vertical(
     return out
 
 
-def _get_matrix_of_eighths(
-    nums_full_blocks, remainders, max_size: int, bar_width: int
-) -> np.ndarray:
+def _get_matrix_of_eighths(nums_full_blocks, remainders, max_size: int, bar_width: int):
     """
     Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
 
@@ -122,6 +120,8 @@ def _get_matrix_of_eighths(
     that the first 3 segments should be graphed with full blocks, the 4th block should
     be 3/8ths full, and that the rest of the bar should be empty.
     """
+    import numpy as np
+
     matrix = np.zeros((len(nums_full_blocks), max_size), dtype=int)
 
     for row, num_full_blocks, remainder in zip(matrix, nums_full_blocks, remainders):

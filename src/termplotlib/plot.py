@@ -16,7 +16,7 @@ def plot(
     extra_gnuplot_arguments: list[str] | None = None,
     plot_command: str = "plot '-' w lines",
     ticks_scale: int = 0,
-):
+) -> list[str]:
     p = subprocess.Popen(
         ["gnuplot"],
         stdout=subprocess.PIPE,
