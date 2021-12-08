@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import decimal
-from typing import List, Optional
 
 import numpy as np
 from numpy.typing import ArrayLike
@@ -8,12 +9,12 @@ from .helpers import is_unicode_standard_output
 
 
 def barh(
-    vals: List[int],
-    labels: Optional[List[str]] = None,
+    vals: list[int],
+    labels: list[str] | None = None,
     max_width: int = 40,
     bar_width: int = 1,
     show_vals: bool = True,
-    val_format: Optional[str] = None,
+    val_format: str | None = None,
     force_ascii: bool = False,
 ):
     partition = _get_partition(vals, max_width)

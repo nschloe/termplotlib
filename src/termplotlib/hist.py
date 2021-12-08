@@ -1,4 +1,4 @@
-from typing import List, Optional
+from __future__ import annotations
 
 import numpy as np
 
@@ -7,8 +7,8 @@ from .helpers import is_unicode_standard_output
 
 
 def hist(
-    counts: List[int],
-    bin_edges: List[float],
+    counts: list[int],
+    bin_edges: list[float],
     orientation: str = "vertical",
     max_width: int = 40,
     grid=None,
@@ -36,8 +36,8 @@ def hist(
 
 
 def hist_horizontal(
-    counts: List[int],
-    bin_edges: List[float],
+    counts: list[int],
+    bin_edges: list[float],
     max_width: int = 40,
     bar_width: int = 1,
     show_bin_edges: bool = True,
@@ -63,11 +63,11 @@ def hist_horizontal(
 
 
 def hist_vertical(
-    counts: List[int],
+    counts: list[int],
     max_height: int = 10,
     bar_width: int = 2,
     strip: bool = False,
-    xgrid: Optional[List[int]] = None,
+    xgrid: list[int] | None = None,
     force_ascii: bool = False,
 ):
     if xgrid is None:
@@ -113,7 +113,7 @@ def hist_vertical(
 
 
 def _get_matrix_of_eighths(
-    nums_full_blocks, remainders, max_size, bar_width: int
+    nums_full_blocks, remainders, max_size: int, bar_width: int
 ) -> np.ndarray:
     """
     Returns a matrix of integers between 0-8 encoding bar lengths in histogram.
