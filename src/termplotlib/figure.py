@@ -1,4 +1,4 @@
-from typing import Optional
+from __future__ import annotations
 
 from .barh import barh
 from .helpers import create_padding_tuple
@@ -11,13 +11,13 @@ def figure(*args, **kwargs):
 
 
 class Figure:
-    def __init__(self, width: Optional[int] = None, padding: int = 0):
+    def __init__(self, width: int | None = None, padding: int = 0):
         self._content = []
         self._width = width
         self._subfigures = None
         self._padding = create_padding_tuple(padding)
 
-    def __rich_console__(self, *args):
+    def __rich_console__(self, *_):
         yield self.get_string()
 
     def aprint(self, string):

@@ -1,21 +1,22 @@
+from __future__ import annotations
+
 import subprocess
-from typing import List, Optional, Tuple
 
 
 def plot(
-    x: List[float],
-    y: List[float],
+    x: list[float],
+    y: list[float],
     width: int = 80,
     height: int = 25,
-    label: Optional[str] = None,
-    xlim: Optional[Tuple[float, float]] = None,
-    ylim: Optional[Tuple[float, float]] = None,
-    xlabel: Optional[str] = None,
-    title: Optional[str] = None,
-    extra_gnuplot_arguments: Optional[List[str]] = None,
+    label: str | None = None,
+    xlim: tuple[float, float] | None = None,
+    ylim: tuple[float, float] | None = None,
+    xlabel: str | None = None,
+    title: str | None = None,
+    extra_gnuplot_arguments: list[str] | None = None,
     plot_command: str = "plot '-' w lines",
     ticks_scale: int = 0,
-):
+) -> list[str]:
     p = subprocess.Popen(
         ["gnuplot"],
         stdout=subprocess.PIPE,
@@ -62,5 +63,5 @@ def plot(
     return _remove_empty_lines(out.decode())
 
 
-def _remove_empty_lines(string: str):
+def _remove_empty_lines(string: str) -> list[str]:
     return string.split("\n")[1:-2]

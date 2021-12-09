@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 import re
 import subprocess
 import sys
-from typing import List, Tuple, Union
 
 
-def create_padding_tuple(padding: Union[int, List[int], Tuple[int, int]]):
+def create_padding_tuple(padding: int | list[int] | tuple[int, int]):
     # self._padding is a 4-tuple: top, right, bottom, left (just like CSS)
     if isinstance(padding, int):
         out = (padding, padding, padding, padding)
