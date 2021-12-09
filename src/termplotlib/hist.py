@@ -28,7 +28,6 @@ def hist(
         counts,
         bin_edges,
         max_width=max_width,
-        bar_width=bar_width,
         force_ascii=force_ascii,
     )
 
@@ -37,7 +36,6 @@ def hist_horizontal(
     counts: list[int],
     bin_edges: list[float],
     max_width: int = 40,
-    bar_width: int = 1,
     show_bin_edges: bool = True,
     show_counts: bool = True,
     force_ascii: bool = False,
@@ -54,7 +52,6 @@ def hist_horizontal(
         counts,
         labels=labels,
         max_width=max_width,
-        bar_width=bar_width,
         show_vals=show_counts,
         force_ascii=force_ascii,
     )
@@ -74,6 +71,7 @@ def hist_vertical(
         xgrid = []
 
     partition = _get_partition(counts, max_height)
+    partition = np.asarray(partition)
 
     if strip:
         # Cut off leading and trailing rows of 0
